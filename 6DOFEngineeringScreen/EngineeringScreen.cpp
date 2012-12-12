@@ -21,6 +21,8 @@ Dialog::Dialog(QWidget *parent) :
 
 
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
+    QObject::connect(&guiinterface,SIGNAL(display(int,int,int,int,int,int,int,int,int,int)),
+                     this,SLOT(updateDisplay(int,int,int,int,int,int,int,int,int,int)));
 }
 
 Dialog::~Dialog()
@@ -47,9 +49,23 @@ void Dialog::pause()
 
 
 }
-void Dialog::updateDisplay()
+void Dialog::updateDisplay(int x, int y, int z, int R0, int R1, int R2, int R3, int roll , int pitch, int yaw)
 {
     qDebug()<<"Function:: Update Display";
+
+
+    ui->TimeLineEdit->setText(QTime::currentTime().toString());
+    ui->XLineEdit->setText(QString::number(x));
+    ui->YLineEdit->setText(QString::number(y));
+    ui->ZLineEdit->setText(QString::number(z));
+    ui->R0LineEdit->setText(QString::number(R0));
+    ui->R1LineEdit->setText(QString::number(R1));
+    ui->R2LineEdit->setText(QString::number(R2));
+    ui->R3LineEdit->setText(QString::number(R3));
+    ui->RollLineEdit->setText(QString::number(roll));
+    ui->PitchLineEdit->setText(QString::number(pitch));
+    ui->YawLineEdit->setText(QString::number(yaw));
+
 }
 
 void Dialog::closeEvent(QCloseEvent *event)

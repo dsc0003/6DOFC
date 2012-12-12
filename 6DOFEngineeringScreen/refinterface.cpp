@@ -89,7 +89,8 @@ void GuiInterface::run()
        qDebug()<<"Gui Interface: "<<dataGathered.x <<" "<<dataGathered.y<<" "<<dataGathered.z<<" "<<dataGathered.R0<<"\n";
        }
 
-       emit display();
+       emit display(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
+                    dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
 
         mutex.unlock();
     }

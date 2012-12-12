@@ -32,7 +32,7 @@ protected:
 //    RefInterface *refinterface;
 
 signals:
-    void display();
+    void display(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw);
 
 public slots:
 
