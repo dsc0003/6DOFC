@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>testbenchGEOM2D.txt</file>
+        <file>testbenchNLLS2D.txt</file>
+    </qresource>
+</RCC>
