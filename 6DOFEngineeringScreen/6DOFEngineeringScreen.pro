@@ -14,7 +14,8 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         EngineeringScreen.cpp \
-    refinterface.cpp
+    refinterface.cpp \
+    NLLS2D.cpp
 
 HEADERS  += EngineeringScreen.h \
     refinterface.h \
@@ -22,3 +23,6 @@ HEADERS  += EngineeringScreen.h \
 
 FORMS    += \
     dialog.ui
+
+RESOURCES += \
+    files.qrc

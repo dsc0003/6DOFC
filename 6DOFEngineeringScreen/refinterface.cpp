@@ -17,6 +17,7 @@ rangeInfo buffer;
 
 RefInterface::RefInterface()
 {
+    msg.clear();
     stopped = false;
 }
 
@@ -30,16 +31,16 @@ void RefInterface::run()
 
         sleep(2);
 
-        buffer.x = qrand();
-        buffer.y = qrand();
-        buffer.z = qrand();
-        buffer.R0 = qrand();
-        buffer.R1 = qrand();
-        buffer.R2 = qrand();
-        buffer.R3 = qrand();
-        buffer.roll = qrand();
-        buffer.pitch = qrand();
-        buffer.yaw = qrand();
+        buffer.x = qrand()%10;
+        buffer.y = qrand()%10;
+        buffer.z = qrand()%10;
+        buffer.R0 = qrand()%10;
+        buffer.R1 = qrand()%10;
+        buffer.R2 = qrand()%10;
+        buffer.R3 = qrand()%10;
+        buffer.roll = qrand()%10;
+        buffer.pitch = qrand()%10;
+        buffer.yaw = qrand()%10;
         qDebug()<<"Ref Interface: "<<buffer.x<<" "<<buffer.y<<" "<<buffer.z<<" "<<buffer.R0<<endl;
         msg.append(buffer);
 
@@ -58,6 +59,7 @@ void RefInterface::stop()
 
 GuiInterface::GuiInterface()
 {
+    msg.clear();
     stoppedConsumer = false;
 }
 
@@ -86,11 +88,11 @@ void GuiInterface::run()
        dataGathered.yaw = msg.first().yaw;
 
        msg.removeFirst();
+       emit display(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
+                    dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
        qDebug()<<"Gui Interface: "<<dataGathered.x <<" "<<dataGathered.y<<" "<<dataGathered.z<<" "<<dataGathered.R0<<"\n";
        }
 
-       emit display(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
-                    dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
 
         mutex.unlock();
     }

@@ -15,12 +15,19 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGraphicsView" name="DataGraphicsView"/>
+    <widget class="QGraphicsView" name="graphicsView"/>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_5">
-     <item row="0" column="0">
+     <item row="0" column="2">
       <layout class="QGridLayout" name="gridLayout">
+       <item row="3" column="0">
+        <widget class="QLabel" name="R3Label">
+         <property name="text">
+          <string>R3</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0">
         <widget class="QLabel" name="R1Label">
          <property name="text">
@@ -35,12 +42,8 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="R3Label">
-         <property name="text">
-          <string>R3</string>
-         </property>
-        </widget>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="R2LineEdit"/>
        </item>
        <item row="0" column="0">
         <widget class="QLabel" name="R0Label">
@@ -58,12 +61,23 @@
        <item row="3" column="1">
         <widget class="QLineEdit" name="R3LineEdit"/>
        </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="R2LineEdit"/>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="TimeLabel">
+         <property name="text">
+          <string>Time</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="TimeLineEdit"/>
        </item>
       </layout>
      </item>
-     <item row="0" column="1">
+     <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
         <widget class="QLabel" name="XLabel">
@@ -97,7 +111,7 @@
        </item>
       </layout>
      </item>
-     <item row="0" column="2">
+     <item row="0" column="1">
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
         <widget class="QLabel" name="YawLabel">
@@ -128,20 +142,6 @@
        </item>
        <item row="2" column="1">
         <widget class="QLineEdit" name="RollLineEdit"/>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
-        <widget class="QLabel" name="TimeLabel">
-         <property name="text">
-          <string>Time</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="TimeLineEdit"/>
        </item>
       </layout>
      </item>
