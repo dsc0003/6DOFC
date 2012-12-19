@@ -1,5 +1,6 @@
 #include "refinterface.h"
 #include "guiinterface.h"
+#include "GEOM2D.cpp"
 #include <QtGui>
 #include <QApplication>
 #include <QThread>
@@ -18,6 +19,8 @@ rangeInfo buffer;
 RefInterface::RefInterface()
 {
     msg.clear();
+    seedx = 0;
+    seedy = 1;
     stopped = false;
 }
 
@@ -31,17 +34,26 @@ void RefInterface::run()
 
         sleep(2);
 
-        buffer.x = qrand()%10;
-        buffer.y = qrand()%10;
-        buffer.z = qrand()%10;
-        buffer.R0 = qrand()%10;
-        buffer.R1 = qrand()%10;
-        buffer.R2 = qrand()%10;
-        buffer.R3 = qrand()%10;
+        x0 = qrand()%5;
+        y0 = qrand()%5;
+        x1= qrand()%5;
+        y1 = qrand()%5;
+        r0 = qrand()%5;
+        r1 = qrand()%5;
+
+        find_intersection_points(x0,y0,x1,y1,r0,r1,seedx,seedy,&px,&py);
+
+
+        buffer.R0 = r0;
+        buffer.R1 = r1;
+        buffer.x = px;
+        buffer.y = py;
+        buffer.R2 = 0;
+        buffer.R3 = 0;
         buffer.roll = qrand()%10;
         buffer.pitch = qrand()%10;
         buffer.yaw = qrand()%10;
-        qDebug()<<"Ref Interface: "<<buffer.x<<" "<<buffer.y<<" "<<buffer.z<<" "<<buffer.R0<<endl;
+
         msg.append(buffer);
 
         mutex.unlock();

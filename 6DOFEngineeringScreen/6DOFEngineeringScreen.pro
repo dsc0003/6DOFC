@@ -15,14 +15,18 @@ TEMPLATE = app
 SOURCES += main.cpp\
         EngineeringScreen.cpp \
     refinterface.cpp \
-    NLLS2D.cpp
+    NLLS2D.cpp \
+    GEOM2D.cpp \
+    mainwindow.cpp
 
 HEADERS  += EngineeringScreen.h \
     refinterface.h \
-    guiinterface.h
+    guiinterface.h \
+    mainwindow.h
 
 FORMS    += \
-    dialog.ui
+    dialog.ui \
+    mainwindow.ui
 
 RESOURCES += \
     files.qrc

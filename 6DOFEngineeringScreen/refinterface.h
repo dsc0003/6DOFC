@@ -28,6 +28,11 @@ public:
 
 protected:
     void run();
+    int x0, y0;
+    int x1, y1;
+    int r0, r1;
+    int seedx, seedy;
+    int px, py;
 
 signals:
 
