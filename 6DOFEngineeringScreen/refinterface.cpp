@@ -21,6 +21,10 @@ RefInterface::RefInterface()
     msg.clear();
     seedx = 0;
     seedy = 1;
+    x0 = -500;
+    y0 = 0;
+    x1= 500;
+    y1 = 0;
     stopped = false;
 }
 
@@ -34,12 +38,9 @@ void RefInterface::run()
 
         sleep(2);
 
-        x0 = qrand()%5;
-        y0 = qrand()%5;
-        x1= qrand()%5;
-        y1 = qrand()%5;
-        r0 = qrand()%5;
-        r1 = qrand()%5;
+
+        r0 = qrand()%2000;
+        r1 = qrand()%2000;
 
         find_intersection_points(x0,y0,x1,y1,r0,r1,seedx,seedy,&px,&py);
 
@@ -50,9 +51,9 @@ void RefInterface::run()
         buffer.y = py;
         buffer.R2 = 0;
         buffer.R3 = 0;
-        buffer.roll = qrand()%10;
-        buffer.pitch = qrand()%10;
-        buffer.yaw = qrand()%10;
+        buffer.roll = qrand()%360;
+        buffer.pitch = qrand()%360;
+        buffer.yaw = qrand()%360;
 
         msg.append(buffer);
 
