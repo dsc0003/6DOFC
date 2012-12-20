@@ -22,12 +22,17 @@ Dialog::Dialog(QWidget *parent) :
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     ui->setupUi(this);
 
-    //ui->widget->resize(800,400);
+    logFlag = FALSE;
+
     ui->widget->makeCurrent();
 
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
+
     QObject::connect(&guiinterface,SIGNAL(display(int,int,int,int,int,int,int,int,int,int)),
                      this,SLOT(updateDisplay(int,int,int,int,int,int,int,int,int,int)));
+
+    QObject::connect(&guiinterface,SIGNAL(logSignal(int,int,int,int,int,int,int,int,int,int)),
+                     this,SLOT(log(int,int,int,int,int,int,int,int,int,int)));
 }
 
 Dialog::~Dialog()
@@ -70,7 +75,24 @@ void Dialog::updateDisplay(int x, int y, int z, int R0, int R1, int R2, int R3, 
     ui->RollLineEdit->setText(QString::number(roll));
     ui->PitchLineEdit->setText(QString::number(pitch));
     ui->YawLineEdit->setText(QString::number(yaw));
+}
 
+
+void Dialog::log(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw)
+{
+    if(logFlag)
+    {
+        QFile f(fileName);
+        QTextStream ts(&f);
+
+        if (f.open(QIODevice::Append))
+        {
+            ts <<"Time: "<< QTime::currentTime().toString() << "       x: " << x <<"       y: "<<y<<"       z: "<<z
+               << "       roll: " << roll <<"       pitch: "<<pitch<<"       yaw: "<<yaw
+               << "       R0: " << R0 <<"       R1: "<<R1<<"       R2: "<<R2 <<"       R3: "<<R3<< endl;
+
+        }
+    }
 }
 
 void Dialog::closeEvent(QCloseEvent *event)

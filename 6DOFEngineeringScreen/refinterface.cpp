@@ -72,6 +72,7 @@ void RefInterface::stop()
 GuiInterface::GuiInterface()
 {
     msg.clear();
+    //engScreen = new Dialog();
     stoppedConsumer = false;
 }
 
@@ -82,35 +83,38 @@ void GuiInterface::run()
 
        mutex.lock();
 
-       sleep(2);
-       qDebug()<<"Gui thread run" <<endl;
+       //sleep(2);
+       //qDebug()<<"Gui thread run" <<endl;
 
        if(!msg.isEmpty())
        {
 
-       dataGathered.x = msg.first().x;
-       dataGathered.y = msg.first().y;
-       dataGathered.z = msg.first().z;
-       dataGathered.R0 = msg.first().R0;
-       dataGathered.R1 = msg.first().R1;
-       dataGathered.R2 = msg.first().R2;
-       dataGathered.R3 = msg.first().R3;
-       dataGathered.roll = msg.first().roll;
-       dataGathered.pitch = msg.first().pitch;
-       dataGathered.yaw = msg.first().yaw;
+           dataGathered.x = msg.first().x;
+           dataGathered.y = msg.first().y;
+           dataGathered.z = msg.first().z;
+           dataGathered.R0 = msg.first().R0;
+           dataGathered.R1 = msg.first().R1;
+           dataGathered.R2 = msg.first().R2;
+           dataGathered.R3 = msg.first().R3;
+           dataGathered.roll = msg.first().roll;
+           dataGathered.pitch = msg.first().pitch;
+           dataGathered.yaw = msg.first().yaw;
 
-       msg.removeFirst();
-       emit display(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
-                    dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
-       qDebug()<<"Gui Interface: "<<dataGathered.x <<" "<<dataGathered.y<<" "<<dataGathered.z<<" "<<dataGathered.R0<<"\n";
-       }
+           msg.removeFirst();
+           emit display(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
+                        dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
+
+                   emit logSignal(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
+                                  dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
 
 
-        mutex.unlock();
+           }
+
+          mutex.unlock();
     }
     stoppedConsumer = false;
 
-     qDebug()<<"\n";
+     //qDebug()<<"\n";
 }
 
 void GuiInterface::stop()
@@ -118,3 +122,5 @@ void GuiInterface::stop()
     qDebug("GuiInterface thread stopped");
     stoppedConsumer = true;
 }
+
+

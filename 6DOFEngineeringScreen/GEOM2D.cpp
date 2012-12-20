@@ -177,7 +177,7 @@ int find_intersection_points(int x0, int y0, int x1, int y1, int r0, int r1, int
     xdiff = x1 - x0;
     ydiff = y1 - y0;
 
-    cout << "xdiff = " << xdiff << endl << "ydiff = " << ydiff << endl;
+    //cout << "xdiff = " << xdiff << endl << "ydiff = " << ydiff << endl;
    // outFile << "xdiff = " << xdiff << endl << "ydiff = " << ydiff << endl;
 
     // square the differences
@@ -187,7 +187,7 @@ int find_intersection_points(int x0, int y0, int x1, int y1, int r0, int r1, int
     // distance between centers
     dist = sqrt( xdiff2 + ydiff2 );
 
-    cout << "dist = " << dist << endl;
+    //cout << "dist = " << dist << endl;
     //outFile << "dist = " << dist << endl;
 
 
@@ -229,7 +229,7 @@ int find_intersection_points(int x0, int y0, int x1, int y1, int r0, int r1, int
         // distance from x0 to line joining points of intersection
         // distance "a" of the midpoint of the two intersections from the center of the first circle
         a = ((dist*dist) + (r0*r0) - (r1*r1) )/( 2*dist );
-        cout << "a = " << a << endl;
+        //cout << "a = " << a << endl;
         //outFile << "a = " << a << endl;
 
 
@@ -244,7 +244,7 @@ int find_intersection_points(int x0, int y0, int x1, int y1, int r0, int r1, int
         x2 = x0 + xdiff*a/dist;
         y2 = y0 + ydiff*a/dist;
 
-        cout << "x2 = " << x2 << endl << "y2 = " << y2 << endl;
+       // cout << "x2 = " << x2 << endl << "y2 = " << y2 << endl;
         //outFile << "x2 = " << x2 << endl << "y2 = " << y2 << endl;
 
 
@@ -272,7 +272,7 @@ int find_intersection_points(int x0, int y0, int x1, int y1, int r0, int r1, int
             h = sqrt((r0*r0) - (a*a));
         }
 
-        cout << "h = " << h << endl;
+        //cout << "h = " << h << endl;
         //outFile << "h = " << h << endl;
 
 
@@ -284,7 +284,7 @@ int find_intersection_points(int x0, int y0, int x1, int y1, int r0, int r1, int
         xa = x2 + h*ydiff/dist;
         ya = y2 - h*xdiff/dist;
 
-        cout << "xa = " << xa << endl << "ya = " << ya << endl;
+        //cout << "xa = " << xa << endl << "ya = " << ya << endl;
         //outFile << "xa = " << xa << endl << "ya = " << ya << endl;
 
 
@@ -294,7 +294,7 @@ int find_intersection_points(int x0, int y0, int x1, int y1, int r0, int r1, int
         xb = x2 - h*(y1-y0)/dist;
         yb = y2 + h*(x1-x0)/dist;
 
-        cout << "xb = " << xb << endl << "yb = " << yb << endl;
+       // cout << "xb = " << xb << endl << "yb = " << yb << endl;
         //outFile << "xb = " << xb << endl << "yb = " << yb << endl;
 
         // Pick the choice closest to the seed
@@ -305,11 +305,15 @@ int find_intersection_points(int x0, int y0, int x1, int y1, int r0, int r1, int
         {
             *px = xa;
             *py = ya;
+            cout<< "x: "<<*px<<endl;
+            cout<< "y: "<<*py<<endl;
         }
         else
         {
             *px = xb;
             *py = yb;
+            cout<< "x: "<<*px<<endl;
+            cout<< "y: "<<*py<<endl;
         }
 
         valid = 1;

@@ -7,6 +7,7 @@
 #include <guiinterface.h>
 #include <glwidget.h>
 #include <QGraphicsScene>
+#include <QObject>
 
 namespace Ui {
 class Dialog;
@@ -19,13 +20,19 @@ class Dialog : public QDialog
 public:
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
+    bool logFlag;
+    QString fileName;
     
 private:
     Ui::Dialog *ui;
 
+
+    //void log(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw);
+
 private slots:
     void pause();
     void updateDisplay(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw);
+    void log(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw);
 
 protected:
     RefInterface refinterface;
