@@ -1,5 +1,6 @@
 #include "EngineeringScreen.h"
 #include "ui_dialog.h"
+#include "glwidget.h"
 #include <QTime>
 #include <QObject>
 #include <QtGui>
@@ -13,6 +14,7 @@
 #include <QtDebug>
 
 
+
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
@@ -20,6 +22,8 @@ Dialog::Dialog(QWidget *parent) :
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     ui->setupUi(this);
 
+    //ui->widget->resize(800,400);
+    ui->widget->makeCurrent();
 
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
     QObject::connect(&guiinterface,SIGNAL(display(int,int,int,int,int,int,int,int,int,int)),

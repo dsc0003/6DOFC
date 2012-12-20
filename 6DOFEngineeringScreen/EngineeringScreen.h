@@ -5,6 +5,8 @@
 #include <QtGui>
 #include <refinterface.h>
 #include <guiinterface.h>
+#include <glwidget.h>
+#include <QGraphicsScene>
 
 namespace Ui {
 class Dialog;
@@ -28,6 +30,9 @@ private slots:
 protected:
     RefInterface refinterface;
     GuiInterface guiinterface;
+    GLWidget* glwidget;
+    QGraphicsScene* scene;
+
     void closeEvent(QCloseEvent *event);
 
 };

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,12 +17,14 @@ SOURCES += main.cpp\
     refinterface.cpp \
     NLLS2D.cpp \
     GEOM2D.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    glwidget.cpp
 
 HEADERS  += EngineeringScreen.h \
     refinterface.h \
     guiinterface.h \
-    mainwindow.h
+    mainwindow.h \
+    glwidget.h
 
 FORMS    += \
     dialog.ui \
