@@ -38,7 +38,6 @@ void RefInterface::run()
 
         sleep(2);
 
-
         r0 = qrand()%2000;
         r1 = qrand()%2000;
 

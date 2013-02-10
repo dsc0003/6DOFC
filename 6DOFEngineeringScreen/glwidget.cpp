@@ -1,15 +1,17 @@
 #include "glwidget.h"
-#include <qopengl.h>
 #include <stdio.h>
+#include <QtOpenGL>
+
 
 #include <QtGui/QMouseEvent>
+
 
 
 
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
-    setMouseTracking(true);
+    //setMouseTracking(true);
     show();
 }
 

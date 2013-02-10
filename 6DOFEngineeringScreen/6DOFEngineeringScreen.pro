@@ -32,3 +32,5 @@ FORMS    += \
 
 RESOURCES += \
     files.qrc
+
+OTHER_FILES +=
