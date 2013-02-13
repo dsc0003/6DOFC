@@ -18,13 +18,15 @@ SOURCES += main.cpp\
     NLLS2D.cpp \
     GEOM2D.cpp \
     mainwindow.cpp \
-    glwidget.cpp
+    glwidget.cpp \
+    imu.cpp
 
 HEADERS  += EngineeringScreen.h \
     refinterface.h \
     guiinterface.h \
     mainwindow.h \
-    glwidget.h
+    glwidget.h \
+    imu.h
 
 FORMS    += \
     dialog.ui \

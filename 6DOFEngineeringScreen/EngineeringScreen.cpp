@@ -22,7 +22,7 @@ Dialog::Dialog(QWidget *parent) :
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     ui->setupUi(this);
 
-    logFlag = FALSE;
+    logFlag = false;
 
     ui->widget->makeCurrent();
 

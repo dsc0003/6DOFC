@@ -38,7 +38,7 @@ void MainWindow::log()
 //    log<<"test"<<endl;
 
       engScreen->fileName = file;
-      engScreen->logFlag = TRUE;
+      engScreen->logFlag = true;
     //qDebug() << "save file name " << engScreen->fileName;
     //qDebug() << "save file name " <<file;
 
