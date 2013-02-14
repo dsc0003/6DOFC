@@ -14,25 +14,33 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         EngineeringScreen.cpp \
-    refinterface.cpp \
-    NLLS2D.cpp \
-    GEOM2D.cpp \
-    mainwindow.cpp \
-    glwidget.cpp \
-    imu.cpp
+        refinterface.cpp \
+        NLLS2D.cpp \
+        GEOM2D.cpp \
+        mainwindow.cpp \
+        glwidget.cpp \
+        imu.cpp \
+        mainwidget.cpp \
+        geometryengine.cpp
 
 HEADERS  += EngineeringScreen.h \
-    refinterface.h \
-    guiinterface.h \
-    mainwindow.h \
-    glwidget.h \
-    imu.h
+        refinterface.h \
+        guiinterface.h \
+        mainwindow.h \
+        glwidget.h \
+        imu.h \
+        mainwidget.h \
+        geometryengine.h
 
 FORMS    += \
-    dialog.ui \
-    mainwindow.ui
+        dialog.ui \
+        mainwindow.ui
 
 RESOURCES += \
-    files.qrc
+        files.qrc \
+        textures.qrc \
+        shaders.qrc
 
-OTHER_FILES +=
+OTHER_FILES += \
+        vshader.glsl \
+        fshader.glsl
