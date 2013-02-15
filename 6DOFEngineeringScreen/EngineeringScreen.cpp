@@ -23,8 +23,12 @@ Dialog::Dialog(QWidget *parent) :
     ui->setupUi(this);
 
     logFlag = false;
+    //glwidget = new QGLWidget(this);
 
-    ui->widget->makeCurrent();
+
+    //ui->mainwidget->makeCurrent();
+
+ui->mainwidget->show();
 
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
 

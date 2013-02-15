@@ -8,7 +8,7 @@
 #include <glwidget.h>
 #include <QGraphicsScene>
 #include <QObject>
-
+#include <mainwidget.h>
 namespace Ui {
 class Dialog;
 }
@@ -37,7 +37,7 @@ private slots:
 protected:
     RefInterface refinterface;
     GuiInterface guiinterface;
-    GLWidget* glwidget;
+   // MainWidget* glwidget;
     QGraphicsScene* scene;
 
     void closeEvent(QCloseEvent *event);

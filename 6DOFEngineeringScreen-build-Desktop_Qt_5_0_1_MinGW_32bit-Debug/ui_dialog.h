@@ -10,7 +10,6 @@
 #define UI_DIALOG_H
 
 #include <QtCore/QVariant>
-#include <QtOpenGL/QGLWidget>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
@@ -21,6 +20,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -28,7 +28,7 @@ class Ui_Dialog
 {
 public:
     QVBoxLayout *verticalLayout;
-    QGLWidget *widget;
+    QWidget *mainwidget;
     QGridLayout *gridLayout_5;
     QGridLayout *gridLayout;
     QLabel *R3Label;
@@ -67,10 +67,10 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        widget = new QGLWidget(Dialog);
-        widget->setObjectName(QStringLiteral("widget"));
+        mainwidget = new QWidget(Dialog);
+        mainwidget->setObjectName(QStringLiteral("mainwidget"));
 
-        verticalLayout->addWidget(widget);
+        verticalLayout->addWidget(mainwidget);
 
         gridLayout_5 = new QGridLayout();
         gridLayout_5->setSpacing(6);
