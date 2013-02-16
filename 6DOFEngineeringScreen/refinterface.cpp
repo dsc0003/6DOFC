@@ -48,17 +48,22 @@ RefInterface::RefInterface()
         printf("Initialization failed.\n");
         exit(0);
     }
-    if (rcmOpModeSet(RCM_OPMODE_RCM) != 0)
+    if(OK)
     {
-        printf("Time out waiting for opmode set.\n");
-        exit(0);
+        if (rcmOpModeSet(RCM_OPMODE_RCM) != 0)
+        {
+            printf("Time out waiting for opmode set.\n");
+            exit(0);
 
+        }
     }
        stopped = false;
 }
 
 void RefInterface::run()
 {
+
+
     //while the pause button is not pressed (!stopped), run the ref thread
     while(!stopped)
     {
@@ -69,49 +74,59 @@ void RefInterface::run()
         sleep(2);
 
 
-        //range to the controller using radio A
-        if (rcmRangeTo(DESTINATION_NODE, ANTENNAMODE_A, 0, NULL,
-                &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
-        {
+//        //range to the controller using radio A
+//        if (rcmRangeTo(DESTINATION_NODE, ANTENNAMODE_A, 0, NULL,
+//                &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
+//        {
 
-            //This gets the precision range measurement
-            if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
-            {
-                qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
-                r0 = RangeInfo.precisionRangeMm;
-                // add range to buffer structure
-                buffer.R0 = r0;
-            }
+//            //This gets the precision range measurement
+//            if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
+//            {
+//                qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+//                r0 = RangeInfo.precisionRangeMm;
 
-            //if the status comes back as 0, the radio ranged correctly
-            if (RangeInfo.rangeStatus == 0)
-            {
-                qDebug()<<"Range Successful";
-            }
-        } //end if
+//                // add range to buffer structure
+//                buffer.R0 = r0;
+//            }
+
+//            //if the status comes back as 0, the radio ranged correctly
+//            if (RangeInfo.rangeStatus == 0)
+//            {
+//                qDebug()<<"Range Successful";
+//            }
+//        } //end if
 
 
-        //range to controller using radio B
-        if (rcmRangeTo(DESTINATION_NODE, ANTENNAMODE_B, 0, NULL,
-                &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
-        {
+//        //range to controller using radio B
+//        if (rcmRangeTo(DESTINATION_NODE, ANTENNAMODE_B, 0, NULL,
+//                &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
+//        {
 
-            // Get precision range measurement from msg received
-            if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
-            {
-                qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
-                r1 = RangeInfo.precisionRangeMm;
-                //add range to buffer struct
-                buffer.R1 = r1;
-                qDebug()<<"Buffer R1:  "<<buffer.R1;
-            }
+//            // Get precision range measurement from msg received
+//            if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
+//            {
+//                qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+//                r1 = RangeInfo.precisionRangeMm;
 
-             //if the status is 0, range was successful
-            if (RangeInfo.rangeStatus == 0)
-            {
-                qDebug()<<"Range Successful";
-            }
-        } //end if
+//                //add range to buffer struct
+//                buffer.R1 = r1;
+//                qDebug()<<"Buffer R1:  "<<buffer.R1;
+//            }
+
+//             //if the status is 0, range was successful
+//            if (RangeInfo.rangeStatus == 0)
+//            {
+//                qDebug()<<"Range Successful";
+//            }
+//        } //end if
+
+
+
+        //for debug
+        r0 = qrand()%2000;
+        r1 = qrand()%2000;
+        buffer.R0 = r0;
+        buffer.R1 = r1;
 
         //TO DO!! -- add ranging to radios C and D,  simulate for now
         //copy range A to C and range B to D
@@ -148,8 +163,8 @@ void RefInterface::stop()
     //stop ref thread so consumer can grab info
     qDebug("Reference thread stopped");
     stopped = true;
-    rcmIfFlush();
-    rcmIfClose();
+//    rcmIfFlush();
+//    rcmIfClose();
 }
 
 
@@ -208,9 +223,8 @@ void GuiInterface::stop()
 {
     qDebug("GuiInterface thread stopped");
     stoppedConsumer = true;
-    rcmIfFlush();
-    rcmIfClose();
-
+//    rcmIfFlush();
+//    rcmIfClose();
 }
 
 

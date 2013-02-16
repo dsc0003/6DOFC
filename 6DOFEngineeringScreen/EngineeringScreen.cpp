@@ -47,8 +47,7 @@ void Dialog::pause()
     {
         refinterface.stop();
         guiinterface.stop();
-        guiinterface.terminate();
-        refinterface.terminate();
+
         ui->pauseButton->setText("Start");
     }
 
