@@ -17,19 +17,23 @@ SOURCES += main.cpp\
         refinterface.cpp \
         GEOM2D.cpp \
         mainwindow.cpp \
-        glwidget.cpp \
         imu.cpp \
         mainwidget.cpp \
-        geometryengine.cpp
+        geometryengine.cpp \
+    rcmIf.c \
+    rcm.c
 
 HEADERS  += EngineeringScreen.h \
         refinterface.h \
         guiinterface.h \
         mainwindow.h \
-        glwidget.h \
         imu.h \
         mainwidget.h \
-        geometryengine.h
+        geometryengine.h \
+    rcmIf.h \
+    rcm.h \
+    hostInterfaceRCM.h \
+    hostInterfaceCommon.h
 
 FORMS    += \
         dialog.ui \

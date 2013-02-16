@@ -1,6 +1,5 @@
 #include "EngineeringScreen.h"
 #include "ui_dialog.h"
-#include "glwidget.h"
 #include <QTime>
 #include <QObject>
 #include <QtGui>
@@ -23,12 +22,8 @@ Dialog::Dialog(QWidget *parent) :
     ui->setupUi(this);
 
     logFlag = false;
-    //glwidget = new QGLWidget(this);
 
-
-    //ui->mainwidget->makeCurrent();
-
-ui->mainwidget->show();
+    ui->mainwidget->show();
 
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
 
@@ -52,8 +47,11 @@ void Dialog::pause()
     {
         refinterface.stop();
         guiinterface.stop();
+        guiinterface.terminate();
+        refinterface.terminate();
         ui->pauseButton->setText("Start");
     }
+
     else
     {
         refinterface.start();

@@ -1,15 +1,23 @@
 #ifndef REFINTERFACE_H
 #define REFINTERFACE_H
 
+#include "rcmIf.h"
+#include "rcm.h"
+#include "hostInterfaceRCM.h"
+#include "hostInterfaceCommon.h"
+
+
+
+
 #include <QObject>
 #include <QThread>
 
 
 struct rangeInfo {
-    int R0;
-    int R1;
-    int R2;
-    int R3;
+    float R0;
+    float R1;
+    float R2;
+    float R3;
     int x;
     int y;
     int z;
@@ -26,12 +34,20 @@ public:
     RefInterface();
     void stop();
 
+    rcmMsg_RangeInfo RangeInfo;
+    rcmMsg_DataInfo dataInfo;
+    rcmMsg_ScanInfo scanInfo;
+    rcmMsg_FullScanInfo fullScanInfo;
+    rcmIfType   rcmIf;
+    rcmConfiguration config;
+    rcmMsg_GetStatusInfoConfirm statusInfo;
+
 protected:
     void run();
-    int x0, y0;
-    int x1, y1;
-    int r0, r1;
-    int seedx, seedy;
+    float x0, y0;
+    float x1, y1;
+    float r0, r1;
+    float seedx, seedy;
     int px, py;
 
 signals:

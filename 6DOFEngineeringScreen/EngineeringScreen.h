@@ -5,7 +5,6 @@
 #include <QtGui>
 #include <refinterface.h>
 #include <guiinterface.h>
-#include <glwidget.h>
 #include <QGraphicsScene>
 #include <QObject>
 #include <mainwidget.h>
@@ -37,8 +36,6 @@ private slots:
 protected:
     RefInterface refinterface;
     GuiInterface guiinterface;
-   // MainWidget* glwidget;
-    QGraphicsScene* scene;
 
     void closeEvent(QCloseEvent *event);
 
