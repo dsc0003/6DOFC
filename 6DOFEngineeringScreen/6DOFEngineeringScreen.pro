@@ -15,7 +15,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
         EngineeringScreen.cpp \
         refinterface.cpp \
-        NLLS2D.cpp \
         GEOM2D.cpp \
         mainwindow.cpp \
         glwidget.cpp \
