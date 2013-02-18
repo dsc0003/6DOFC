@@ -20,7 +20,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
+#include "mainwidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -28,7 +28,7 @@ class Ui_Dialog
 {
 public:
     QVBoxLayout *verticalLayout;
-    QWidget *mainwidget;
+    MainWidget *mainwidget;
     QGridLayout *gridLayout_5;
     QGridLayout *gridLayout;
     QLabel *R3Label;
@@ -67,7 +67,7 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        mainwidget = new QWidget(Dialog);
+        mainwidget = new MainWidget(Dialog);
         mainwidget->setObjectName(QStringLiteral("mainwidget"));
 
         verticalLayout->addWidget(mainwidget);

@@ -25,9 +25,9 @@ signals:
 public slots:
 
 protected:
-    void mousePressEvent(QMouseEvent *e);
-    void mouseReleaseEvent(QMouseEvent *e);
-    void timerEvent(QTimerEvent *e);
+    void mousePressEvent(QMouseEvent *e, int x, int y, int z);
+    void mouseReleaseEvent(QMouseEvent *e, int x, int y, int z);
+    void timerEvent(QTimerEvent *e, int x, int y, int z);
 
     void initializeGL();
     void resizeGL(int w, int h);

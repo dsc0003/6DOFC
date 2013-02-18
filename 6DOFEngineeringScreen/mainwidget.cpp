@@ -28,22 +28,26 @@ MainWidget::~MainWidget()
     deleteTexture(texture);
 }
 
-void MainWidget::mousePressEvent(QMouseEvent *e)
+void MainWidget::mousePressEvent(QMouseEvent *e, int x, int y, int z)
 {
     // Saving mouse press position
+    /* By design QVector values are stored as floats, so we can use those
+    QVector2D can be set as QVector2D(qreal xpos, qreal ypos); */
     mousePressPosition = QVector2D(e->pos());
 }
 
-void MainWidget::mouseReleaseEvent(QMouseEvent *e)
+void MainWidget::mouseReleaseEvent(QMouseEvent *e, int x, int y, int z)
 {
     // Mouse release position - mouse press position
     QVector2D diff = QVector2D(e->pos()) - mousePressPosition;
-
-    // Rotation axis is perpendicular to the mouse position difference 
-    // vector
+    /* We must find the initial position (as last updated pos)
+       and then determine current position to get motion translated
+       Rotation axis is perpendicular to the mouse position difference
+       vector */
     QVector3D n = QVector3D(diff.y(), diff.x(), 0.0).normalized();
-
-    // Accelerate angular speed relative to the length of the mouse sweep
+    /* QVector3D can be set as QVector3D(qreal xpos, qreal ypos, qreal zpos);
+       hence we can transfer 3D movement.
+       Accelerate angular speed relative to the length of the mouse sweep */
     qreal acc = diff.length() / 100.0;
 
     // Calculate new rotation axis as weighted sum
@@ -53,7 +57,7 @@ void MainWidget::mouseReleaseEvent(QMouseEvent *e)
     angularSpeed += acc;
 }
 
-void MainWidget::timerEvent(QTimerEvent *e)
+void MainWidget::timerEvent(QTimerEvent *e, int x, int y, int z)
 {
     Q_UNUSED(e);
 

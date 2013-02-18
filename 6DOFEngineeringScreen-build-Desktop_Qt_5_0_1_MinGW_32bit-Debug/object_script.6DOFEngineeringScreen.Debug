@@ -2,12 +2,12 @@ INPUT(
 ./debug\main.o
 ./debug\EngineeringScreen.o
 ./debug\refinterface.o
-./debug\NLLS2D.o
 ./debug\mainwindow.o
-./debug\glwidget.o
 ./debug\imu.o
 ./debug\mainwidget.o
 ./debug\geometryengine.o
+./debug\rcmIf.o
+./debug\rcm.o
 ./debug\qrc_files.o
 ./debug\qrc_textures.o
 ./debug\qrc_shaders.o
@@ -15,6 +15,5 @@ INPUT(
 ./debug\moc_refinterface.o
 ./debug\moc_guiinterface.o
 ./debug\moc_mainwindow.o
-./debug\moc_glwidget.o
 ./debug\moc_mainwidget.o
 );
