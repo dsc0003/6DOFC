@@ -19,12 +19,6 @@ class MainWidget : public QGLWidget
 public:
     explicit MainWidget(QWidget *parent = 0);
     virtual ~MainWidget();
-
-signals:
-
-public slots:
-
-protected:
     void mousePressEvent(QMouseEvent *e, int x, int y, int z);
     void mouseReleaseEvent(QMouseEvent *e, int x, int y, int z);
     void timerEvent(QTimerEvent *e, int x, int y, int z);
@@ -35,6 +29,21 @@ protected:
 
     void initShaders();
     void initTextures();
+signals:
+
+public slots:
+
+protected:
+    //void mousePressEvent(QMouseEvent *e, int x, int y, int z);
+    //void mouseReleaseEvent(QMouseEvent *e, int x, int y, int z);
+    //void timerEvent(QTimerEvent *e, int x, int y, int z);
+
+    //void initializeGL();
+    //void resizeGL(int w, int h);
+    //void paintGL();
+
+    //void initShaders();
+    //void initTextures();
 
 private:
     QBasicTimer *timer;

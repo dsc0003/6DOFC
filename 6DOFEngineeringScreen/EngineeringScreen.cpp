@@ -22,8 +22,12 @@ Dialog::Dialog(QWidget *parent) :
     ui->setupUi(this);
 
     logFlag = false;
-
+    //ui->mainwidget->setMouseTracking(true);
+    //ui->mainwidget->activateWindow();
+    ui->mainwidget->resizeGL(640,480);
+    //ui->mainwidget->grabMouse();
     ui->mainwidget->show();
+    ui->mainwidget->repaint();
 
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
 

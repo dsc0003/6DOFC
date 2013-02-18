@@ -6,7 +6,7 @@
 
 #include <QBasicTimer>
 #include <QMouseEvent>
-
+#include <QDebug>
 #include <math.h>
 
 #include <QDebug>
@@ -30,6 +30,7 @@ MainWidget::~MainWidget()
 
 void MainWidget::mousePressEvent(QMouseEvent *e, int x, int y, int z)
 {
+    qDebug()<<"Function:: Mouse Press Event";
     // Saving mouse press position
     /* By design QVector values are stored as floats, so we can use those
     QVector2D can be set as QVector2D(qreal xpos, qreal ypos); */
@@ -38,6 +39,7 @@ void MainWidget::mousePressEvent(QMouseEvent *e, int x, int y, int z)
 
 void MainWidget::mouseReleaseEvent(QMouseEvent *e, int x, int y, int z)
 {
+    qDebug()<<"Function:: Mouse Release Event";
     // Mouse release position - mouse press position
     QVector2D diff = QVector2D(e->pos()) - mousePressPosition;
     /* We must find the initial position (as last updated pos)
@@ -60,7 +62,7 @@ void MainWidget::mouseReleaseEvent(QMouseEvent *e, int x, int y, int z)
 void MainWidget::timerEvent(QTimerEvent *e, int x, int y, int z)
 {
     Q_UNUSED(e);
-
+    qDebug()<<"Function:: Timer Event";
     // Decrease angular speed (friction)
     angularSpeed *= 0.99;
 
@@ -103,7 +105,7 @@ void MainWidget::initShaders()
 {
     // Overriding system locale until shaders are compiled
     setlocale(LC_NUMERIC, "C");
-
+    qDebug()<<"Function:: initShaders";
     // Compiling vertex shader
     if (!program->addShaderFromSourceFile(QGLShader::Vertex, ":/vshader.glsl"))
         close();
@@ -119,7 +121,7 @@ void MainWidget::initShaders()
     // Binding shader pipeline for use
     if (!program->bind())
         close();
-
+    qDebug()<<"Function:: initShadersEnd";
     // Restore system locale
     setlocale(LC_ALL, "");
 }
@@ -142,7 +144,7 @@ void MainWidget::initTextures()
 
     // Set bilinear filtering mode for texture magnification
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+    qDebug()<<"Function:: initTextures";
     // Wrap texture coordinates by repeating
     // f.ex. texture coordinate (1.1, 1.2) is same as (0.1, 0.2)
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -153,7 +155,7 @@ void MainWidget::resizeGL(int w, int h)
 {
     // Set OpenGL viewport to cover whole widget
     glViewport(0, 0, w, h);
-
+    qDebug()<<"Function:: ResizeGL";
     // Calculate aspect ratio
     qreal aspect = (qreal)w / ((qreal)h?h:1);
 
@@ -171,7 +173,7 @@ void MainWidget::paintGL()
 {
     // Clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    qDebug()<<"Function:: PaintGL";
     // Calculate model view transformation
     QMatrix4x4 matrix;
     matrix.translate(0.0, 0.0, -5.0);
