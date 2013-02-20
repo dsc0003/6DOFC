@@ -27,7 +27,7 @@ Dialog::Dialog(QWidget *parent) :
     ui->mainwidget->resizeGL(640,480);
     //ui->mainwidget->grabMouse();
     ui->mainwidget->show();
-    ui->mainwidget->repaint();
+    //ui->mainwidget->repaint();
 
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
 
