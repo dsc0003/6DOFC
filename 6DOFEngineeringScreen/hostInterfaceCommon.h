@@ -40,7 +40,7 @@ typedef unsigned __int64     rcm_uint64_t;
 
 #else
 
-typedef	__signed char			rcm_int8_t;
+typedef	signed char			rcm_int8_t;
 typedef	unsigned char			rcm_uint8_t;
 typedef	short					rcm_int16_t;
 typedef	unsigned short			rcm_uint16_t;

@@ -169,16 +169,16 @@ void rcmIfClose(void)
 {
     switch (rcmIf)
     {
-        case rcmIfIp:
-#ifdef WIN32
-            // windows cleanup code
-            closesocket(radioFd);
-	        WSACleanup();
-#else
-            // Linux cleanup code
-            close(radioFd);
-#endif
-            break;
+//        case rcmIfIp:
+//#ifdef WIN32
+//            // windows cleanup code
+//            closesocket(radioFd);
+//	        WSACleanup();
+//#else
+//            // Linux cleanup code
+//            close(radioFd);
+//#endif
+//            break;
 
         case rcmIfSerial:
         case rcmIfUsb:
@@ -260,25 +260,25 @@ void rcmIfFlush(void)
 
 int rcmIfGetPacketIp(void *pkt, unsigned maxSize)
 {
-    fd_set fds;
-    struct timeval tv;
+//    fd_set fds;
+//    struct timeval tv;
 
-    // basic select call setup
-    FD_ZERO(&fds);
-    FD_SET(radioFd, &fds);
+//    // basic select call setup
+//    FD_ZERO(&fds);
+//    FD_SET(radioFd, &fds);
 
-    // Set up timeout
-    tv.tv_sec = timeoutMs / 1000;
-    tv.tv_usec = (timeoutMs * 1000) % 1000000;
+//    // Set up timeout
+//    tv.tv_sec = timeoutMs / 1000;
+//    tv.tv_usec = (timeoutMs * 1000) % 1000000;
 
-    if (select(radioFd + 1, &fds, NULL, NULL, &tv) > 0)
-    {
-        // copy packet into buffer
-        return recvfrom(radioFd, (char *)pkt, maxSize, 0, NULL, NULL);
-    }
+//    if (select(radioFd + 1, &fds, NULL, NULL, &tv) > 0)
+//    {
+//        // copy packet into buffer
+//        return recvfrom(radioFd, (char *)pkt, maxSize, 0, NULL, NULL);
+//    }
 
-    // Timeout
-    return ERR;
+//    // Timeout
+//    return ERR;
 }
 
 
@@ -290,8 +290,8 @@ int rcmIfGetPacketIp(void *pkt, unsigned maxSize)
 
 int rcmIfSendPacketIp(void *pkt, unsigned size)
 {
-	return sendto(radioFd, (const char *)pkt, size, 0,
-            (struct sockaddr *)&radioAddr, sizeof(radioAddr));
+//	return sendto(radioFd, (const char *)pkt, size, 0,
+//            (struct sockaddr *)&radioAddr, sizeof(radioAddr));
 }
 
 
