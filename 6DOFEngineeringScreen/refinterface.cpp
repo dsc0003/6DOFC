@@ -1,8 +1,7 @@
 #include "refinterface.h"
 #include "guiinterface.h"
 #include "GEOM2D.cpp"
-
-
+#include "3rdparty/qextserialport/src/qextserialport.h"
 
 #include <QtGui>
 #include <QApplication>
@@ -33,13 +32,19 @@ RefInterface::RefInterface()
     //this will be put in config file
     seedx = 0.0;
     seedy = 1.0;
-    x0 = -500;
+    x0 = -0.500;
     y0 = 0;
-    x1= 500;
+    x1= 0.500;
     y1 = 0;
 
     char *destAdd = "/dev/cu.usbmodem101"; //this will be different in windows
-    //  TO DO!! -- need to figure out a way to scan ports and auto figure path to com port - windows?
+
+    //JOHN - example of how to open a com port with the library I added
+    //documentation can be found online at http://docs.qextserialport.googlecode.com/git/2.0/qextserialport.html
+    //http://qextserialport.sourceforge.net/qextserialport-1.1.x/classQextSerialPort.html
+//    QextSerialPort *port = new QextSerialPort(destAdd);
+//    port->open(0);
+
 
     //initialize radio (USB and dest address)
     //dest address is path to com port

@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = 6DOFEngineeringScreen
 TEMPLATE = app
 
-LIBS += -lws2_32 #2-18-13 JR added winsock2 library to project
+#LIBS += -lws2_32 #2-18-13 JR added winsock2 library to project
 
 SOURCES += main.cpp\
         EngineeringScreen.cpp \
@@ -22,7 +22,8 @@ SOURCES += main.cpp\
         mainwidget.cpp \
         geometryengine.cpp \
     rcmIf.c \
-    rcm.c
+    rcm.c \
+    solver.cpp
 
 HEADERS  += EngineeringScreen.h \
         refinterface.h \
@@ -34,7 +35,8 @@ HEADERS  += EngineeringScreen.h \
     rcmIf.h \
     rcm.h \
     hostInterfaceRCM.h \
-    hostInterfaceCommon.h
+    hostInterfaceCommon.h \
+    solver.h
 
 FORMS    += \
         dialog.ui \
@@ -48,3 +50,5 @@ RESOURCES += \
 OTHER_FILES += \
         vshader.glsl \
         fshader.glsl
+
+include(3rdparty/qextserialport/src/qextserialport.pri) #serial port com library
