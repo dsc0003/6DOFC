@@ -15,11 +15,11 @@ QespTest::QespTest(QWidget *parent)
 {
     //modify the port settings on your own
 #ifdef Q_OS_UNIX
-    port = new QextSerialPort(QLatin1String("/dev/ttyS0"), QextSerialPort::Polling);
+    port = new QextSerialPort(QLatin1String("/dev/tty.FireFly-8842-SPP"), QextSerialPort::Polling);
 #else
     port = new QextSerialPort(QLatin1String("COM1"), QextSerialPort::Polling);
 #endif /*Q_OS_UNIX*/
-    port->setBaudRate(BAUD19200);
+    port->setBaudRate(BAUD57600);
     port->setFlowControl(FLOW_OFF);
     port->setParity(PAR_NONE);
     port->setDataBits(DATA_8);

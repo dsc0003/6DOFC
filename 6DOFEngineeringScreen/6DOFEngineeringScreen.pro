@@ -23,7 +23,8 @@ SOURCES += main.cpp\
         geometryengine.cpp \
     rcmIf.c \
     rcm.c \
-    solver.cpp
+    solver.cpp \
+    imudialog.cpp
 
 HEADERS  += EngineeringScreen.h \
         refinterface.h \
@@ -36,11 +37,13 @@ HEADERS  += EngineeringScreen.h \
     rcm.h \
     hostInterfaceRCM.h \
     hostInterfaceCommon.h \
-    solver.h
+    solver.h \
+    imudialog.h
 
 FORMS    += \
         dialog.ui \
-        mainwindow.ui
+        mainwindow.ui \
+    imudialog.ui
 
 RESOURCES += \
         files.qrc \

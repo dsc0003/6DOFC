@@ -5,6 +5,7 @@
 #include <QtGui>
 #include "EngineeringScreen.h"
 #include "guiinterface.h"
+#include "imudialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     Dialog *engScreen;
     GuiInterface *guiinterface;
+    IMUDialog *imuScreen;
 
 
 private:
@@ -28,6 +30,7 @@ signals:
     
 public slots:
     void log();
+    void imuSetup();
     
 };
 

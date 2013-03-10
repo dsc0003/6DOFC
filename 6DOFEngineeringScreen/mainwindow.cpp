@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include"ui_mainwindow.h"
 
+
 #include <QtGui>
 #include <QDebug>
 #include <QFile>
@@ -19,10 +20,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
     QObject::connect(ui->actionLog,SIGNAL(triggered()),this,SLOT(log()));
-
+    QObject::connect(ui->actionIMU_Setup,SIGNAL(triggered()),this,SLOT(imuSetup()));
 
 }
 
+void MainWindow::imuSetup()
+{
+    imuScreen = new IMUDialog();
+    imuScreen->show();
+
+}
 
 
 void MainWindow::log()

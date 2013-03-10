@@ -30,6 +30,8 @@
     <addaction name="actionLog"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
+    <addaction name="separator"/>
+    <addaction name="actionIMU_Setup"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -42,6 +44,11 @@
   <action name="actionQuit">
    <property name="text">
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionIMU_Setup">
+   <property name="text">
+    <string>IMU Setup</string>
    </property>
   </action>
  </widget>
