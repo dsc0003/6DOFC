@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    QString portName = QLatin1String("COM1");              // update this to use your port of choice
+    QString portName = QLatin1String("/dev/tty.FireFly-8842-SPP");              // update this to use your port of choice
     PortListener listener(portName);        // signals get hooked up internally
 
     // start the event loop and wait for signals

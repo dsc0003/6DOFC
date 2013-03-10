@@ -6,7 +6,7 @@ PortListener::PortListener(const QString &portName)
 {
     qDebug() << "hi there";
     this->port = new QextSerialPort(portName, QextSerialPort::EventDriven);
-    port->setBaudRate(BAUD9600);
+    port->setBaudRate(BAUD57600);
     port->setFlowControl(FLOW_OFF);
     port->setParity(PAR_NONE);
     port->setDataBits(DATA_8);

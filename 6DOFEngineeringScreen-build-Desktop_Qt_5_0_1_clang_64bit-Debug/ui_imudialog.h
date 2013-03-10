@@ -35,7 +35,7 @@ public:
     {
         if (IMUDialog->objectName().isEmpty())
             IMUDialog->setObjectName(QStringLiteral("IMUDialog"));
-        IMUDialog->resize(400, 300);
+        IMUDialog->resize(494, 300);
         buttonBox = new QDialogButtonBox(IMUDialog);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
         buttonBox->setGeometry(QRect(30, 240, 341, 32));
@@ -43,7 +43,7 @@ public:
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         textEditStream = new QTextEdit(IMUDialog);
         textEditStream->setObjectName(QStringLiteral("textEditStream"));
-        textEditStream->setGeometry(QRect(20, 20, 341, 111));
+        textEditStream->setGeometry(QRect(20, 20, 411, 111));
         connectButton = new QPushButton(IMUDialog);
         connectButton->setObjectName(QStringLiteral("connectButton"));
         connectButton->setGeometry(QRect(20, 150, 114, 32));

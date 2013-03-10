@@ -83,6 +83,7 @@ void QespTest::transmitMsg()
 
 void QespTest::receiveMsg()
 {
+    port->flush();
     char buff[1024];
     int numBytes;
 

@@ -147,9 +147,10 @@ void RefInterface::run()
         buffer.R2 = 0;
         buffer.R3 = 0;
         //randomly generating roll, pitch, yaw here
-        buffer.roll = qrand()%360;
-        buffer.pitch = qrand()%360;
-        buffer.yaw = qrand()%360;
+
+        buffer.roll = 0.0;
+        buffer.pitch = 0.0;
+        buffer.yaw = 0.0;
 
         //append the buffer to the queue
         msg.append(buffer);

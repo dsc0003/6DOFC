@@ -21,9 +21,9 @@ struct rangeInfo {
     int x;
     int y;
     int z;
-    int yaw;
-    int pitch;
-    int roll;
+    float yaw;
+    float pitch;
+    float roll;
 };
 
 

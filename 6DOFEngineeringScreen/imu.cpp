@@ -35,7 +35,7 @@ IMU::IMU()
     else
         buff[0] = '\0';
     QString msg = QLatin1String(buff);
-
+    //ui->textEditStream
     //received_msg->append(msg);
     //received_msg->ensureCursorVisible();
     qDebug("bytes available: %d", numBytes);

@@ -22,7 +22,8 @@ public slots:
     void discon();
     void stopStream();
     void stream();
-
+    void onReadyRead();
+    void onDsrChanged(bool status);
 private:
     Ui::IMUDialog *ui;
 };
