@@ -55,7 +55,7 @@ void IMUDialog::onReadyRead()
     //QByteArray yaw;
     //for (int i = 6; i<10; i++)
         //yaw.append(bytes[i]);
-    ui->textEditStream->setText(yaw);
+    ui->textEditStream->setText(bytes);
 }
 
 void IMUDialog::onDsrChanged(bool status)
