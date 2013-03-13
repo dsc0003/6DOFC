@@ -3,7 +3,7 @@
 #include "geometryengine.h"
 
 #include <QtOpenGL/QGLShaderProgram>
-
+#include <qwaitcondition.h>
 #include <QBasicTimer>
 #include <QMouseEvent>
 #include <QDebug>
@@ -17,6 +17,8 @@ MainWidget::MainWidget(QWidget *parent) :
     program(new QGLShaderProgram),
     geometries(new GeometryEngine)
 {
+    //xOld=0;
+    //yOld=0;
 }
 
 MainWidget::~MainWidget()
@@ -28,16 +30,34 @@ MainWidget::~MainWidget()
     deleteTexture(texture);
 }
 
-void MainWidget::mousePressEvent(QMouseEvent *e, int x, int y, int z)
+void MainWidget::controllerMovement(int x, int y){
+    qDebug() << "controller movement detected" << x << "   " << y ;
+    //qDebug() << "old movement values" << xOld << "   " << yOld ;
+    mousePressPosition = QVector2D((x/5-50),(y/5-10));
+    //QWaitCondition sleep;
+    //sleep.wait(1000);
+    QVector2D diff = QVector2D((x/5),(y/5)) - mousePressPosition;
+    QVector3D n = QVector3D(diff.y(), diff.x(), 0.0).normalized();
+
+    qreal acc = diff.length() / 100.0;
+    rotationAxis = (rotationAxis * angularSpeed + n * acc).normalized();
+    angularSpeed += acc;
+    updateGL();
+    xOld = x;
+    yOld = y;
+}
+
+void MainWidget::mousePressEvent(QMouseEvent *e)
 {
     qDebug()<<"Function:: Mouse Press Event";
     // Saving mouse press position
     /* By design QVector values are stored as floats, so we can use those
     QVector2D can be set as QVector2D(qreal xpos, qreal ypos); */
     mousePressPosition = QVector2D(e->pos());
+
 }
 
-void MainWidget::mouseReleaseEvent(QMouseEvent *e, int x, int y, int z)
+void MainWidget::mouseReleaseEvent(QMouseEvent *e)
 {
     qDebug()<<"Function:: Mouse Release Event";
     // Mouse release position - mouse press position
@@ -59,10 +79,10 @@ void MainWidget::mouseReleaseEvent(QMouseEvent *e, int x, int y, int z)
     angularSpeed += acc;
 }
 
-void MainWidget::timerEvent(QTimerEvent *e, int x, int y, int z)
+void MainWidget::timerEvent(QTimerEvent *e)
 {
     Q_UNUSED(e);
-    qDebug()<<"Function:: Timer Event";
+    //qDebug()<<"Function:: Timer Event";
     // Decrease angular speed (friction)
     angularSpeed *= 0.99;
 

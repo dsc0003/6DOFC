@@ -1,5 +1,6 @@
 #include "EngineeringScreen.h"
 #include "ui_dialog.h"
+#include "mainwidget.h"
 #include <QTime>
 #include <QObject>
 #include <QtGui>
@@ -35,6 +36,8 @@ Dialog::Dialog(QWidget *parent) :
 
     QObject::connect(&guiinterface,SIGNAL(logSignal(int,int,int,int,int,int,int,int,int,int)),
                      this,SLOT(log(int,int,int,int,int,int,int,int,int,int)));
+   // QObject::connect(&guiinterface, SIGNAL(logSignal(int,int,int,int,int,int,int,int,int,int)),
+     //                this, SLOT(controllerMovementEvent(int,int,int)));
 }
 
 Dialog::~Dialog()
@@ -79,6 +82,9 @@ void Dialog::updateDisplay(int x, int y, int z, int R0, int R1, int R2, int R3, 
     ui->RollLineEdit->setText(QString::number(roll));
     ui->PitchLineEdit->setText(QString::number(pitch));
     ui->YawLineEdit->setText(QString::number(yaw));
+    MainWidget newWidget;
+    newWidget.controllerMovement(R0,R1);
+    //newWidget.exec();
 }
 
 
