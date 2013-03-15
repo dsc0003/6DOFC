@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>testbenchGEOM2D.txt</file>
         <file>testbenchNLLS2D.txt</file>
+        <file>in.txt</file>
     </qresource>
 </RCC>
