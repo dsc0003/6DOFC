@@ -5,9 +5,7 @@
 #include "rcm.h"
 #include "hostInterfaceRCM.h"
 #include "hostInterfaceCommon.h"
-
-
-
+#include "solver.h"
 
 #include <QObject>
 #include <QThread>
@@ -18,9 +16,9 @@ struct rangeInfo {
     float R1;
     float R2;
     float R3;
-    int x;
-    int y;
-    int z;
+    float x;
+    float y;
+    float z;
     float yaw;
     float pitch;
     float roll;
@@ -32,6 +30,7 @@ class RefInterface : public QThread
     Q_OBJECT
 public:
     RefInterface();
+    Solver *solver;
     void stop();
 
     rcmMsg_RangeInfo RangeInfo;
@@ -48,7 +47,7 @@ protected:
     float x1, y1;
     float r0, r1;
     float seedx, seedy;
-    int px, py;
+    float px, py;
 
 signals:
 

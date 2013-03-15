@@ -25,13 +25,10 @@ public:
 private:
     Ui::Dialog *ui;
 
-
-    //void log(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw);
-
 private slots:
     void pause();
-    void updateDisplay(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw);
-    void log(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw);
+    void updateDisplay(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw);
+    void log(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw);
 
 protected:
     RefInterface refinterface;

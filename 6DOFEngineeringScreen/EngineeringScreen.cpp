@@ -1,6 +1,6 @@
 #include "EngineeringScreen.h"
 #include "ui_dialog.h"
-#include "mainwidget.h"
+//#include "mainwidget.h"
 #include <QTime>
 #include <QObject>
 #include <QtGui>
@@ -22,20 +22,20 @@ Dialog::Dialog(QWidget *parent) :
     ui->setupUi(this);
 
     logFlag = false;
-    //ui->mainwidget->setMouseTracking(true);
-    //ui->mainwidget->activateWindow();
-    ui->mainwidget->resizeGL(640,480);
-    //ui->mainwidget->grabMouse();
-    ui->mainwidget->show();
-    //ui->mainwidget->repaint();
+        //ui->mainwidget->setMouseTracking(true);
+        //ui->mainwidget->activateWindow();
+    //ui->mainwidget->resizeGL(640,480);
+        //ui->mainwidget->grabMouse();
+    //ui->mainwidget->show();
+        //ui->mainwidget->repaint();
 
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
 
-    QObject::connect(&guiinterface,SIGNAL(display(int,int,int,int,int,int,int,int,int,int)),
-                     this,SLOT(updateDisplay(int,int,int,int,int,int,int,int,int,int)));
+    QObject::connect(&guiinterface,SIGNAL(display(float,float,float,float,float,float,float,float,float,float)),
+                     this,SLOT(updateDisplay(float,float,float,float,float,float,float,float,float,float)));
 
-    QObject::connect(&guiinterface,SIGNAL(logSignal(int,int,int,int,int,int,int,int,int,int)),
-                     this,SLOT(log(int,int,int,int,int,int,int,int,int,int)));
+    QObject::connect(&guiinterface,SIGNAL(logSignal(float,float,float,float,float,float,float,float,float,float)),
+                     this,SLOT(log(float,float,float,float,float,float,float,float,float,float)));
    // QObject::connect(&guiinterface, SIGNAL(logSignal(int,int,int,int,int,int,int,int,int,int)),
      //                this, SLOT(controllerMovementEvent(int,int,int)));
 }
@@ -48,12 +48,15 @@ Dialog::~Dialog()
 
 void Dialog::pause()
 {
-
+    qDebug()<<"Pause";
     if(refinterface.isRunning() || guiinterface.isRunning())
     {
+
         refinterface.stop();
         guiinterface.stop();
 
+//        refinterface.wait();
+//        guiinterface.wait();
         ui->pauseButton->setText("Start");
     }
 
@@ -66,7 +69,7 @@ void Dialog::pause()
 
 
 }
-void Dialog::updateDisplay(int x, int y, int z, int R0, int R1, int R2, int R3, int roll , int pitch, int yaw)
+void Dialog::updateDisplay(float x, float y, float z, float R0, float R1, float R2, float R3, float roll , float pitch, float yaw)
 {
     qDebug()<<"Function:: Update Display";
 
@@ -82,13 +85,13 @@ void Dialog::updateDisplay(int x, int y, int z, int R0, int R1, int R2, int R3, 
     ui->RollLineEdit->setText(QString::number(roll));
     ui->PitchLineEdit->setText(QString::number(pitch));
     ui->YawLineEdit->setText(QString::number(yaw));
-    MainWidget newWidget;
-    newWidget.controllerMovement(R0,R1);
+    //MainWidget newWidget;
+    //newWidget.controllerMovement(R0,R1);
     //newWidget.exec();
 }
 
 
-void Dialog::log(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw)
+void Dialog::log(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw)
 {
     if(logFlag)
     {

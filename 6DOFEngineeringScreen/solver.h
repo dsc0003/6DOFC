@@ -1,12 +1,15 @@
 #ifndef SOLVER_H
 #define SOLVER_H
-#define N 100
+#define Num 100
 
 
 class Solver{
 
 
 public:
+
+    Solver();
+    virtual ~Solver();
 
 
     // parameters for GEOM 2D, NLLS 2D and 3D solvers
@@ -30,18 +33,18 @@ public:
 
     // simulation parameters
     //const int N;  // maximum number of points we are going to use
-    int T[N];  // array of times that we recieve the ranges
-    double Xtruth[N];   // true trajectory in x direction
-    double Ytruth[N];   // true trajectory in y direction
-    double Rtruth1[N];  // true ranges from antenna 1
-    double Rtruth2[N];  // true ranges from antenna 2
-    double Rnoise1[N];  // noise added to the true ranges
-    double Rnoise2[N];  // noise added to the true ranges
+    int T[Num];  // array of times that we recieve the ranges
+    double Xtruth[Num];   // true trajectory in x direction
+    double Ytruth[Num];   // true trajectory in y direction
+    double Rtruth1[Num];  // true ranges from antenna 1
+    double Rtruth2[Num];  // true ranges from antenna 2
+    double Rnoise1[Num];  // noise added to the true ranges
+    double Rnoise2[Num];  // noise added to the true ranges
 
     // filter parameters
-    double Rmeasured1[N];  // measured ranges from antenna 1
-    double Rmeasured2[N];  // measured ranges from antenna 2
-    double KalmanGain[N];  // kalman gain value calculated at each iteration
+    double Rmeasured1[Num];  // measured ranges from antenna 1
+    double Rmeasured2[Num];  // measured ranges from antenna 2
+    double KalmanGain[Num];  // kalman gain value calculated at each iteration
     double StateVector[4]; // initial state vector
     double CovarianceMatrix[4][4];  // initial covariance matrix
     double refLoc[2];  // anchor tag - tell you which antenna the reading came from

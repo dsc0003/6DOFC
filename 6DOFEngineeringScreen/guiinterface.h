@@ -7,16 +7,16 @@
 
 
 struct myStruct {
-    int R0;
-    int R1;
-    int R2;
-    int R3;
-    int x;
-    int y;
-    int z;
-    int yaw;
-    int pitch;
-    int roll;
+    float R0;
+    float R1;
+    float R2;
+    float R3;
+    float x;
+    float y;
+    float z;
+    float yaw;
+    float pitch;
+    float roll;
 };
 
 class GuiInterface : public QThread
@@ -27,6 +27,7 @@ public:
     void run();
     void stop();
     myStruct dataGathered;
+     volatile bool stoppedConsumer;
 
     //Dialog* engScreen;
 
@@ -34,13 +35,13 @@ protected:
 
 
 signals:
-    void display(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw);
-    void logSignal(int x, int y, int z, int R0, int R1, int R2, int R3, int roll, int pitch, int yaw);
+    void display(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw);
+    void logSignal(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw);
 
 public slots:
 
 private:
-    volatile bool stoppedConsumer;
+
 
 };
 

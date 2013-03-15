@@ -8,8 +8,21 @@
 
 using namespace std;
 
-
 #define pi 3.14159265359
+
+Solver::Solver()
+{
+    // doesn't do anything right now but will initialize some
+    // parameters here when we sort out the solver-consumer interface with denise
+}
+
+
+Solver::~Solver()
+{
+
+}
+
+
 
 // NLLS2d methods
 void Solver::get_parameters_nlls2d(float* x1, float* y1, float* r1, float* x2, float* y2, float* r2, float* xg, float* yg)
@@ -151,22 +164,6 @@ int Solver::find_intersection_points_nlls2d(float x1, float y1, float r1, float 
     cout << "Maximum number of iterations reached" << endl;
     valid = 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -390,18 +387,6 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // GEOM2D methods
 void Solver::get_parameters_geom2d(float* x1, float* y1, float* x2, float* y2, float* r1, float* r2, float* xg, float* yg)
 {
@@ -425,8 +410,6 @@ int Solver::find_intersection_points_geom2d(float x1, float y1, float x2, float 
     float xb, yb;  // second intersection point
     float dist_seed_to_Pa_squared;  // distance from seed point to the first intesection point
     float dist_seed_to_Pb_squared;  // distance from seed point to the second inersection point
-
-
 
 
 
@@ -582,17 +565,6 @@ int Solver::find_intersection_points_geom2d(float x1, float y1, float x2, float 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // EKF2D methods
 int Solver::get_parameters_ekf2d(int antenna, int iteration, double& time, double& sigmaAcceleration, double anchorPos[], double& measuredRange, double& sigmaRange)
 {
@@ -652,18 +624,11 @@ void Solver::simulate_data_ekf2d()
 
     float avgVel = 0.5*pi/180;
 
-    for(int i = 0; i < N; i++)
+    for(int i = 0; i < Num; i++)
     {
 
 
 //        in_ekf2d >> Rmeasured1[i] >> Rmeasured2[i];
-
-
-
-
-
-
-
 
 
 
@@ -684,12 +649,9 @@ void Solver::simulate_data_ekf2d()
 
 
 
-
-
-
 //    out_ekf2d << "True Trajectory" << endl;
 
-    for(int i = 0; i < N; i++)
+    for(int i = 0; i < Num; i++)
     {
         //out_ekf2d << "x[" << i << "],y[" << i << "] = " << Xtruth[i] << ", " << Ytruth[i] << endl;
     }
@@ -855,7 +817,7 @@ void Solver::EKF2Dsolver()
     get_initialConditions_ekf2d(previousStateVector, previousCovarianceMatrix);
 
 
-    for(int iteration = 1; iteration < N; iteration++)
+    for(int iteration = 1; iteration < Num; iteration++)
     {
         antenna = (iteration + 1) % 2;
 
@@ -1210,12 +1172,6 @@ void Solver::EKF2Dsolver()
 
 
 
-
-
-
-
-
-
             // calculate the updated covariance matrix
 
             // create an identity matrix
@@ -1334,10 +1290,6 @@ void Solver::EKF2Dsolver()
 
 
 
-
-
-
-
             for(int i = 0; i < 4; i ++)
             {
                 previousStateVector[i] = currentStateVector[i];
@@ -1382,7 +1334,6 @@ void Solver::EKF3Dsolver()
 {
 
 }
-
 
 
 

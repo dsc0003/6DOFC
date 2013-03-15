@@ -1,6 +1,5 @@
 #include "refinterface.h"
 #include "guiinterface.h"
-#include "GEOM2D.cpp"
 #include "3rdparty/qextserialport/src/qextserialport.h"
 
 #include <QtGui>
@@ -27,6 +26,7 @@ rangeInfo buffer;
 
 RefInterface::RefInterface()
 {
+    solver = new Solver();
     msg.clear();
     //sets seeds and reference radio positions
     //this will be put in config file
@@ -35,7 +35,7 @@ RefInterface::RefInterface()
     x0 = -0.500;
     y0 = 0;
     x1= 0.500;
-    y1 = 0;
+    y1 = 0.0;
 
     char *destAdd = "/dev/cu.usbmodem101"; //this will be different in windows
 
@@ -75,8 +75,8 @@ void RefInterface::run()
         qDebug("Reference thread run");
         mutex.lock();
 
-        //wait 2 seconds
-        sleep(2);
+        //wait 1 seconds
+        sleep(1);
 
 
 //        //range to the controller using radio A
@@ -128,16 +128,14 @@ void RefInterface::run()
 
 
         //for debug
-        r0 = qrand()%2000;
-        r1 = qrand()%2000;
+        r0 = qrand()%2000 / 1000.0;
+        r1 = qrand()%2000 / 1000.0;
         buffer.R0 = r0;
         buffer.R1 = r1;
 
-        //TO DO!! -- add ranging to radios C and D,  simulate for now
-        //copy range A to C and range B to D
 
-        //call solver method -- am using geom2d right now until solver class is added
-        find_intersection_points(x0 ,y0 ,x1 , y1 , r0, r1, seedx, seedy, &px, &py);
+        solver->find_intersection_points_geom2d(x0 ,y0 ,x1 , y1 , r0, r1, seedx, seedy, &px, &py);
+
         qDebug()<<"x and y: "<<px<< " "<<py;
 
         //Here I set the buffer struct to the position returned from solver
@@ -156,12 +154,12 @@ void RefInterface::run()
         msg.append(buffer);
 
         //unlock the mutex so the consumer can have access to buffer
-
-        //set stopped to false, so consumer has a turn
+        mutex.unlock();
+        //set stopped to true, so consumer has a turn
         stopped = false;
 
-        mutex.unlock();
     }
+
 }
 
 void RefInterface::stop()
@@ -169,6 +167,7 @@ void RefInterface::stop()
     //stop ref thread so consumer can grab info
     qDebug("Reference thread stopped");
     stopped = true;
+
 //    rcmIfFlush();
 //    rcmIfClose();
 }
@@ -178,12 +177,12 @@ GuiInterface::GuiInterface()
 {
     //clear msg queue in constructor
     msg.clear();
-    //engScreen = new Dialog();
     stoppedConsumer = false;
 }
 
 void GuiInterface::run()
 {
+
     //while consumer is not stopped, grab info and emit signal for eng screen to update display
     while(!stoppedConsumer)
     {
@@ -191,8 +190,8 @@ void GuiInterface::run()
         //lock mutex
        mutex.lock();
 
-       //sleep(2);
-       //qDebug()<<"Gui thread run" <<endl;
+       sleep(1);
+       qDebug()<<"Gui thread run" <<endl;
 
        if(!msg.isEmpty())
        {
@@ -217,18 +216,22 @@ void GuiInterface::run()
                           dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
 
 
-           }
-        //unlock the mutex, so the producer has another turn
-          mutex.unlock();
-    }
-    stoppedConsumer = false;
+          }
 
+
+      mutex.unlock();
+    }
+
+    stoppedConsumer = false;
+    //unlock the mutex, so the producer has another turn
 }
 
 void GuiInterface::stop()
 {
     qDebug("GuiInterface thread stopped");
     stoppedConsumer = true;
+
+
 //    rcmIfFlush();
 //    rcmIfClose();
 }
