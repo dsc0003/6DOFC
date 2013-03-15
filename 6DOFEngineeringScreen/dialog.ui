@@ -171,6 +171,13 @@
        <string>Configuration</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_9">
+       <item row="1" column="1">
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="1">
         <widget class="QGroupBox" name="groupBox_3">
          <property name="font">
@@ -216,7 +223,16 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="le_radioPort"/>
+           <widget class="QLineEdit" name="le_radioPort">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>/dev/cu.usbmodem101</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="le_usbPort"/>
@@ -286,7 +302,16 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="le_ref1"/>
+           <widget class="QLineEdit" name="le_ref1">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>-0.500</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_2">
@@ -301,7 +326,16 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="le_ref2"/>
+           <widget class="QLineEdit" name="le_ref2">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>0.000</string>
+            </property>
+           </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_4">
@@ -316,7 +350,16 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="le_ref3"/>
+           <widget class="QLineEdit" name="le_ref3">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>0.500</string>
+            </property>
+           </widget>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_3">
@@ -331,9 +374,25 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="le_ref4"/>
+           <widget class="QLineEdit" name="le_ref4">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>0.000</string>
+            </property>
+           </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
         </widget>
        </item>
        <item row="2" column="0">
@@ -434,7 +493,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="le_numOfIter">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -453,7 +512,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_2">
+           <widget class="QLineEdit" name="le_E">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -467,19 +526,25 @@
          </layout>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="pb_set">
+         <property name="text">
+          <string>Set</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="Line" name="line_2">
+       <item row="3" column="0">
+        <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-        </widget>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

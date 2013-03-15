@@ -13,8 +13,6 @@
 #include <QTime>
 #include <QtDebug>
 
-#define SLEEPMODE 0
-#define DESTINATION_NODE    100
 #define ANTENNAMODE_A 0
 #define ANTENNAMODE_B 1
 #define ANTENNAMODE_C 2
@@ -33,11 +31,14 @@ RefInterface::RefInterface()
     seedx = 0.0;
     seedy = 1.0;
     x0 = -0.500;
-    y0 = 0;
-    x1= 0.500;
-    y1 = 0.0;
+    x1 = 0.00;
+    y0 = 0.500;
+    y1 = 0.00;
 
-    char *destAdd = "/dev/cu.usbmodem101"; //this will be different in windows
+
+
+    //char *destAdd = "/dev/cu.usbmodem101"; //this will be different in windows
+    //radioPort.append("/dev/cu.usbmodem101");
 
     //JOHN - example of how to open a com port with the library I added
     //documentation can be found online at http://docs.qextserialport.googlecode.com/git/2.0/qextserialport.html
@@ -48,7 +49,7 @@ RefInterface::RefInterface()
 
     //initialize radio (USB and dest address)
     //dest address is path to com port
-    if (rcmIfInit(rcmIfUsb, destAdd) != OK)
+    if (rcmIfInit(rcmIfUsb, radioPort.data()) != OK)
     {
         printf("Initialization failed.\n");
         exit(0);
@@ -80,7 +81,7 @@ void RefInterface::run()
 
 
 //        //range to the controller using radio A
-//        if (rcmRangeTo(DESTINATION_NODE, ANTENNAMODE_A, 0, NULL,
+//        if (rcmRangeTo(destNode, ANTENNAMODE_A, 0, NULL,
 //                &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
 //        {
 
@@ -103,7 +104,7 @@ void RefInterface::run()
 
 
 //        //range to controller using radio B
-//        if (rcmRangeTo(DESTINATION_NODE, ANTENNAMODE_B, 0, NULL,
+//        if (rcmRangeTo(destNode, ANTENNAMODE_B, 0, NULL,
 //                &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
 //        {
 
@@ -128,8 +129,8 @@ void RefInterface::run()
 
 
         //for debug
-        r0 = qrand()%2000 / 1000.0;
-        r1 = qrand()%2000 / 1000.0;
+        r0 = qrand()%2000 /1000.0;
+        r1 = qrand()%2000 /1000.0;
         buffer.R0 = r0;
         buffer.R1 = r1;
 

@@ -9,6 +9,7 @@
 
 #include <QObject>
 #include <QThread>
+#include <QByteArray>
 
 
 struct rangeInfo {
@@ -40,14 +41,21 @@ public:
     rcmIfType   rcmIf;
     rcmConfiguration config;
     rcmMsg_GetStatusInfoConfirm statusInfo;
+    float x0, y0, z0;
+    float x1, y1, z1;
+    float x2, y2, z2;
+    float r0, r1, r2;
+    float seedx, seedy;
+    float px, py, pz;
+    QByteArray radioPort;
+    QByteArray usbInterfacePort;
+    int NumOfIter;
+    float E;
+    int destNode;
 
 protected:
     void run();
-    float x0, y0;
-    float x1, y1;
-    float r0, r1;
-    float seedx, seedy;
-    float px, py;
+
 
 signals:
 

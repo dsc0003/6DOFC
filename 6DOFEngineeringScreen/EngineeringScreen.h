@@ -29,6 +29,7 @@ private slots:
     void pause();
     void updateDisplay(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw);
     void log(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw);
+    void getUserParameters();
 
 protected:
     RefInterface refinterface;

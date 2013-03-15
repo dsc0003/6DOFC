@@ -36,6 +36,9 @@ Dialog::Dialog(QWidget *parent) :
 
     QObject::connect(&guiinterface,SIGNAL(logSignal(float,float,float,float,float,float,float,float,float,float)),
                      this,SLOT(log(float,float,float,float,float,float,float,float,float,float)));
+
+    connect(ui->pb_set,SIGNAL(clicked()),this,SLOT(getUserParameters()));
+
    // QObject::connect(&guiinterface, SIGNAL(logSignal(int,int,int,int,int,int,int,int,int,int)),
      //                this, SLOT(controllerMovementEvent(int,int,int)));
 }
@@ -115,4 +118,29 @@ void Dialog::closeEvent(QCloseEvent *event)
     refinterface.wait();
     guiinterface.wait();
     event->accept();
+}
+
+void Dialog::getUserParameters()
+{
+
+    //get Reference Positions
+    refinterface.x0 = ui->le_ref1->text().toFloat();
+    refinterface.y0 = ui->le_ref2->text().toFloat();
+    refinterface.x1 = ui->le_ref3->text().toFloat();
+    refinterface.y1 = ui->le_ref4->text().toFloat();
+
+    //get com port info
+    refinterface.radioPort.clear();
+    refinterface.radioPort.append(ui->le_radioPort->text().toInt());
+    refinterface.usbInterfacePort.clear();
+    refinterface.usbInterfacePort.append(ui->le_usbPort->text().toInt());
+
+    //get Solver Parameters
+    refinterface.NumOfIter = ui->le_numOfIter->text().toInt();
+    refinterface.E = ui->le_E->text().toFloat();
+
+    //get destination node of radio
+    refinterface.destNode = ui->le_destNode->text().toInt();
+
+
 }
