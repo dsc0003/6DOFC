@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by Qt Creator 2.6.2, 2013-03-15T07:46:46. -->
+=======
+<!-- Written by Qt Creator 2.6.2, 2013-03-12T21:54:27. -->
+>>>>>>> user sync
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
