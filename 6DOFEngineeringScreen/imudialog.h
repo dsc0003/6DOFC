@@ -17,13 +17,15 @@ public:
     QextSerialPort *port;
     explicit IMUDialog(QWidget *parent = 0);
     ~IMUDialog();
+    float yawread;
+    float pitchread;
+    float rollread;
+
 public slots:
-    void connectit();
+    void openUp();
     void discon();
     void stopStream();
     void stream();
-    void onReadyRead();
-    void onDsrChanged(bool status);
 private:
     Ui::IMUDialog *ui;
 };

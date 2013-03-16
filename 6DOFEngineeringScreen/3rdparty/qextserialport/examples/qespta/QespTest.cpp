@@ -91,7 +91,7 @@ void QespTest::receiveMsg()
     if(numBytes > 1024)
         numBytes = 1024;
 
-    int i = port->read(buff, numBytes);
+    int i = port->readLine(buff, numBytes);
     if (i != -1)
         buff[i] = '\0';
     else
