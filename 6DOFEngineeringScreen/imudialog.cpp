@@ -28,7 +28,7 @@ IMUDialog::IMUDialog(QWidget *parent) :
 
     connect(ui->connectButton,SIGNAL(clicked()),this,SLOT(openUp()));
     //connect(ui->disconButton,SIGNAL(clicked()),this,SLOT(discon()));
-    connect(ui->stopStreamButton,SIGNAL(clicked()),this,SLOT(stopStream()));
+    //connect(ui->stopStreamButton,SIGNAL(clicked()),this,SLOT(stopStream()));
     connect(ui->streamButton,SIGNAL(clicked()),this,SLOT(stream()));
 
 
@@ -52,15 +52,15 @@ void IMUDialog::stopStream(){
 }
 
 void IMUDialog::stream(){
-    port->write("#o1");
+    //port->write("#o1");
 
-    port->flush();  // Clear input buffer up to here
-    char buff[1024];
+    //port->flush();  // Clear input buffer up to here
+    char buff[50];
 
     int numBytes;
     numBytes = port->bytesAvailable();
-    if(numBytes > 1024)
-        numBytes = 1024;
+    if(numBytes > 50)
+        numBytes = 50;
 
 
     int i = port->readLine(buff, numBytes);
