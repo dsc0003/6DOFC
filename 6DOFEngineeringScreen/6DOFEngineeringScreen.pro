@@ -11,8 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = 6DOFEngineeringScreen
 TEMPLATE = app
 
-#LIBS += -lws2_32 #2-18-13 JR added winsock2 library to project
-
+win32 {
+LIBS += -lws2_32 #2-18-13 JR added winsock2 library to project
+}
 SOURCES += main.cpp\
         EngineeringScreen.cpp \
         refinterface.cpp \
