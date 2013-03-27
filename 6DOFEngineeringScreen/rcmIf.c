@@ -454,8 +454,8 @@ int rcmIfSendPacketSerial(void *pkt, unsigned size)
     int i;
     unsigned short val;
 
-    // send sync bytes
-    i = serWrite("\xa5\xa5", 2);
+    char value[3] = "\xa5\xa5";
+       i = serWrite(value, 2);
     if (i < 0)
         return ERR;
 

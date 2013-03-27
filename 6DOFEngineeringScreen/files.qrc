@@ -3,5 +3,6 @@
         <file>testbenchGEOM2D.txt</file>
         <file>testbenchNLLS2D.txt</file>
         <file>in.txt</file>
+        <file>Config.txt</file>
     </qresource>
 </RCC>

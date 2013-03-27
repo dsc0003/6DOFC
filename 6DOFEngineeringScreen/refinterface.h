@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QThread>
 #include <QByteArray>
+#include <qextserialport.h>
 
 
 struct rangeInfo {
@@ -23,6 +24,7 @@ struct rangeInfo {
     float yaw;
     float pitch;
     float roll;
+    QString reqNode;
 };
 
 
@@ -31,9 +33,11 @@ class RefInterface : public QThread
     Q_OBJECT
 public:
     RefInterface();
-    Solver *solver;
     void stop();
+    void range();
+    void readConfigFile();
 
+    Solver *solver;
     rcmMsg_RangeInfo RangeInfo;
     rcmMsg_DataInfo dataInfo;
     rcmMsg_ScanInfo scanInfo;
@@ -44,15 +48,22 @@ public:
     float x0, y0, z0;
     float x1, y1, z1;
     float x2, y2, z2;
-    float r0, r1, r2;
+    float x3, y3, z3;
+    float r0, r1, r2, r3;
     float seedx, seedy;
     float px, py, pz;
     QByteArray radioPort;
-    QByteArray usbInterfacePort;
+    QByteArray radioPort1;
     int NumOfIter;
     float E;
     int destNode;
-
+    int radioNum;
+    int antennaNum;
+    int radioCom;
+    int radioCom1;
+    QString solverType;
+    rangeInfo buffer;
+    volatile bool stopped;
 protected:
     void run();
 
@@ -64,7 +75,7 @@ public slots:
 
 
 private:
-    volatile bool stopped;
+
 
 };
 

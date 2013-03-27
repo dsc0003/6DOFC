@@ -1,6 +1,8 @@
 #include "refinterface.h"
 #include "guiinterface.h"
 #include "3rdparty/qextserialport/src/qextserialport.h"
+#include "rcmIf.c"
+
 
 #include <QtGui>
 #include <QApplication>
@@ -12,139 +14,79 @@
 #include <QtCore>
 #include <QTime>
 #include <QtDebug>
+#include <QFile>
 
 #define ANTENNAMODE_A 0
 #define ANTENNAMODE_B 1
-#define ANTENNAMODE_C 2
-#define ANTENNAMODE_D 3
 
 QMutex mutex;
 QQueue<struct rangeInfo> msg;
-rangeInfo buffer;
+
 
 RefInterface::RefInterface()
 {
     solver = new Solver();
     msg.clear();
-    //sets seeds and reference radio positions
-    //this will be put in config file
-    seedx = 0.0;
-    seedy = 1.0;
-    x0 = -0.500;
-    x1 = 0.00;
-    y0 = 0.500;
-    y1 = 0.00;
 
+    radioNum = 0;
+    antennaNum = 0;
 
+    radioPort.append("/dev/cu.usbmodem24");
+    radioPort1.append("/dev/cu.usbmodem101");
 
-    //char *destAdd = "/dev/cu.usbmodem101"; //this will be different in windows
-    //radioPort.append("/dev/cu.usbmodem101");
+ //   readConfigFile();
 
-    //JOHN - example of how to open a com port with the library I added
-    //documentation can be found online at http://docs.qextserialport.googlecode.com/git/2.0/qextserialport.html
-    //http://qextserialport.sourceforge.net/qextserialport-1.1.x/classQextSerialPort.html
-//    QextSerialPort *port = new QextSerialPort(destAdd);
-//    port->open(0);
-
-
+    r0 = 0;
+    r1 = 0;
+    r2 = 0;
+    r3 = 0;
     //initialize radio (USB and dest address)
-    //dest address is path to com port
     if (rcmIfInit(rcmIfUsb, radioPort.data()) != OK)
     {
-        printf("Initialization failed.\n");
+        qDebug()<<"Initialization failed";
         exit(0);
     }
-    if(OK)
-    {
-        if (rcmOpModeSet(RCM_OPMODE_RCM) != 0)
-        {
-            printf("Time out waiting for opmode set.\n");
-            exit(0);
 
-        }
+    radioCom = radioFd;
+    qDebug()<<"radioCom"<<radioCom;
+    if (rcmIfInit(rcmIfUsb, radioPort1.data()) != OK)
+    {
+        qDebug()<<"Initialization failed";
+        exit(0);
     }
-       stopped = false;
+    radioCom1 = radioFd;
+    qDebug()<<"radioCom1"<<radioCom1;
+    stopped = false;
 }
 
 void RefInterface::run()
 {
 
-
-    //while the pause button is not pressed (!stopped), run the ref thread
     while(!stopped)
     {
         qDebug("Reference thread run");
         mutex.lock();
 
         //wait 1 seconds
-        sleep(1);
 
 
-//        //range to the controller using radio A
-//        if (rcmRangeTo(destNode, ANTENNAMODE_A, 0, NULL,
-//                &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
-//        {
+        range();
 
-//            //This gets the precision range measurement
-//            if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
-//            {
-//                qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
-//                r0 = RangeInfo.precisionRangeMm;
-
-//                // add range to buffer structure
-//                buffer.R0 = r0;
-//            }
-
-//            //if the status comes back as 0, the radio ranged correctly
-//            if (RangeInfo.rangeStatus == 0)
-//            {
-//                qDebug()<<"Range Successful";
-//            }
-//        } //end if
-
-
-//        //range to controller using radio B
-//        if (rcmRangeTo(destNode, ANTENNAMODE_B, 0, NULL,
-//                &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
-//        {
-
-//            // Get precision range measurement from msg received
-//            if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
-//            {
-//                qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
-//                r1 = RangeInfo.precisionRangeMm;
-
-//                //add range to buffer struct
-//                buffer.R1 = r1;
-//                qDebug()<<"Buffer R1:  "<<buffer.R1;
-//            }
-
-//             //if the status is 0, range was successful
-//            if (RangeInfo.rangeStatus == 0)
-//            {
-//                qDebug()<<"Range Successful";
-//            }
-//        } //end if
-
-
-
-        //for debug
-        r0 = qrand()%2000 /1000.0;
-        r1 = qrand()%2000 /1000.0;
-        buffer.R0 = r0;
-        buffer.R1 = r1;
+        if(!msg.isEmpty())
+        {
+           msg.clear();
+        }
 
 
         solver->find_intersection_points_geom2d(x0 ,y0 ,x1 , y1 , r0, r1, seedx, seedy, &px, &py);
+
 
         qDebug()<<"x and y: "<<px<< " "<<py;
 
         //Here I set the buffer struct to the position returned from solver
         buffer.x = px;
         buffer.y = py;
-        //For now, setting ranges 2 and 3 (radio C and D) to 0, will simulate and copy A and B here
-        buffer.R2 = 0;
-        buffer.R3 = 0;
+
         //randomly generating roll, pitch, yaw here
 
         buffer.roll = 0.0;
@@ -161,16 +103,174 @@ void RefInterface::run()
 
     }
 
+
+}
+void RefInterface::range()
+{
+    if(radioNum == 0)
+    {
+        radioFd = radioCom;
+
+        if(antennaNum == 0)
+        {
+            buffer.reqNode = "101A";
+            //range to the controller using radio A
+            if (rcmRangeTo(destNode, ANTENNAMODE_A, 0, NULL,
+                    &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
+            {
+
+                //This gets the precision range measurement
+                if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
+                {
+                    qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    r0 = RangeInfo.precisionRangeMm;
+                }
+
+                //if the status comes back as 0, the radio ranged correctly
+                if (RangeInfo.rangeStatus == 0)
+                {
+
+                    // add range to buffer structure
+                    r0 = r0/1000;
+                    buffer.R0 = r0;
+                    qDebug()<<"Range Successful";
+                }
+                else
+                {
+                    if(!msg.isEmpty())
+                    {
+                        r0 = msg.at(0).R0;
+                        buffer.R0 = r0;
+                    }
+                }
+            } //end if
+            antennaNum = 1;
+            return;
+        }
+        if(antennaNum == 1)
+        {
+            buffer.reqNode = "101B";
+            //range to controller using radio B
+            if (rcmRangeTo(destNode, ANTENNAMODE_B, 0, NULL,
+                    &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
+            {
+
+                // Get precision range measurement from msg received
+                if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
+                {
+                    qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    r1 = RangeInfo.precisionRangeMm;
+                }
+
+                 //if the status is 0, range was successful
+                if (RangeInfo.rangeStatus == 0)
+                {
+                    qDebug()<<"Range Successful";
+                    //add range to buffer struct
+                    r1 = r1/1000;
+                    buffer.R1 = r1;
+                }
+                else
+                {
+                    if(!msg.isEmpty())
+                    {
+                        r1 = msg.at(0).R1;
+                        buffer.R1 = r1;
+                    }
+                }
+            } //end if
+            antennaNum = 0;
+            radioNum = 1;
+            return;
+        }
+    }
+    if(radioNum == 1)
+    {
+        radioFd = radioCom1;
+        if(antennaNum == 0)
+        {
+            buffer.reqNode = "102B";
+            if (rcmRangeTo(destNode, ANTENNAMODE_B, 0, NULL,
+                    &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
+            {
+
+                //This gets the precision range measurement
+                if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
+                {
+                    qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    r2 = RangeInfo.precisionRangeMm;
+                }
+
+                //if the status comes back as 0, the radio ranged correctly
+                if (RangeInfo.rangeStatus == 0)
+                {
+                    qDebug()<<"Range Successful";
+                    // add range to buffer structure
+                    r2 = r2/1000;
+                    buffer.R2 = r2;
+                }
+                else
+                {
+                    if(!msg.isEmpty())
+                    {
+                        r2 = msg.at(0).R2;
+                        buffer.R2 = r2;
+                    }
+                }
+            } //end if
+            antennaNum = 1;
+            return;
+        }
+        if(antennaNum == 1)
+        {
+            buffer.reqNode = "102A";
+            if (rcmRangeTo(destNode, ANTENNAMODE_A, 0, NULL,
+                    &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
+            {
+
+                // Get precision range measurement from msg received
+                if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
+                {
+                    qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    r3 = RangeInfo.precisionRangeMm;
+                }
+
+                 //if the status is 0, range was successful
+                if (RangeInfo.rangeStatus == 0)
+                {
+                    qDebug()<<"Range Successful"<<" r3"<<r3;
+                    //add range to buffer struct
+                    r3 = r3/1000;
+                    buffer.R3 = r3;
+                }
+                else
+                {
+                    if(!msg.isEmpty())
+                    {
+                        r3 = msg.at(0).R3;
+                        buffer.R3 = r3;
+                    }
+                }
+            } //end if
+            antennaNum = 0;
+            radioNum = 0;
+            return;
+        }
+    }
+}
+
+void RefInterface::readConfigFile()
+{
+
 }
 
 void RefInterface::stop()
 {
     //stop ref thread so consumer can grab info
     qDebug("Reference thread stopped");
+   // stopped = false;
     stopped = true;
-
-//    rcmIfFlush();
-//    rcmIfClose();
+    rcmIfClose();
 }
 
 
@@ -191,8 +291,8 @@ void GuiInterface::run()
         //lock mutex
        mutex.lock();
 
-       sleep(1);
-       qDebug()<<"Gui thread run" <<endl;
+
+       qDebug()<<"Gui thread running" <<endl;
 
        if(!msg.isEmpty())
        {
@@ -207,14 +307,18 @@ void GuiInterface::run()
            dataGathered.roll = msg.first().roll;
            dataGathered.pitch = msg.first().pitch;
            dataGathered.yaw = msg.first().yaw;
-            //remove msg just copied
-           msg.removeFirst();
+           dataGathered.reqNode = msg.first().reqNode;
+          qDebug()<< dataGathered.R0;
+          qDebug()<< dataGathered.R1;
+          qDebug()<< dataGathered.R2;
+          qDebug()<< dataGathered.R3;
+
            //emit signal for eng screen to update display
            emit display(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
                         dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
             //will also emit a signal for logging data -- this allows for an easy way to get the data to the engineering screen
            emit logSignal(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
-                          dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
+                          dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw, dataGathered.reqNode);
 
 
           }
@@ -232,9 +336,7 @@ void GuiInterface::stop()
     qDebug("GuiInterface thread stopped");
     stoppedConsumer = true;
 
-
-//    rcmIfFlush();
-//    rcmIfClose();
+    rcmIfClose();
 }
 
 

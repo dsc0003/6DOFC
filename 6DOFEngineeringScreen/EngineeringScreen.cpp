@@ -22,25 +22,17 @@ Dialog::Dialog(QWidget *parent) :
     ui->setupUi(this);
 
     logFlag = false;
-        //ui->mainwidget->setMouseTracking(true);
-        //ui->mainwidget->activateWindow();
-    //ui->mainwidget->resizeGL(640,480);
-        //ui->mainwidget->grabMouse();
-    //ui->mainwidget->show();
-        //ui->mainwidget->repaint();
 
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
 
     QObject::connect(&guiinterface,SIGNAL(display(float,float,float,float,float,float,float,float,float,float)),
                      this,SLOT(updateDisplay(float,float,float,float,float,float,float,float,float,float)));
 
-    QObject::connect(&guiinterface,SIGNAL(logSignal(float,float,float,float,float,float,float,float,float,float)),
-                     this,SLOT(log(float,float,float,float,float,float,float,float,float,float)));
+    QObject::connect(&guiinterface,SIGNAL(logSignal(float,float,float,float,float,float,float,float,float,float,QString)),
+                     this,SLOT(log(float,float,float,float,float,float,float,float,float,float,QString)));
 
     connect(ui->pb_set,SIGNAL(clicked()),this,SLOT(getUserParameters()));
 
-   // QObject::connect(&guiinterface, SIGNAL(logSignal(int,int,int,int,int,int,int,int,int,int)),
-     //                this, SLOT(controllerMovementEvent(int,int,int)));
 }
 
 Dialog::~Dialog()
@@ -52,17 +44,18 @@ Dialog::~Dialog()
 void Dialog::pause()
 {
     qDebug()<<"Pause";
-    if(refinterface.isRunning() || guiinterface.isRunning())
+    if(refinterface.isRunning())
     {
-
         refinterface.stop();
         guiinterface.stop();
-
-//        refinterface.wait();
-//        guiinterface.wait();
         ui->pauseButton->setText("Start");
     }
-
+    else if(guiinterface.isRunning())
+    {
+        guiinterface.stop();
+        refinterface.stop();
+        ui->pauseButton->setText("Start");
+    }
     else
     {
         refinterface.start();
@@ -94,7 +87,7 @@ void Dialog::updateDisplay(float x, float y, float z, float R0, float R1, float 
 }
 
 
-void Dialog::log(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw)
+void Dialog::log(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw, QString reqNode)
 {
     if(logFlag)
     {
@@ -103,9 +96,9 @@ void Dialog::log(float x, float y, float z, float R0, float R1, float R2, float 
 
         if (f.open(QIODevice::Append))
         {
-            ts <<"Time: "<< QTime::currentTime().toString() << "       x: " << x <<"       y: "<<y<<"       z: "<<z
-               << "       roll: " << roll <<"       pitch: "<<pitch<<"       yaw: "<<yaw
-               << "       R0: " << R0 <<"       R1: "<<R1<<"       R2: "<<R2 <<"       R3: "<<R3<< endl;
+            ts <<QTime::currentTime().toString() << ", "<<reqNode<<", " << x <<", "<<y<<", "<<z
+               << ", " << roll <<", "<<pitch<<", "<<yaw
+               << ", " << R0 <<", "<<R1<<", "<<R2 <<", "<<R3<< endl;
 
         }
     }
@@ -122,18 +115,25 @@ void Dialog::closeEvent(QCloseEvent *event)
 
 void Dialog::getUserParameters()
 {
-
     //get Reference Positions
-    refinterface.x0 = ui->le_ref1->text().toFloat();
-    refinterface.y0 = ui->le_ref2->text().toFloat();
-    refinterface.x1 = ui->le_ref3->text().toFloat();
-    refinterface.y1 = ui->le_ref4->text().toFloat();
+    refinterface.x0 = ui->le_x0->text().toFloat();
+    refinterface.y0 = ui->le_y0->text().toFloat();
+    refinterface.z0 = ui->le_z0->text().toFloat();
+    refinterface.x1 = ui->le_x1->text().toFloat();
+    refinterface.y1 = ui->le_y1->text().toFloat();
+    refinterface.z1 = ui->le_z1->text().toFloat();
+    refinterface.x2 = ui->le_x2->text().toFloat();
+    refinterface.y2 = ui->le_y2->text().toFloat();
+    refinterface.z2 = ui->le_z2->text().toFloat();
+    refinterface.x3 = ui->le_x3->text().toFloat();
+    refinterface.y3 = ui->le_y3->text().toFloat();
+    refinterface.z3 = ui->le_z3->text().toFloat();
 
     //get com port info
     refinterface.radioPort.clear();
-    refinterface.radioPort.append(ui->le_radioPort->text().toInt());
-    refinterface.usbInterfacePort.clear();
-    refinterface.usbInterfacePort.append(ui->le_usbPort->text().toInt());
+    refinterface.radioPort.append(ui->le_radioPort->text());
+    refinterface.radioPort1.clear();
+    refinterface.radioPort1.append(ui->le_radioPort2->text());
 
     //get Solver Parameters
     refinterface.NumOfIter = ui->le_numOfIter->text().toInt();
@@ -141,6 +141,4 @@ void Dialog::getUserParameters()
 
     //get destination node of radio
     refinterface.destNode = ui->le_destNode->text().toInt();
-
-
 }
