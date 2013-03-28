@@ -6,6 +6,7 @@
 #include "hostInterfaceRCM.h"
 #include "hostInterfaceCommon.h"
 #include "solver.h"
+#include "imudialog.h"
 
 #include <QObject>
 #include <QThread>
@@ -38,6 +39,7 @@ public:
     void readConfigFile();
 
     Solver *solver;
+    IMUDialog *imu;
     rcmMsg_RangeInfo RangeInfo;
     rcmMsg_DataInfo dataInfo;
     rcmMsg_ScanInfo scanInfo;

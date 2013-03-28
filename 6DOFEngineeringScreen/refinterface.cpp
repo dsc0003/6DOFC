@@ -26,12 +26,13 @@ QQueue<struct rangeInfo> msg;
 RefInterface::RefInterface()
 {
     solver = new Solver();
+    imu = new IMUDialog();
     msg.clear();
 
     radioNum = 0;
     antennaNum = 0;
 
-    radioPort.append("/dev/cu.usbmodem24");
+    radioPort.append("/dev/cu.usbmodem13");
     radioPort1.append("/dev/cu.usbmodem101");
 
  //   readConfigFile();
@@ -72,6 +73,12 @@ void RefInterface::run()
 
         range();
 
+        imu->stream();
+        buffer.roll = imu->rollread;
+        buffer.pitch = imu->pitchread;
+        buffer.yaw = imu->yawread;
+
+
         if(!msg.isEmpty())
         {
            msg.clear();
@@ -86,12 +93,6 @@ void RefInterface::run()
         //Here I set the buffer struct to the position returned from solver
         buffer.x = px;
         buffer.y = py;
-
-        //randomly generating roll, pitch, yaw here
-
-        buffer.roll = 0.0;
-        buffer.pitch = 0.0;
-        buffer.yaw = 0.0;
 
         //append the buffer to the queue
         msg.append(buffer);
