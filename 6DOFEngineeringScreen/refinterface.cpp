@@ -27,12 +27,16 @@ RefInterface::RefInterface()
 {
     solver = new Solver();
     imu = new IMUDialog();
+    imu->openUp();
+    //while(!imu->open)
+        imu->openUp();
+    imu->show();
     msg.clear();
 
     radioNum = 0;
     antennaNum = 0;
 
-    radioPort.append("/dev/cu.usbmodem13");
+    radioPort.append("/dev/cu.usbmodem5");
     radioPort1.append("/dev/cu.usbmodem101");
 
  //   readConfigFile();
@@ -73,7 +77,7 @@ void RefInterface::run()
 
         range();
 
-        imu->stream();
+        //imu->stream();
         buffer.roll = imu->rollread;
         buffer.pitch = imu->pitchread;
         buffer.yaw = imu->yawread;

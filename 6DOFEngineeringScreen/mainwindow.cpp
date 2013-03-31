@@ -20,14 +20,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
     QObject::connect(ui->actionLog,SIGNAL(triggered()),this,SLOT(log()));
-    QObject::connect(ui->actionIMU_Setup,SIGNAL(triggered()),this,SLOT(imuSetup()));
+    //QObject::connect(ui->actionIMU_Setup,SIGNAL(triggered()),this,SLOT(imuSetup()));
 
 }
 
 void MainWindow::imuSetup()
 {
-    imuScreen = new IMUDialog();
-    imuScreen->show();
+    //imuScreen = new IMUDialog();
+    //imuScreen->show();
 
 }
 

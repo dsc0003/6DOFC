@@ -20,6 +20,7 @@ public:
     float yawread;
     float pitchread;
     float rollread;
+    bool open;
 
 public slots:
     void openUp();

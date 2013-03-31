@@ -35,6 +35,7 @@ private slots:
 protected:
     RefInterface refinterface;
     GuiInterface guiinterface;
+    MainWidget sword;
 
     void closeEvent(QCloseEvent *event);
 

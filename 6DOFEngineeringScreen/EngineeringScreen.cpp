@@ -28,10 +28,16 @@ Dialog::Dialog(QWidget *parent) :
     QObject::connect(&guiinterface,SIGNAL(display(float,float,float,float,float,float,float,float,float,float)),
                      this,SLOT(updateDisplay(float,float,float,float,float,float,float,float,float,float)));
 
+    QObject::connect(&guiinterface, SIGNAL(display(float,float,float,float,float,float,float,float,float,float)),
+                     &sword,SLOT(updateCube(float,float,float,float,float,float,float,float,float,float)));
+
     QObject::connect(&guiinterface,SIGNAL(logSignal(float,float,float,float,float,float,float,float,float,float,QString)),
                      this,SLOT(log(float,float,float,float,float,float,float,float,float,float,QString)));
 
     connect(ui->pb_set,SIGNAL(clicked()),this,SLOT(getUserParameters()));
+
+
+
 
 }
 

@@ -66,7 +66,7 @@ public:
 protected:
     void mousePressEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
-    void timerEvent(QTimerEvent *e);
+//    void timerEvent(QTimerEvent *e);
 
 
     void initializeGL();
@@ -87,16 +87,22 @@ private:
     //QMatrix4x4 matrix;
 
 
-    double x;
-    double y;
-    double z;
-    QTextStream inFile;
-    QFile file;
+    double px;
+    double py;
+    double pz;
+//    QTextStream inFile;
+//    QFile file;
 
     QVector2D mousePressPosition;
     QVector3D rotationAxis;
     qreal angularSpeed;
     QQuaternion rotation;
+
+
+public slots:
+    void updateCube(float x, float y, float z, float R0, float R1, float R2, float R3, float roll , float pitch, float yaw);
+
+
 };
 
 #endif // MAINWIDGET_H
