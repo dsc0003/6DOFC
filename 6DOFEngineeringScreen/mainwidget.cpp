@@ -49,14 +49,14 @@ MainWidget::MainWidget(QWidget *parent) :
     QGLWidget(parent),
     angularSpeed(10)
 {
-    x = 0.0; //-5.0;
-    y = 0.0; //-3.0;
+//    x = 0.0; //-5.0;
+//    y = 0.0; //-3.0;
 
-    file.setFileName(":/in.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
+//    file.setFileName(":/in.txt");
+//    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+//        return;
 
-    inFile.setDevice(&file);
+//    inFile.setDevice(&file);
 
 
 }
@@ -95,13 +95,16 @@ void MainWidget::mouseReleaseEvent(QMouseEvent *e)
 //! [0]
 
 //! [1]
-void MainWidget::timerEvent(QTimerEvent *)
+//void MainWidget::timerEvent(QTimerEvent *)
+
+
+void MainWidget::updateCube(float x, float y, float z, float R0, float R1, float R2, float R3, float roll , float pitch, float yaw)
 {
     // Decrease angular speed (friction)
     //angularSpeed *= 0.99;
 
         qreal acc = 0.2;
-        QVector3D n = QVector3D(0.0, 0.0, 1.0).normalized(); // x,y,z - axis of rotation
+        QVector3D n = QVector3D(roll, pitch, yaw).normalized(); // x,y,z - axis of rotation
         // Calculate new rotation axis as weighted sum
         rotationAxis = (rotationAxis * angularSpeed + n * acc).normalized();
         //qDebug() << "rotation axis: " << rotationAxis << " rotation: " << rotation << endl;
@@ -125,30 +128,35 @@ void MainWidget::timerEvent(QTimerEvent *)
         //qDebug() << "rotation axis: " << rotationAxis << " rotation: " << rotation << endl;
 
 
+        px = x;
+        py = y;
+        pz = z;
 
-        if(!inFile.atEnd())
-        {
 
-            QString line = inFile.readLine();
-            QStringList list = line.split(" ", QString::SkipEmptyParts);
+//        if(!inFile.atEnd())
+//        {
 
-            double px, py, pz;
-            px = list.at(0).toDouble() * 10;
-            py = list.at(1).toDouble() * 10;
-            pz = list.at(2).toDouble();
+//            QString line = inFile.readLine();
+//            QStringList list = line.split(" ", QString::SkipEmptyParts);
 
-            x = px;
-            y = py;
-            //z = pz * -5;
+//            double px, py, pz;
+//            px = list.at(0).toDouble() * 10;
+//            py = list.at(1).toDouble() * 10;
+//            pz = list.at(2).toDouble();
 
-            //qDebug() << px << endl;
+//            x = px;
+//            y = py;
+//            //z = pz * -5;
 
-        }
-        else
-        {
-            inFile.seek(0);
-        }
+//            //qDebug() << px << endl;
+
+//        }
+//        else
+//        {
+//            inFile.seek(0);
+//        }
     }
+
 
 
 
@@ -258,7 +266,7 @@ void MainWidget::paintGL()
 //! [6]
     // Calculate model view transformation
     QMatrix4x4 matrix;
-    matrix.translate(x, y, -5); // x = +/- 5, y = +/- 3, z is stuck at -5 if you move it the object dissappears, find out how to change it
+    matrix.translate(px, py, -5); // x = +/- 5, y = +/- 3, z is stuck at -5 if you move it the object dissappears, find out how to change it
     matrix.rotate(rotation);
 
     // Set modelview-projection matrix

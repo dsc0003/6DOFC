@@ -35,7 +35,8 @@ IMUDialog::IMUDialog(QWidget *parent) :
 }
 
 void IMUDialog::openUp(){
-    port->open(QIODevice::ReadWrite | QIODevice::Unbuffered);
+    open = port->open(QIODevice::ReadWrite | QIODevice::Unbuffered);
+
     qDebug("is open: %d", port->isOpen());
 
 }
@@ -55,12 +56,12 @@ void IMUDialog::stream(){
     //port->write("#o1");
 
     //port->flush();  // Clear input buffer up to here
-    char buff[50];
+    char buff[100];
 
     int numBytes;
     numBytes = port->bytesAvailable();
-    if(numBytes > 50)
-        numBytes = 50;
+    if(numBytes > 100)
+        numBytes = 100;
 
 
     int i = port->readLine(buff, numBytes);
