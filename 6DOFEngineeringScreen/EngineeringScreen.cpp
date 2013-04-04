@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <QtCore>
 #include <QtDebug>
+#include "imudialog.h"
 
 
 Dialog::Dialog(QWidget *parent) :
@@ -33,6 +34,9 @@ Dialog::Dialog(QWidget *parent) :
 
     QObject::connect(&guiinterface,SIGNAL(logSignal(float,float,float,float,float,float,float,float,float,float,QString)),
                      this,SLOT(log(float,float,float,float,float,float,float,float,float,float,QString)));
+
+
+    QObject::connect(&refinterface,SIGNAL(getIMUData()),this,SLOT(getData()));
 
     connect(ui->pb_set,SIGNAL(clicked()),this,SLOT(getUserParameters()));
 
@@ -64,6 +68,13 @@ void Dialog::pause()
     }
     else
     {
+        //init the imu class
+    imu = new IMUDialog();
+    //do the bluetooth connection from here
+    while(!imu->port->isOpen()){
+        imu->openUp();
+            sleep(10);
+        }
         refinterface.start();
         guiinterface.start();
         ui->pauseButton->setText("Pause");
@@ -73,7 +84,7 @@ void Dialog::pause()
 }
 void Dialog::updateDisplay(float x, float y, float z, float R0, float R1, float R2, float R3, float roll , float pitch, float yaw)
 {
-    qDebug()<<"Function:: Update Display";
+    //qDebug()<<"Function:: Update Display";
 
 
     ui->TimeLineEdit->setText(QTime::currentTime().toString());
@@ -84,9 +95,9 @@ void Dialog::updateDisplay(float x, float y, float z, float R0, float R1, float 
     ui->R1LineEdit->setText(QString::number(R1));
     ui->R2LineEdit->setText(QString::number(R2));
     ui->R3LineEdit->setText(QString::number(R3));
-    ui->RollLineEdit->setText(QString::number(roll));
-    ui->PitchLineEdit->setText(QString::number(pitch));
-    ui->YawLineEdit->setText(QString::number(yaw));
+//    ui->RollLineEdit->setText(QString::number(roll));
+//    ui->PitchLineEdit->setText(QString::number(pitch));
+//    ui->YawLineEdit->setText(QString::number(yaw));
     //MainWidget newWidget;
     //newWidget.controllerMovement(R0,R1);
     //newWidget.exec();
@@ -147,4 +158,25 @@ void Dialog::getUserParameters()
 
     //get destination node of radio
     refinterface.destNode = ui->le_destNode->text().toInt();
+}
+
+//getData slot in eng screen
+void Dialog::getData()
+{
+//    call the stream from here
+    imu->stream();
+//    set the refinterface variables from here - I believe you can do that
+//    refinterface.buffer.roll = imu->rollread;
+//    refinterface.buffer.pitch = imu->pitchread;
+//    refinterface.buffer.yaw = imu->yawread;
+
+    //ui->RollLineEdit->setText(QString::number(imu->rollread));
+    //ui->PitchLineEdit->setText(QString::number(imu->pitchread));
+    //ui->YawLineEdit->setText(QString::number(imu->yawread));
+    qDebug() << "yaw" << imu->yawread;
+    qDebug() << "pitch" << imu->pitchread;
+    qDebug() << "roll" << imu->rollread;
+    //or take the roll, pitch, yaw straight from here and not put it in the buffer at all since the solver doesn't need it,
+    // only the engineering screen and the openGL widget needs it
+    //it just needs to be called in the refinterface
 }

@@ -26,11 +26,11 @@ QQueue<struct rangeInfo> msg;
 RefInterface::RefInterface()
 {
     solver = new Solver();
-    imu = new IMUDialog();
-    imu->openUp();
+    //imu = new IMUDialog();
+    //imu->openUp();
     //while(!imu->open)
-        imu->openUp();
-    imu->show();
+        //imu->openUp();
+    //imu->show();
     msg.clear();
 
     radioNum = 0;
@@ -69,7 +69,7 @@ void RefInterface::run()
 
     while(!stopped)
     {
-        qDebug("Reference thread run");
+        //qDebug("Reference thread run");
         mutex.lock();
 
         //wait 1 seconds
@@ -77,10 +77,12 @@ void RefInterface::run()
 
         range();
 
-        //imu->stream();
+        /*imu->stream();
         buffer.roll = imu->rollread;
         buffer.pitch = imu->pitchread;
-        buffer.yaw = imu->yawread;
+        buffer.yaw = imu->yawread;*/
+
+        emit getIMUData();
 
 
         if(!msg.isEmpty())
@@ -92,7 +94,7 @@ void RefInterface::run()
         solver->find_intersection_points_geom2d(x0 ,y0 ,x1 , y1 , r0, r1, seedx, seedy, &px, &py);
 
 
-        qDebug()<<"x and y: "<<px<< " "<<py;
+        //qDebug()<<"x and y: "<<px<< " "<<py;
 
         //Here I set the buffer struct to the position returned from solver
         buffer.x = px;
@@ -127,7 +129,7 @@ void RefInterface::range()
                 //This gets the precision range measurement
                 if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
                 {
-                    qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    //qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
                     r0 = RangeInfo.precisionRangeMm;
                 }
 
@@ -138,7 +140,7 @@ void RefInterface::range()
                     // add range to buffer structure
                     r0 = r0/1000;
                     buffer.R0 = r0;
-                    qDebug()<<"Range Successful";
+                    //qDebug()<<"Range Successful";
                 }
                 else
                 {
@@ -163,14 +165,14 @@ void RefInterface::range()
                 // Get precision range measurement from msg received
                 if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
                 {
-                    qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    //qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
                     r1 = RangeInfo.precisionRangeMm;
                 }
 
                  //if the status is 0, range was successful
                 if (RangeInfo.rangeStatus == 0)
                 {
-                    qDebug()<<"Range Successful";
+                    //qDebug()<<"Range Successful";
                     //add range to buffer struct
                     r1 = r1/1000;
                     buffer.R1 = r1;
@@ -202,14 +204,14 @@ void RefInterface::range()
                 //This gets the precision range measurement
                 if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
                 {
-                    qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    //qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
                     r2 = RangeInfo.precisionRangeMm;
                 }
 
                 //if the status comes back as 0, the radio ranged correctly
                 if (RangeInfo.rangeStatus == 0)
                 {
-                    qDebug()<<"Range Successful";
+                    //qDebug()<<"Range Successful";
                     // add range to buffer structure
                     r2 = r2/1000;
                     buffer.R2 = r2;
@@ -236,14 +238,14 @@ void RefInterface::range()
                 // Get precision range measurement from msg received
                 if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
                 {
-                    qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    //qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
                     r3 = RangeInfo.precisionRangeMm;
                 }
 
                  //if the status is 0, range was successful
                 if (RangeInfo.rangeStatus == 0)
                 {
-                    qDebug()<<"Range Successful"<<" r3"<<r3;
+                    //qDebug()<<"Range Successful"<<" r3"<<r3;
                     //add range to buffer struct
                     r3 = r3/1000;
                     buffer.R3 = r3;
@@ -297,7 +299,7 @@ void GuiInterface::run()
        mutex.lock();
 
 
-       qDebug()<<"Gui thread running" <<endl;
+       //qDebug()<<"Gui thread running" <<endl;
 
        if(!msg.isEmpty())
        {
@@ -313,10 +315,10 @@ void GuiInterface::run()
            dataGathered.pitch = msg.first().pitch;
            dataGathered.yaw = msg.first().yaw;
            dataGathered.reqNode = msg.first().reqNode;
-          qDebug()<< dataGathered.R0;
-          qDebug()<< dataGathered.R1;
-          qDebug()<< dataGathered.R2;
-          qDebug()<< dataGathered.R3;
+          //qDebug()<< dataGathered.R0;
+          //qDebug()<< dataGathered.R1;
+          //qDebug()<< dataGathered.R2;
+          //qDebug()<< dataGathered.R3;
 
            //emit signal for eng screen to update display
            emit display(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,

@@ -55,13 +55,13 @@ void IMUDialog::stopStream(){
 void IMUDialog::stream(){
     //port->write("#o1");
 
-    //port->flush();  // Clear input buffer up to here
-    char buff[100];
+    port->flush();  // Clear input buffer up to here
+    char buff[1024];
 
     int numBytes;
     numBytes = port->bytesAvailable();
-    if(numBytes > 100)
-        numBytes = 100;
+    if(numBytes > 1024)
+        numBytes = 1024;
 
 
     int i = port->readLine(buff, numBytes);

@@ -39,8 +39,7 @@ public:
     void readConfigFile();
 
     Solver *solver;
-    IMUDialog *imu;
-    rcmMsg_RangeInfo RangeInfo;
+        rcmMsg_RangeInfo RangeInfo;
     rcmMsg_DataInfo dataInfo;
     rcmMsg_ScanInfo scanInfo;
     rcmMsg_FullScanInfo fullScanInfo;
@@ -71,7 +70,7 @@ protected:
 
 
 signals:
-
+    void getIMUData();
 
 public slots:
 

@@ -654,7 +654,7 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Dialog", "Engineering Screen", 0));
         groupBox_3->setTitle(QApplication::translate("Dialog", "Radio Parameters", 0));
         le_radioPort->setText(QApplication::translate("Dialog", "/dev/cu.usbmodem101", 0));
-        le_radioPort2->setText(QApplication::translate("Dialog", "/dev/cu.usbmodem11", 0));
+        le_radioPort2->setText(QApplication::translate("Dialog", "/dev/cu.usbmodem5", 0));
         le_destNode->setText(QApplication::translate("Dialog", "100", 0));
         label_9->setText(QApplication::translate("Dialog", "Destination Node", 0));
         label_6->setText(QApplication::translate("Dialog", "Radio 2 Port", 0));
