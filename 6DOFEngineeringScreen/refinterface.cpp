@@ -91,7 +91,7 @@ void RefInterface::run()
         }
 
 
-        solver->find_intersection_points_geom2d(x0 ,y0 ,x1 , y1 , r0, r1, seedx, seedy, &px, &py);
+
 
 
         //qDebug()<<"x and y: "<<px<< " "<<py;
