@@ -35,16 +35,13 @@ RefInterface::RefInterface()
 
     radioNum = 0;
     antennaNum = 0;
+    count = 1;
 
     radioPort.append("/dev/cu.usbmodem6");
     radioPort1.append("/dev/cu.usbmodem101");
 
- //   readConfigFile();
+    readConfigFile();
 
-    r0 = 0;
-    r1 = 0;
-    r2 = 0;
-    r3 = 0;
     //initialize radio (USB and dest address)
     if (rcmIfInit(rcmIfUsb, radioPort.data()) != OK)
     {
@@ -91,14 +88,39 @@ void RefInterface::run()
         }
 
 
+        switch(count)
+        {
+        case 1: solver->find_intersection_points_nlls3d(x0 ,y0, z0, r0, x1, y1, z1, r1, x2
+                                                        , y2, z2, r2, oldx, oldy, oldz, px, py, pz );
+                count = count + 1;
+                break;
+        case 2: solver->find_intersection_points_nlls3d(x1 ,y1, z1, r1, x2, y2, z2, r2, x3
+                                                       , y3, z3, r3, oldx, oldy, oldz, px, py, pz );
+               count = count + 1;
+               break;
+        case 3:  solver->find_intersection_points_nlls3d(x2 ,y2, z2, r2, x3, y3, z3, r3, x0
+                                                         , y0, z0, r0, oldx, oldy, oldz, px, py, pz );
+                 count = count + 1;
+                 break;
+        case 4:  solver->find_intersection_points_nlls3d(x3 ,y3, z3, r3, x3, y0, z0, r0, x1
+                                                         , y1, z1, r1, oldx, oldy, oldz, px, py, pz );
+                 count = 1;
+                 break;
+         default:
+            break;
+        }
 
 
 
-        //qDebug()<<"x and y: "<<px<< " "<<py;
+
 
         //Here I set the buffer struct to the position returned from solver
+        oldx  = px;
+        oldy = py;
+        oldz = pz;
         buffer.x = px;
         buffer.y = py;
+        buffer.z = pz;
 
         //append the buffer to the queue
         msg.append(buffer);
@@ -269,6 +291,51 @@ void RefInterface::range()
 void RefInterface::readConfigFile()
 {
 
+    QStringList stringlist;
+    QFile textfile(":/Config.txt");
+    QTextStream ts(&textfile);
+    if(!textfile.open(QIODevice::ReadOnly))
+    {
+        qDebug()<<"config file not opened";
+    }
+    else
+    {
+    while(true)
+    {
+        QString line = ts.readLine();
+        if(line.isNull())
+        {
+            break;
+        }
+        else
+        {
+            stringlist.append(line);
+        }
+    }
+
+    x0 = stringlist.at(0).toFloat();
+    y0 = stringlist.at(1).toFloat();
+    z0 = stringlist.at(2).toFloat();
+    x1 = stringlist.at(3).toFloat();
+    y1 = stringlist.at(4).toFloat();
+    z1 = stringlist.at(5).toFloat();
+    x2 = stringlist.at(6).toFloat();
+    y2 = stringlist.at(7).toFloat();
+    z2 = stringlist.at(8).toFloat();
+    x3 = stringlist.at(9).toFloat();
+    y3 = stringlist.at(10).toFloat();
+    z3 = stringlist.at(11).toFloat();
+    oldx = stringlist.at(12).toFloat();
+    oldy = stringlist.at(13).toFloat();
+    oldz = stringlist.at(14).toFloat();
+    destNode = stringlist.at(15).toInt();
+    radioPort.append(stringlist.at(16).toLocal8Bit());
+    radioPort1.append(stringlist.at(17).toLocal8Bit());
+    r0 = stringlist.at(18).toFloat();
+    r1 = stringlist.at(19).toFloat();
+    r2 = stringlist.at(20).toFloat();
+    r3 = stringlist.at(21).toFloat();
+    }
 }
 
 void RefInterface::stop()

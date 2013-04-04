@@ -53,6 +53,7 @@ public:
     float r0, r1, r2, r3;
     float seedx, seedy;
     float px, py, pz;
+    float oldx, oldy, oldz;
     QByteArray radioPort;
     QByteArray radioPort1;
     int NumOfIter;
@@ -65,6 +66,8 @@ public:
     QString solverType;
     rangeInfo buffer;
     volatile bool stopped;
+    int count;
+
 protected:
     void run();
 
