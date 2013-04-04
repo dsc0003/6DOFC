@@ -2,6 +2,7 @@
 #define IMUDIALOG_H
 
 #include <QDialog>
+#include <QtDebug>
 
 class QextSerialPort;
 
@@ -21,7 +22,7 @@ public:
     float pitchread;
     float rollread;
     bool open;
-
+    QString tempmsg;
 public slots:
     void openUp();
     void discon();

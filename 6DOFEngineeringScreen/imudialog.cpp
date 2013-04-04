@@ -53,17 +53,18 @@ void IMUDialog::stopStream(){
 }
 
 void IMUDialog::stream(){
-    //port->write("#o1");
-
-    port->flush();  // Clear input buffer up to here
-    char buff[1024];
+    port->write("#o0");
+    port->write("#f");
+   //port->flush();  // Clear input buffer up to here
+    char buff[100];
 
     int numBytes;
     numBytes = port->bytesAvailable();
+    qDebug() << "numbytes before if" << numBytes;
     if(numBytes > 1024)
         numBytes = 1024;
 
-
+    qDebug() << "numbytes" << QString::number(numBytes);
     int i = port->readLine(buff, numBytes);
     if (i != -1)
         buff[i] = '\0';
@@ -74,8 +75,8 @@ void IMUDialog::stream(){
     ui->textEditStream->append(msg);
     if (msg[0] == '#')
     {
-        QString tempmsg = msg.remove(0,5);
-        ui->textEditStream->append(tempmsg);
+        tempmsg = msg.remove(0,5);
+        //ui->textEditStream->append(tempmsg);
         QStringList msglist = tempmsg.split(",");
         yawread = msglist[0].toFloat();
         pitchread = msglist[1].toFloat();
@@ -97,6 +98,7 @@ void IMUDialog::stream(){
 
 IMUDialog::~IMUDialog()
 {
+    port->close();
     delete ui;
     delete port;
     port = NULL;

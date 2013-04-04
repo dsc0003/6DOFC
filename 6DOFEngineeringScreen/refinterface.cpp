@@ -36,7 +36,7 @@ RefInterface::RefInterface()
     radioNum = 0;
     antennaNum = 0;
 
-    radioPort.append("/dev/cu.usbmodem5");
+    radioPort.append("/dev/cu.usbmodem6");
     radioPort1.append("/dev/cu.usbmodem101");
 
  //   readConfigFile();

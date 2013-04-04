@@ -1,5 +1,15 @@
 #include "imu.h"
 #include "qextserialport.h"
+#include <QtDebug>
+#include <QObject>
+#include <QtGui>
+#include <QApplication>
+#include <QThread>
+#include <QMutex>
+#include <QQueue>
+#include <stdio.h>
+#include <stdlib.h>
+#include <QtCore>
 
 IMU::IMU()
 {
@@ -8,36 +18,39 @@ IMU::IMU()
 #else
     port = new QextSerialPort(QLatin1String("COM1"), QextSerialPort::Polling);
 #endif /*Q_OS_UNIX*/
+   //this->port = new QextSerialPort(portName, QextSerialPort::EventDriven);
     port->setBaudRate(BAUD57600);
     port->setFlowControl(FLOW_OFF);
     port->setParity(PAR_NONE);
     port->setDataBits(DATA_8);
     port->setStopBits(STOP_2);
-    //set timeouts to 500 ms
-    port->setTimeout(500);
-    port->open(QIODevice::ReadWrite | QIODevice::Unbuffered);
-    qDebug("is open: %d", port->isOpen());
 
-    port->write("#ot");
-    port->write("#o1");
-    port->write("#oe0");
+    if (port->open(QIODevice::ReadWrite) == true) {
+        //connect(port, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+        //connect(port, SIGNAL(dsrChanged(bool)), this, SLOT(onDsrChanged(bool)));
+        if (!(port->lineStatus() & LS_DSR))
+            qDebug() << "warning: device is not turned on";
+        qDebug() << "listening for data on" << port->portName();
+    }
+    else {
+        qDebug() << "device failed to open:" << port->errorString();
+    }
+}
 
-    char buff[1024];
-    int numBytes;
+void IMU::onReadyRead()
+{
+    QByteArray bytes;
+    int a = port->bytesAvailable();
+    bytes.resize(a);
+    port->read(bytes.data(), bytes.size());
+    qDebug() << "bytes read:" << bytes.size();
+    qDebug() << "bytes:" << bytes;
+}
 
-    numBytes = port->bytesAvailable();
-    if(numBytes > 1024)
-        numBytes = 1024;
-
-    int i = port->read(buff, numBytes);
-    if (i != -1)
-        buff[i] = '\0';
+void IMU::onDsrChanged(bool status)
+{
+    if (status)
+        qDebug() << "device was turned on";
     else
-        buff[0] = '\0';
-    QString msg = QLatin1String(buff);
-    //ui->textEditStream
-    //received_msg->append(msg);
-    //received_msg->ensureCursorVisible();
-    qDebug("bytes available: %d", numBytes);
-    qDebug("received: %d", i);
+        qDebug() << "device was turned off";
 }

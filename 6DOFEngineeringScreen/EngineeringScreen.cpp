@@ -13,6 +13,7 @@
 #include <QtCore>
 #include <QtDebug>
 #include "imudialog.h"
+//#include "imu.h"
 
 
 Dialog::Dialog(QWidget *parent) :
@@ -170,12 +171,13 @@ void Dialog::getData()
 //    refinterface.buffer.pitch = imu->pitchread;
 //    refinterface.buffer.yaw = imu->yawread;
 
-    //ui->RollLineEdit->setText(QString::number(imu->rollread));
-    //ui->PitchLineEdit->setText(QString::number(imu->pitchread));
-    //ui->YawLineEdit->setText(QString::number(imu->yawread));
-    qDebug() << "yaw" << imu->yawread;
-    qDebug() << "pitch" << imu->pitchread;
-    qDebug() << "roll" << imu->rollread;
+    ui->RollLineEdit->setText(QString::number(imu->rollread));
+    ui->PitchLineEdit->setText(QString::number(imu->pitchread));
+    ui->YawLineEdit->setText(QString::number(imu->yawread));
+    //qDebug() << imu->tempmsg;
+    //qDebug() << "yaw" << imu->yawread;
+    //qDebug() << "pitch" << imu->pitchread;
+    //qDebug() << "roll" << imu->rollread;
     //or take the roll, pitch, yaw straight from here and not put it in the buffer at all since the solver doesn't need it,
     // only the engineering screen and the openGL widget needs it
     //it just needs to be called in the refinterface

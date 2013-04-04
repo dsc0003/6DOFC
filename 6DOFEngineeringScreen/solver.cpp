@@ -419,7 +419,7 @@ int Solver::find_intersection_points_geom2d(float x1, float y1, float x2, float 
     xdiff = x2 - x1;
     ydiff = y2 - y1;
 
-    cout << "xdiff = " << xdiff << endl << "ydiff = " << ydiff << endl;
+    //cout << "xdiff = " << xdiff << endl << "ydiff = " << ydiff << endl;
 //    out_geom2d << "xdiff = " << xdiff << endl << "ydiff = " << ydiff << endl;
 
     // square the differences
@@ -429,7 +429,7 @@ int Solver::find_intersection_points_geom2d(float x1, float y1, float x2, float 
     // distance between centers
     dist = sqrt( xdiff2 + ydiff2 );
 
-    cout << "dist = " << dist << endl;
+    //cout << "dist = " << dist << endl;
     //out_geom2d << "dist = " << dist << endl;
 
 
@@ -439,7 +439,7 @@ int Solver::find_intersection_points_geom2d(float x1, float y1, float x2, float 
     // find the point half way between the circle/baseline intersections
     if ((r1 + r2) < dist) // circles do not intersect
     {
-        cout << "the circles do not intersect because the radii are too short" << endl;
+        //cout << "the circles do not intersect because the radii are too short" << endl;
         //out_geom2d << "the circles do not intersect because the radii are too short" << endl;
         valid = 0;
         return valid;
@@ -448,7 +448,7 @@ int Solver::find_intersection_points_geom2d(float x1, float y1, float x2, float 
     // If r2 circle encompasses the r2 circle, one circle is completely inside the other
     else if ((abs(r2-r1)) > dist)
     {
-        cout << "the circles do not intersect because one circle is completely inside the other" << endl;
+        //cout << "the circles do not intersect because one circle is completely inside the other" << endl;
         //out_geom2d << "the circles do not intersect because one circle is completely inside the other" << endl;
         valid = 0;
         return valid;
@@ -457,7 +457,7 @@ int Solver::find_intersection_points_geom2d(float x1, float y1, float x2, float 
     // If dist = 0 and the radii are the same, the circles completely overlap each other
     else if((r1 == r2) && (dist == 0))
     {
-        cout << "the circles do not intersect because they overlap completely" << endl;
+        //cout << "the circles do not intersect because they overlap completely" << endl;
         //out_geom2d << "the circles do not intersect because they overlap completely" << endl;
         valid = 0;
         return valid;
