@@ -70,12 +70,12 @@ void Dialog::pause()
     else
     {
         //init the imu class
-    imu = new IMUDialog();
-    //do the bluetooth connection from here
-    while(!imu->port->isOpen()){
-        imu->openUp();
-            sleep(10);
-        }
+//    imu = new IMUDialog();
+//    //do the bluetooth connection from here
+//    while(!imu->port->isOpen()){
+//        imu->openUp();
+//            sleep(10);
+//        }
         refinterface.start();
         guiinterface.start();
         ui->pauseButton->setText("Pause");

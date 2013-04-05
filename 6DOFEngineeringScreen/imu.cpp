@@ -26,6 +26,7 @@ IMU::IMU()
     port->setStopBits(STOP_2);
 
     if (port->open(QIODevice::ReadWrite) == true) {
+        //connect(port,SIGNAL(readyRead()),this,SLOT(onReadyRead()));
         //connect(port, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
         //connect(port, SIGNAL(dsrChanged(bool)), this, SLOT(onDsrChanged(bool)));
         if (!(port->lineStatus() & LS_DSR))

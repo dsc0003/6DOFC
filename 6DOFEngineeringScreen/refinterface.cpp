@@ -37,8 +37,8 @@ RefInterface::RefInterface()
     antennaNum = 0;
     count = 1;
 
-    radioPort.append("/dev/cu.usbmodem6");
-    radioPort1.append("/dev/cu.usbmodem101");
+//    radioPort.append("/dev/cu.usbmodem6");
+//    radioPort1.append("/dev/cu.usbmodem101");
 
     readConfigFile();
 
@@ -79,7 +79,7 @@ void RefInterface::run()
         buffer.pitch = imu->pitchread;
         buffer.yaw = imu->yawread;*/
 
-        emit getIMUData();
+        //emit getIMUData();
 
 
         if(!msg.isEmpty())
@@ -218,8 +218,8 @@ void RefInterface::range()
         radioFd = radioCom1;
         if(antennaNum == 0)
         {
-            buffer.reqNode = "102B";
-            if (rcmRangeTo(destNode, ANTENNAMODE_B, 0, NULL,
+            buffer.reqNode = "102A";
+            if (rcmRangeTo(destNode, ANTENNAMODE_A, 0, NULL,
                     &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
             {
 
@@ -252,8 +252,8 @@ void RefInterface::range()
         }
         if(antennaNum == 1)
         {
-            buffer.reqNode = "102A";
-            if (rcmRangeTo(destNode, ANTENNAMODE_A, 0, NULL,
+            buffer.reqNode = "102B";
+            if (rcmRangeTo(destNode, ANTENNAMODE_B, 0, NULL,
                     &RangeInfo, &dataInfo, &scanInfo, &fullScanInfo) == 0)
             {
 

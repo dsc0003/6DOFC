@@ -24,7 +24,7 @@ IMUDialog::IMUDialog(QWidget *parent) :
     port->setDataBits(DATA_8);
     port->setStopBits(STOP_2);
     //set timeouts to 500 ms
-    port->setTimeout(500);
+    port->setTimeout(5000);
 
     connect(ui->connectButton,SIGNAL(clicked()),this,SLOT(openUp()));
     //connect(ui->disconButton,SIGNAL(clicked()),this,SLOT(discon()));
@@ -63,8 +63,8 @@ void IMUDialog::stream(){
     qDebug() << "numbytes before if" << numBytes;
     if(numBytes > 1024)
         numBytes = 1024;
-
-    qDebug() << "numbytes" << QString::number(numBytes);
+    if(numBytes > 20){
+    //qDebug() << "numbytes" << QString::number(numBytes);
     int i = port->readLine(buff, numBytes);
     if (i != -1)
         buff[i] = '\0';
@@ -89,6 +89,7 @@ void IMUDialog::stream(){
         ui->textEditStream->append(rollstr);
 
         }
+    }
 
     //received_msg->ensureCursorVisible();
     //qDebug("bytes available: %d", numBytes);
