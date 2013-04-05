@@ -13,10 +13,15 @@ IMUDialog::IMUDialog(QWidget *parent) :
 
 
     //modify the port settings on your own
-#ifdef Q_OS_UNIX
+/*#ifdef Q_OS_UNIX
     port = new QextSerialPort(QLatin1String("/dev/tty.FireFly-8842-SPP"), QextSerialPort::Polling);
 #else
     port = new QextSerialPort(QLatin1String("COM1"), QextSerialPort::Polling);
+#endif /*Q_OS_UNIX*/
+#ifdef Q_OS_UNIX
+    port = new QextSerialPort(QLatin1String("/dev/tty.FireFly-8842-SPP"), QextSerialPort::EventDriven);
+#else
+    port = new QextSerialPort(QLatin1String("COM1"), QextSerialPort::EventDriven);
 #endif /*Q_OS_UNIX*/
     port->setBaudRate(BAUD57600);
     port->setFlowControl(FLOW_OFF);
@@ -24,7 +29,7 @@ IMUDialog::IMUDialog(QWidget *parent) :
     port->setDataBits(DATA_8);
     port->setStopBits(STOP_2);
     //set timeouts to 500 ms
-    port->setTimeout(5000);
+    //port->setTimeout(500);
 
     connect(ui->connectButton,SIGNAL(clicked()),this,SLOT(openUp()));
     //connect(ui->disconButton,SIGNAL(clicked()),this,SLOT(discon()));
@@ -35,8 +40,16 @@ IMUDialog::IMUDialog(QWidget *parent) :
 }
 
 void IMUDialog::openUp(){
-    open = port->open(QIODevice::ReadWrite | QIODevice::Unbuffered);
-
+    //open = port->open(QIODevice::ReadWrite | QIODevice::Unbuffered);
+    if (port->open(QIODevice::ReadWrite) == true) {
+        connect(port, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+        connect(port, SIGNAL(dsrChanged(bool)), this, SLOT(onDsrChanged(bool)));
+        if (!(port->lineStatus() & LS_DSR))
+            qDebug() << "warning: device is not turned on";
+        qDebug() << "listening for data on" << port->portName();
+    }
+    else
+        qDebug() << "device failed to open:" << port->errorString();
     qDebug("is open: %d", port->isOpen());
 
 }
@@ -53,8 +66,8 @@ void IMUDialog::stopStream(){
 }
 
 void IMUDialog::stream(){
-    port->write("#o0");
-    port->write("#f");
+    //port->write("#o0");
+   //port->write("#f");
    //port->flush();  // Clear input buffer up to here
     char buff[100];
 
@@ -63,8 +76,8 @@ void IMUDialog::stream(){
     qDebug() << "numbytes before if" << numBytes;
     if(numBytes > 1024)
         numBytes = 1024;
-    if(numBytes > 20){
-    //qDebug() << "numbytes" << QString::number(numBytes);
+
+    qDebug() << "numbytes" << QString::number(numBytes);
     int i = port->readLine(buff, numBytes);
     if (i != -1)
         buff[i] = '\0';
@@ -89,12 +102,29 @@ void IMUDialog::stream(){
         ui->textEditStream->append(rollstr);
 
         }
-    }
 
     //received_msg->ensureCursorVisible();
     //qDebug("bytes available: %d", numBytes);
     //qDebug("received: %d", i);
 
+}
+
+void IMUDialog::onReadyRead()
+{
+    QByteArray bytes;
+    int a = port->bytesAvailable();
+    bytes.resize(a);
+    port->read(bytes.data(), bytes.size());
+    qDebug() << "bytes read:" << bytes.size();
+    qDebug() << "bytes:" << bytes;
+}
+
+void IMUDialog::onDsrChanged(bool status)
+{
+    if (status)
+        qDebug() << "device was turned on";
+    else
+        qDebug() << "device was turned off";
 }
 
 IMUDialog::~IMUDialog()
