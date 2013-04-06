@@ -28,8 +28,6 @@ public:
     QTextEdit *textEditStream;
     QPushButton *connectButton;
     QPushButton *disconButton;
-    QPushButton *streamButton;
-    QPushButton *stopStreamButton;
 
     void setupUi(QDialog *IMUDialog)
     {
@@ -50,12 +48,6 @@ public:
         disconButton = new QPushButton(IMUDialog);
         disconButton->setObjectName(QStringLiteral("disconButton"));
         disconButton->setGeometry(QRect(150, 150, 114, 32));
-        streamButton = new QPushButton(IMUDialog);
-        streamButton->setObjectName(QStringLiteral("streamButton"));
-        streamButton->setGeometry(QRect(20, 190, 161, 32));
-        stopStreamButton = new QPushButton(IMUDialog);
-        stopStreamButton->setObjectName(QStringLiteral("stopStreamButton"));
-        stopStreamButton->setGeometry(QRect(210, 190, 181, 32));
 
         retranslateUi(IMUDialog);
         QObject::connect(buttonBox, SIGNAL(accepted()), IMUDialog, SLOT(accept()));
@@ -69,8 +61,6 @@ public:
         IMUDialog->setWindowTitle(QApplication::translate("IMUDialog", "Dialog", 0));
         connectButton->setText(QApplication::translate("IMUDialog", "Connect", 0));
         disconButton->setText(QApplication::translate("IMUDialog", "Disconnect", 0));
-        streamButton->setText(QApplication::translate("IMUDialog", "Enable Streaming", 0));
-        stopStreamButton->setText(QApplication::translate("IMUDialog", "Stop Streaming", 0));
     } // retranslateUi
 
 };

@@ -32,9 +32,9 @@ IMUDialog::IMUDialog(QWidget *parent) :
     //port->setTimeout(500);
 
     connect(ui->connectButton,SIGNAL(clicked()),this,SLOT(openUp()));
-    //connect(ui->disconButton,SIGNAL(clicked()),this,SLOT(discon()));
+    connect(ui->disconButton,SIGNAL(clicked()),this,SLOT(discon()));
     //connect(ui->stopStreamButton,SIGNAL(clicked()),this,SLOT(stopStream()));
-    connect(ui->streamButton,SIGNAL(clicked()),this,SLOT(stream()));
+    //connect(ui->streamButton,SIGNAL(clicked()),this,SLOT(stream()));
 
 
 }
@@ -113,10 +113,30 @@ void IMUDialog::onReadyRead()
 {
     QByteArray bytes;
     int a = port->bytesAvailable();
+    if (a >2){
     bytes.resize(a);
-    port->read(bytes.data(), bytes.size());
+    port->readLine(bytes.data(), bytes.size());
+
+    QString msg = QLatin1String(bytes.data());
+    if (msg[0] == '#')
+    {
+        tempmsg = msg.remove(0,5);
+        //ui->textEditStream->append(tempmsg);
+        QStringList msglist = tempmsg.split(",");
+        yawread = msglist[0].toFloat();
+        pitchread = msglist[1].toFloat();
+        rollread = msglist[2].toFloat();
+        QString yawstr = QString::number(yawread);
+        QString pitchstr = QString::number(pitchread);
+        QString rollstr = QString::number(rollread);
+        ui->textEditStream->append(yawstr);
+        ui->textEditStream->append(pitchstr);
+        ui->textEditStream->append(rollstr);
+
+        }
     qDebug() << "bytes read:" << bytes.size();
     qDebug() << "bytes:" << bytes;
+    }
 }
 
 void IMUDialog::onDsrChanged(bool status)

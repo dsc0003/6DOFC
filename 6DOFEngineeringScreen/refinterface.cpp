@@ -37,8 +37,8 @@ RefInterface::RefInterface()
     antennaNum = 0;
     count = 1;
 
-//    radioPort.append("/dev/cu.usbmodem6");
-//    radioPort1.append("/dev/cu.usbmodem101");
+    radioPort.append("/dev/cu.usbmodem9");
+    //radioPort1.append("/dev/cu.usbmodem101");
 
     readConfigFile();
 
@@ -79,7 +79,7 @@ void RefInterface::run()
         buffer.pitch = imu->pitchread;
         buffer.yaw = imu->yawread;*/
 
-        //emit getIMUData();
+        emit getIMUData();
 
 
         if(!msg.isEmpty())

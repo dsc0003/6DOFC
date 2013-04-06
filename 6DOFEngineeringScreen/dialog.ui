@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -205,7 +205,7 @@
              </font>
             </property>
             <property name="text">
-             <string>/dev/cu.usbmodem5</string>
+             <string>/dev/cu.usbmodem9</string>
             </property>
            </widget>
           </item>

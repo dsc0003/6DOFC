@@ -70,12 +70,15 @@ void Dialog::pause()
     else
     {
         //init the imu class
-//    imu = new IMUDialog();
-//    //do the bluetooth connection from here
+    imu = new IMUDialog();
+    //do the bluetooth connection from here
+//    imu->openUp();
 //    while(!imu->port->isOpen()){
 //        imu->openUp();
 //            sleep(10);
 //        }
+       imu->show();
+
         refinterface.start();
         guiinterface.start();
         ui->pauseButton->setText("Pause");
@@ -165,7 +168,7 @@ void Dialog::getUserParameters()
 void Dialog::getData()
 {
 //    call the stream from here
-    imu->stream();
+    //imu->stream();
 //    set the refinterface variables from here - I believe you can do that
 //    refinterface.buffer.roll = imu->rollread;
 //    refinterface.buffer.pitch = imu->pitchread;
