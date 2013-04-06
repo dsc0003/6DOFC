@@ -122,21 +122,26 @@ void IMUDialog::onReadyRead()
     if (msg[0] == '#')
     {
         tempmsg = msg.remove(0,5);
+    qDebug() << "tempmsg" << tempmsg;
         //ui->textEditStream->append(tempmsg);
+        if (tempmsg != ""){
         QStringList msglist = tempmsg.split(",");
+        if (msglist.size() > 2){
         yawread = msglist[0].toFloat();
         pitchread = msglist[1].toFloat();
         rollread = msglist[2].toFloat();
+        }
+
         QString yawstr = QString::number(yawread);
         QString pitchstr = QString::number(pitchread);
         QString rollstr = QString::number(rollread);
         ui->textEditStream->append(yawstr);
         ui->textEditStream->append(pitchstr);
         ui->textEditStream->append(rollstr);
-
         }
-    qDebug() << "bytes read:" << bytes.size();
-    qDebug() << "bytes:" << bytes;
+        }
+    //qDebug() << "bytes read:" << bytes.size();
+    //qDebug() << "bytes:" << bytes;
     }
 }
 
