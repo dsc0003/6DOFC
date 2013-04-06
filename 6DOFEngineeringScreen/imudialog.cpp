@@ -90,6 +90,7 @@ void IMUDialog::stream(){
     {
         tempmsg = msg.remove(0,5);
         //ui->textEditStream->append(tempmsg);
+
         QStringList msglist = tempmsg.split(",");
         yawread = msglist[0].toFloat();
         pitchread = msglist[1].toFloat();

@@ -59,7 +59,7 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
         f2 = ((xg-x2)*(xg-x2)) + ((yg-y2)*(yg-y2)) + ((zg-z2)*(zg-z2)) - (r2*r2);
         f3 = ((xg-x3)*(xg-x3)) + ((yg-y3)*(yg-y3)) + ((zg-z3)*(zg-z3)) - (r3*r3);
 
-        cout << "\n\nvalue of f1 = " << f1 << " , f2 = " << f2 << " , f3 = "  << f3 << endl;
+        //cout << "\n\nvalue of f1 = " << f1 << " , f2 = " << f2 << " , f3 = "  << f3 << endl;
 
 
         // find the partial derivatives
@@ -81,22 +81,22 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
         h = J[2][1] = df3dy;
         i = J[2][2] = df3dz;
 
-        cout << "jacobian matrix: \n" << endl;
+        //cout << "jacobian matrix: \n" << endl;
         for(int j = 0; j <= 2; j++)
         {
             for(int k = 0; k <= 2; k++)
             {
-                cout << J[j][k] << " ";
+                //cout << J[j][k] << " ";
             }
 
-            cout << endl;
+            //cout << endl;
         }
 
 
         // find the determinant of the Jacobian matrix and 1/det
         det = (a*((e*i)-(h*f))) - (b*((d*i)-(g*f))) + (c*((d*h)-(g*e)));
 
-        cout << "determinant of jacobian: " << det << endl;
+        //cout << "determinant of jacobian: " << det << endl;
 
         if (det != 0)
         {
@@ -104,7 +104,7 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
         }
         else
         {
-            cout << "determinant = 0, program will now exit" << endl;
+            //cout << "determinant = 0, program will now exit" << endl;
             valid = 0;
             return valid;
         }
@@ -130,15 +130,15 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
         JCof[2][1] = H = -1*((a*f)-(d*c));
         JCof[2][2] = I = (a*e)-(d*b);
 
-        cout << "cofactor matrix: \n" << endl;
+        //cout << "cofactor matrix: \n" << endl;
         for(int j = 0; j <= 2; j++)
         {
             for(int k = 0; k <= 2; k++)
             {
-                cout << JCof[j][k] << " ";
+                //cout << JCof[j][k] << " ";
             }
 
-            cout << endl;
+            //cout << endl;
         }
 
 
@@ -154,19 +154,19 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
                 JAdj[j][k] = JCof[k][j];
             }
 
-            cout << endl;
+            //cout << endl;
         }
 
 
-        cout << "adjoint matrix: \n" << endl;
+        //cout << "adjoint matrix: \n" << endl;
         for(int j = 0; j <= 2; j++)
         {
             for(int k = 0; k <= 2; k++)
             {
-                cout << JAdj[j][k] << " ";
+                //cout << JAdj[j][k] << " ";
             }
 
-            cout << endl;
+            //cout << endl;
         }
 
 
@@ -179,15 +179,15 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
             }
         }
 
-        cout << "inverse matrix: \n" << endl;
+        //cout << "inverse matrix: \n" << endl;
         for(int j = 0; j <= 2; j++)
         {
             for(int k = 0; k <= 2; k++)
             {
-                cout << JInv[j][k] << " ";
+                //cout << JInv[j][k] << " ";
             }
 
-            cout << endl;
+            //cout << endl;
         }
         float h0 = (JInv[0][0] * f1) + (JInv[0][1] * f2) + (JInv[0][2] * f3);
         float h1 = (JInv[1][0] * f1) + (JInv[1][1] * f2) + (JInv[1][2] * f3);
@@ -197,8 +197,8 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
         ynew = yg - h1;
         znew = zg - h2;
 
-        cout << "Iteration " << n << ": h0 = " << h0 << " h1 = " << h1 << " h2 = " << h2
-             << "\nxnew: " << xnew << " ynew: "  << ynew << " znew: " << znew << endl;
+        //cout << "Iteration " << n << ": h0 = " << h0 << " h1 = " << h1 << " h2 = " << h2
+            //<< "\nxnew: " << xnew << " ynew: "  << ynew << " znew: " << znew << endl;
 
 
         if(((abs(h0) + abs(h1) + abs(h2)) < eps))
@@ -216,7 +216,7 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
 
     }
 
-    cout << "Maximum number of iterations reached" << endl;
+    //cout << "Maximum number of iterations reached" << endl;
     valid = 0;
     return valid;
 

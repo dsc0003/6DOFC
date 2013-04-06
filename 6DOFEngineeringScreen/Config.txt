@@ -14,7 +14,7 @@
 0.0
 0.5
 100
-/dev/cu.usbmodem8
+/dev/cu.usbmodem7
 /dev/cu.usbmodem101
 1
 1
