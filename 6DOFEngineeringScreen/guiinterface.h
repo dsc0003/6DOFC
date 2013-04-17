@@ -17,6 +17,8 @@ struct myStruct {
     float yaw;
     float pitch;
     float roll;
+    float mError;
+    float status;
     QString reqNode;
 };
 
@@ -36,8 +38,10 @@ protected:
 
 
 signals:
-    void display(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw);
-    void logSignal(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw, QString reqNode);
+    void display(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch
+                 , float yaw, float mError, float status);
+    void logSignal(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch
+                   , float yaw, QString reqNode, float mError, float status);
 
 public slots:
 

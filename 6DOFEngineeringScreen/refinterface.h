@@ -25,6 +25,8 @@ struct rangeInfo {
     float yaw;
     float pitch;
     float roll;
+    float mError;
+    float status;
     QString reqNode;
 };
 
@@ -67,6 +69,7 @@ public:
     rangeInfo buffer;
     volatile bool stopped;
     int count;
+    int errorCount;
 
 protected:
     void run();
@@ -74,6 +77,7 @@ protected:
 
 signals:
     void getIMUData();
+    void sendErrorCount(int errorCount);
 
 public slots:
 

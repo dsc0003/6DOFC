@@ -36,6 +36,7 @@ RefInterface::RefInterface()
     radioNum = 0;
     antennaNum = 0;
     count = 1;
+    errorCount = 0;
 
     //radioPort.append("/dev/cu.usbmodem9");
     //radioPort1.append("/dev/cu.usbmodem101");
@@ -162,6 +163,8 @@ void RefInterface::range()
                     // add range to buffer structure
                     r0 = r0/1000;
                     buffer.R0 = r0;
+                    buffer.mError = RangeInfo.precisionRangeErrEst;
+                    buffer.status = RangeInfo.rangeStatus;
                     //qDebug()<<"Range Successful";
                 }
                 else
@@ -170,6 +173,10 @@ void RefInterface::range()
                     {
                         r0 = msg.at(0).R0;
                         buffer.R0 = r0;
+                        buffer.mError = RangeInfo.precisionRangeErrEst;
+                        buffer.status = RangeInfo.rangeStatus;
+                        errorCount++;
+                        emit sendErrorCount(errorCount);
                     }
                 }
             } //end if
@@ -198,6 +205,8 @@ void RefInterface::range()
                     //add range to buffer struct
                     r1 = r1/1000;
                     buffer.R1 = r1;
+                    buffer.mError = RangeInfo.precisionRangeErrEst;
+                    buffer.status = RangeInfo.rangeStatus;
                 }
                 else
                 {
@@ -205,6 +214,10 @@ void RefInterface::range()
                     {
                         r1 = msg.at(0).R1;
                         buffer.R1 = r1;
+                        buffer.mError = RangeInfo.precisionRangeErrEst;
+                        buffer.status = RangeInfo.rangeStatus;
+                        errorCount++;
+                        emit sendErrorCount(errorCount);
                     }
                 }
             } //end if
@@ -237,6 +250,8 @@ void RefInterface::range()
                     // add range to buffer structure
                     r2 = r2/1000;
                     buffer.R2 = r2;
+                    buffer.mError = RangeInfo.precisionRangeErrEst;
+                    buffer.status = RangeInfo.rangeStatus;
                 }
                 else
                 {
@@ -244,6 +259,10 @@ void RefInterface::range()
                     {
                         r2 = msg.at(0).R2;
                         buffer.R2 = r2;
+                        buffer.mError = RangeInfo.precisionRangeErrEst;
+                        buffer.status = RangeInfo.rangeStatus;
+                        errorCount++;
+                        emit sendErrorCount(errorCount);
                     }
                 }
             } //end if
@@ -271,6 +290,8 @@ void RefInterface::range()
                     //add range to buffer struct
                     r3 = r3/1000;
                     buffer.R3 = r3;
+                    buffer.mError = RangeInfo.precisionRangeErrEst;
+                    buffer.status = RangeInfo.rangeStatus;
                 }
                 else
                 {
@@ -278,6 +299,10 @@ void RefInterface::range()
                     {
                         r3 = msg.at(0).R3;
                         buffer.R3 = r3;
+                        buffer.mError = RangeInfo.precisionRangeErrEst;
+                        buffer.status = RangeInfo.rangeStatus;
+                        errorCount++;
+                        emit sendErrorCount(errorCount);
                     }
                 }
             } //end if
@@ -382,17 +407,17 @@ void GuiInterface::run()
            dataGathered.pitch = msg.first().pitch;
            dataGathered.yaw = msg.first().yaw;
            dataGathered.reqNode = msg.first().reqNode;
-          //qDebug()<< dataGathered.R0;
-          //qDebug()<< dataGathered.R1;
-          //qDebug()<< dataGathered.R2;
-          //qDebug()<< dataGathered.R3;
+           dataGathered.mError = msg.first().mError;
+           dataGathered.status = msg.first().status;
+
 
            //emit signal for eng screen to update display
            emit display(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
-                        dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw);
+                        dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw, dataGathered.mError,dataGathered.status);
             //will also emit a signal for logging data -- this allows for an easy way to get the data to the engineering screen
            emit logSignal(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
-                          dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw, dataGathered.reqNode);
+                          dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw, dataGathered.reqNode
+                          , dataGathered.mError,dataGathered.status);
 
 
           }

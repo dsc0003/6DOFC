@@ -31,10 +31,13 @@ private:
 
 private slots:
     void pause();
-    void updateDisplay(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw);
-    void log(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch, float yaw, QString reqNode);
+    void updateDisplay(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch
+                       , float yaw,float mError, float status);
+    void log(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch
+             , float yaw, QString reqNode,float mError, float status);
     void getUserParameters();
     void getData();
+    void updateErrorCount(int errorCount);
 
 protected:
     RefInterface refinterface;

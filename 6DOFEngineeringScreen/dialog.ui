@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>789</width>
-    <height>711</height>
+    <width>753</width>
+    <height>695</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -31,10 +31,10 @@
         <layout class="QGridLayout" name="gridLayout_5">
          <item row="0" column="2">
           <layout class="QGridLayout" name="gridLayout">
-           <item row="3" column="0">
-            <widget class="QLabel" name="R3Label">
-             <property name="text">
-              <string>R3</string>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="R3LineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -42,6 +42,34 @@
             <widget class="QLabel" name="R1Label">
              <property name="text">
               <string>R1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="R3Label">
+             <property name="text">
+              <string>R3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="R1LineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="R0LineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>Status</string>
              </property>
             </widget>
            </item>
@@ -53,7 +81,11 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLineEdit" name="R2LineEdit"/>
+            <widget class="QLineEdit" name="R2LineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item row="0" column="0">
             <widget class="QLabel" name="R0Label">
@@ -62,14 +94,40 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="R0LineEdit"/>
+           <item row="0" column="3">
+            <widget class="QLineEdit" name="le_status">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="R1LineEdit"/>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>Range Error</string>
+             </property>
+            </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="R3LineEdit"/>
+           <item row="1" column="3">
+            <widget class="QLineEdit" name="le_error">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>Error Count</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLineEdit" name="le_count">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -83,7 +141,11 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="TimeLineEdit"/>
+            <widget class="QLineEdit" name="TimeLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -111,13 +173,25 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="XLineEdit"/>
+            <widget class="QLineEdit" name="XLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLineEdit" name="ZLineEdit"/>
+            <widget class="QLineEdit" name="ZLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="YLineEdit"/>
+            <widget class="QLineEdit" name="YLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -145,13 +219,25 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="YawLineEdit"/>
+            <widget class="QLineEdit" name="YawLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="PitchLineEdit"/>
+            <widget class="QLineEdit" name="PitchLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLineEdit" name="RollLineEdit"/>
+            <widget class="QLineEdit" name="RollLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
