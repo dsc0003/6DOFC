@@ -53,7 +53,7 @@ public:
     float x2, y2, z2;
     float x3, y3, z3;
     float r0, r1, r2, r3;
-    float seedx, seedy;
+   // float seedx, seedy;
     float px, py, pz;
     float oldx, oldy, oldz;
     QByteArray radioPort;
@@ -78,6 +78,8 @@ protected:
 signals:
     void getIMUData();
     void sendErrorCount(int errorCount);
+    void display(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch
+                 , float yaw, float mError, float status);
 
 public slots:
 

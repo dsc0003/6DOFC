@@ -70,9 +70,6 @@ void RefInterface::run()
         //qDebug("Reference thread run");
         mutex.lock();
 
-        //wait 1 seconds
-
-
         range();
 
         /*imu->stream();
@@ -167,17 +164,28 @@ void RefInterface::range()
                     buffer.status = RangeInfo.rangeStatus;
                     //qDebug()<<"Range Successful";
                 }
-                else
+                else if(RangeInfo.precisionRangeErrEst > 60)
                 {
                     if(!msg.isEmpty())
                     {
-                        r0 = msg.at(0).R0;
-                        buffer.R0 = r0;
                         buffer.mError = RangeInfo.precisionRangeErrEst;
                         buffer.status = RangeInfo.rangeStatus;
                         errorCount++;
                         emit sendErrorCount(errorCount);
+                        emit display(buffer.x, buffer.y, buffer.z, RangeInfo.precisionRangeMm, buffer.R1, buffer.R2,
+                                     buffer.R3,buffer.roll, buffer.pitch,buffer.yaw, buffer.mError,buffer.status);
+
+                        r0 = msg.at(0).R0;
+                        buffer.R0 = r0;
                     }
+                }
+                else
+                {
+                    r0 = msg.at(0).R0;
+                    buffer.R0 = r0;
+                    buffer.mError = RangeInfo.precisionRangeErrEst;
+                    buffer.status = RangeInfo.rangeStatus;
+                    //errorCount++;
                 }
             } //end if
             antennaNum = 1;
@@ -208,17 +216,27 @@ void RefInterface::range()
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
                 }
-                else
+                else if(RangeInfo.precisionRangeErrEst >60)
                 {
                     if(!msg.isEmpty())
                     {
-                        r1 = msg.at(0).R1;
-                        buffer.R1 = r1;
                         buffer.mError = RangeInfo.precisionRangeErrEst;
                         buffer.status = RangeInfo.rangeStatus;
                         errorCount++;
                         emit sendErrorCount(errorCount);
+                        emit display(buffer.x, buffer.y, buffer.z, buffer.R0, RangeInfo.precisionRangeMm, buffer.R2,
+                                     buffer.R3,buffer.roll, buffer.pitch,buffer.yaw, buffer.mError,buffer.status);
+                        r1 = msg.at(0).R1;
+                        buffer.R1 = r1;
                     }
+                }
+                else
+                {
+                    r1 = msg.at(0).R1;
+                    buffer.R1 = r1;
+                    buffer.mError = RangeInfo.precisionRangeErrEst;
+                    buffer.status = RangeInfo.rangeStatus;
+                    //errorCount++;
                 }
             } //end if
             antennaNum = 0;
@@ -253,17 +271,28 @@ void RefInterface::range()
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
                 }
-                else
+                else if(RangeInfo.precisionRangeErrEst > 60)
                 {
                     if(!msg.isEmpty())
                     {
-                        r2 = msg.at(0).R2;
-                        buffer.R2 = r2;
                         buffer.mError = RangeInfo.precisionRangeErrEst;
                         buffer.status = RangeInfo.rangeStatus;
                         errorCount++;
                         emit sendErrorCount(errorCount);
+                        emit display(buffer.x, buffer.y, buffer.z, buffer.R0,buffer.R1 , RangeInfo.precisionRangeMm,
+                                     buffer.R3,buffer.roll, buffer.pitch,buffer.yaw, buffer.mError,buffer.status);
+                        r2 = msg.at(0).R2;
+                        buffer.R2 = r2;
                     }
+                }
+                else
+                {
+                    r2 = msg.at(0).R2;
+                    buffer.R2 = r2;
+                    buffer.mError = RangeInfo.precisionRangeErrEst;
+                    buffer.status = RangeInfo.rangeStatus;
+                    //errorCount++;
+
                 }
             } //end if
             antennaNum = 1;
@@ -293,17 +322,29 @@ void RefInterface::range()
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
                 }
-                else
+                else if(RangeInfo.precisionRangeErrEst > 60)
                 {
                     if(!msg.isEmpty())
                     {
-                        r3 = msg.at(0).R3;
-                        buffer.R3 = r3;
+
                         buffer.mError = RangeInfo.precisionRangeErrEst;
                         buffer.status = RangeInfo.rangeStatus;
                         errorCount++;
                         emit sendErrorCount(errorCount);
+                        emit display(buffer.x, buffer.y, buffer.z, buffer.R0,buffer.R1 , buffer.R2,
+                                     RangeInfo.precisionRangeMm,buffer.roll, buffer.pitch,buffer.yaw, buffer.mError,buffer.status);
+                        r3 = msg.at(0).R3;
+                        buffer.R3 = r3;
                     }
+                }
+                else
+                {
+                    r3 = msg.at(0).R3;
+                    buffer.R3 = r3;
+                    buffer.mError = RangeInfo.precisionRangeErrEst;
+                    buffer.status = RangeInfo.rangeStatus;
+                    //errorCount++;
+                    emit sendErrorCount(errorCount);
                 }
             } //end if
             antennaNum = 0;

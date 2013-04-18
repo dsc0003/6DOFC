@@ -37,6 +37,8 @@ Dialog::Dialog(QWidget *parent) :
                      this,SLOT(log(float,float,float,float,float,float,float,float,float,float,QString,float, float)));
 
     QObject::connect(&refinterface,SIGNAL(sendErrorCount(int)),this, SLOT(updateErrorCount(int)));
+    QObject::connect(&refinterface,SIGNAL(display(float,float,float,float,float,float,float,float,float,float,float,float))
+                     ,this,SLOT(updateDisplay(float,float,float,float,float,float,float,float,float,float,float,float)));
 
 
     QObject::connect(&refinterface,SIGNAL(getIMUData()),this,SLOT(getData()));
