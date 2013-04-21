@@ -9,6 +9,7 @@
 #include <QObject>
 #include "window.h"
 #include <QString>
+#include <QTime>
 
 namespace Ui {
 class Dialog;
@@ -24,6 +25,8 @@ public:
     bool logFlag;
     QString fileName;
     IMUDialog *imu;
+    QElapsedTimer *timer;
+
 
 signals:
     void emitRotationData(float, float, float);

@@ -25,6 +25,9 @@ Dialog::Dialog(QWidget *parent) :
 
     logFlag = false;
 
+    timer = new QElapsedTimer();
+    timer->start();
+
     connect(ui->pauseButton,SIGNAL(clicked()),this,SLOT(pause()));
 
     QObject::connect(&guiinterface,SIGNAL(display(float,float,float,float,float,float,float,float,float,float,float,float)),
@@ -54,6 +57,7 @@ Dialog::Dialog(QWidget *parent) :
 
 Dialog::~Dialog()
 {
+    delete timer;
     delete ui;
 }
 
@@ -141,18 +145,19 @@ void Dialog::log(float x, float y, float z, float R0, float R1, float R2, float 
 
         if (f.open(QIODevice::Append))
         {
-            int hour = QTime::currentTime().hour();
-            int minute = QTime::currentTime().minute();
-            int seconds = QTime::currentTime().second();
-            int mseconds = QTime::currentTime().msec();
+//            int hour = QTime::currentTime().hour();
+//            int minute = QTime::currentTime().minute();
+//            int seconds = QTime::currentTime().second();
+//            int mseconds = QTime::currentTime().msec();
 
-            QString time;
-            time.append(QString::number(hour)).append(":").append(QString::number(minute))
-                    .append(":").append(QString::number(seconds))
-                    .append(":").append(QString::number(mseconds));
+//            QString time;
+//            time.append(QString::number(hour)).append(":").append(QString::number(minute))
+//                    .append(":").append(QString::number(seconds))
+//                    .append(":").append(QString::number(mseconds));
 
+            int elapsedTime = timer->elapsed();
 
-            ts <<time << ", "<<reqNode<<", " << x <<", "<<y<<", "<<z
+            ts <<QString::number(elapsedTime) << ", "<<reqNode<<", " << x <<", "<<y<<", "<<z
                << ", " << roll <<", "<<pitch<<", "<<yaw
                << ", " << R0 <<", "<<R1<<", "<<R2 <<", "<<R3<< ", " << mError << ", "<< status<< endl;
 
