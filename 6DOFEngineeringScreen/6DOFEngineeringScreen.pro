@@ -50,6 +50,7 @@ RESOURCES += \
 
 OTHER_FILES += \
         vshader.glsl \
-        fshader.glsl
+        fshader.glsl \
+    ConfigReadMe.txt
 
 include(3rdparty/qextserialport/src/qextserialport.pri) #serial port com library

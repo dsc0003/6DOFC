@@ -218,6 +218,7 @@ void Dialog::getData()
     ui->PitchLineEdit->setText(QString::number(imu->pitchread));
     ui->YawLineEdit->setText(QString::number(imu->yawread));
 
+
     //emitRotationData(imu->rollread, imu->pitchread, imu->yawread);
     ////qDebug() << imu->tempmsg;
     ////qDebug() << "yaw" << imu->yawread;
