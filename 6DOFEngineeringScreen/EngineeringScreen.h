@@ -40,7 +40,8 @@ private slots:
              , float yaw, QString reqNode,float mError, float status);
     void getUserParameters();
     void getData();
-    void updateErrorCount(int errorCount);
+    void updateErrorCount(int errorCountR0, int errorCountR1, int errorCountR2, int errorCountR3);
+    void updateThresholdErrorCount(int thresholdErrorCountR0, int thresholdErrorCountR1,int thresholdErrorCountR2,int thresholdErrorCountR3);
 
 protected:
     RefInterface refinterface;

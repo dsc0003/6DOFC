@@ -37,7 +37,7 @@ Dialog::Dialog(QWidget *parent) :
     QObject::connect(&guiinterface,SIGNAL(logSignal(float,float,float,float,float,float,float,float,float,float,QString,float, float)),
                      this,SLOT(log(float,float,float,float,float,float,float,float,float,float,QString,float, float)));
 
-    QObject::connect(&refinterface,SIGNAL(sendErrorCount(int)),this, SLOT(updateErrorCount(int)));
+    QObject::connect(&refinterface,SIGNAL(sendErrorCount(int, int, int, int)),this, SLOT(updateErrorCount(int, int, int, int)));
     QObject::connect(&refinterface,SIGNAL(display(float,float,float,float,float,float,float,float,float,float,float,float))
                      ,this,SLOT(updateDisplay(float,float,float,float,float,float,float,float,float,float,float,float)));
 
@@ -46,6 +46,7 @@ Dialog::Dialog(QWidget *parent) :
 
     connect(ui->pb_set,SIGNAL(clicked()),this,SLOT(getUserParameters()));
 
+    QObject::connect(&refinterface,SIGNAL(sendThresholdCount(int,int,int,int)),this,SLOT(updateThresholdErrorCount(int,int,int,int)));
 
 
 
@@ -59,7 +60,7 @@ Dialog::~Dialog()
 
 void Dialog::pause()
 {
-    qDebug()<<"Pause";
+    //qDebug()<<"Pause";
     if(refinterface.isRunning())
     {
         refinterface.stop();
@@ -93,7 +94,7 @@ void Dialog::pause()
 }
 void Dialog::updateDisplay(float x, float y, float z, float R0, float R1, float R2, float R3, float roll , float pitch, float yaw, float mError, float status)
 {
-    //qDebug()<<"Function:: Update Display";
+    ////qDebug()<<"Function:: Update Display";
 
 
     ui->TimeLineEdit->setText(QTime::currentTime().toString());
@@ -104,8 +105,8 @@ void Dialog::updateDisplay(float x, float y, float z, float R0, float R1, float 
     ui->R1LineEdit->setText(QString::number(R1));
     ui->R2LineEdit->setText(QString::number(R2));
     ui->R3LineEdit->setText(QString::number(R3));
-    ui->le_error->setText(QString::number(mError));
-    ui->le_status->setText(QString::number(status));
+    //ui->le_error->setText(QString::number(mError));
+    //ui->le_status->setText(QString::number(status));
 //    ui->RollLineEdit->setText(QString::number(roll));
 //    ui->PitchLineEdit->setText(QString::number(pitch));
 //    ui->YawLineEdit->setText(QString::number(yaw));
@@ -114,9 +115,20 @@ void Dialog::updateDisplay(float x, float y, float z, float R0, float R1, float 
     //newWidget.exec();
 }
 
-void Dialog::updateErrorCount(int errorCount)
+void Dialog::updateErrorCount(int errorCountR0, int errorCountR1, int errorCountR2, int errorCountR3)
 {
-    ui->le_count->setText(QString::number(errorCount));
+    ui->le_countR0->setText(QString::number(errorCountR0));
+    ui->le_countR1->setText(QString::number(errorCountR1));
+    ui->le_countR2->setText(QString::number(errorCountR2));
+    ui->le_countR3->setText(QString::number(errorCountR3));
+}
+
+void Dialog::updateThresholdErrorCount(int thresholdErrorCountR0, int thresholdErrorCountR1, int thresholdErrorCountR2, int thresholdErrorCountR3)
+{
+    ui->le_errorR0->setText(QString::number(thresholdErrorCountR0));
+    ui->le_errorR1->setText(QString::number(thresholdErrorCountR1));
+    ui->le_errorR2->setText(QString::number(thresholdErrorCountR2));
+    ui->le_errorR3->setText(QString::number(thresholdErrorCountR3));
 }
 
 void Dialog::log(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch
@@ -131,7 +143,7 @@ void Dialog::log(float x, float y, float z, float R0, float R1, float R2, float 
         {
             ts <<QTime::currentTime().toString() << ", "<<reqNode<<", " << x <<", "<<y<<", "<<z
                << ", " << roll <<", "<<pitch<<", "<<yaw
-               << ", " << R0 <<", "<<R1<<", "<<R2 <<", "<<R3<< mError << ", "<< status<< endl;
+               << ", " << R0 <<", "<<R1<<", "<<R2 <<", "<<R3<< ", " << mError << ", "<< status<< endl;
 
         }
     }
@@ -190,11 +202,11 @@ void Dialog::getData()
     ui->PitchLineEdit->setText(QString::number(imu->pitchread));
     ui->YawLineEdit->setText(QString::number(imu->yawread));
 
-    emitRotationData(imu->rollread, imu->pitchread, imu->yawread);
-    //qDebug() << imu->tempmsg;
-    //qDebug() << "yaw" << imu->yawread;
-    //qDebug() << "pitch" << imu->pitchread;
-    //qDebug() << "roll" << imu->rollread;
+    //emitRotationData(imu->rollread, imu->pitchread, imu->yawread);
+    ////qDebug() << imu->tempmsg;
+    ////qDebug() << "yaw" << imu->yawread;
+    ////qDebug() << "pitch" << imu->pitchread;
+    ////qDebug() << "roll" << imu->rollread;
     //or take the roll, pitch, yaw straight from here and not put it in the buffer at all since the solver doesn't need it,
     // only the engineering screen and the openGL widget needs it
     //it just needs to be called in the refinterface

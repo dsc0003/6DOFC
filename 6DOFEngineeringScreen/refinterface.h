@@ -41,7 +41,7 @@ public:
     void readConfigFile();
 
     Solver *solver;
-        rcmMsg_RangeInfo RangeInfo;
+    rcmMsg_RangeInfo RangeInfo;
     rcmMsg_DataInfo dataInfo;
     rcmMsg_ScanInfo scanInfo;
     rcmMsg_FullScanInfo fullScanInfo;
@@ -69,7 +69,16 @@ public:
     rangeInfo buffer;
     volatile bool stopped;
     int count;
-    int errorCount;
+    int errorCountR0;
+    int errorCountR1;
+    int errorCountR2;
+    int errorCountR3;
+    int thresholdErrorCountR0;
+    int thresholdErrorCountR1;
+    int thresholdErrorCountR2;
+    int thresholdErrorCountR3;
+
+
 
 protected:
     void run();
@@ -77,7 +86,8 @@ protected:
 
 signals:
     void getIMUData();
-    void sendErrorCount(int errorCount);
+    void sendErrorCount(int errorCountR0, int errorCountR1, int errorCountR2, int errorCountR3);
+    void sendThresholdCount(int thresholdErrorCountR0, int thresholdErrorCountR1, int thresholdErrorCountR2,int thresholdErrorCountR3);
     void display(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch
                  , float yaw, float mError, float status);
 

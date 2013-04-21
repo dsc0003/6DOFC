@@ -34,7 +34,7 @@ void MainWindow::imuSetup()
 
 void MainWindow::log()
 {
-    qDebug()<<"Function: log() in main window";
+    //qDebug()<<"Function: log() in main window";
 
     QString file = QFileDialog::getSaveFileName(this, "Log","", "Text (*.txt)");
     //engScreen->fileName = QFileDialog::getSaveFileName(this, "Log","", "Text (*.txt)");
@@ -46,8 +46,8 @@ void MainWindow::log()
 
       engScreen->fileName = file;
       engScreen->logFlag = true;
-    //qDebug() << "save file name " << engScreen->fileName;
-    //qDebug() << "save file name " <<file;
+    ////qDebug() << "save file name " << engScreen->fileName;
+    ////qDebug() << "save file name " <<file;
 
 
 

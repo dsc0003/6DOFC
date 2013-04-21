@@ -65,14 +65,14 @@ GLWidget::~GLWidget()
 
 QSize GLWidget::minimumSizeHint() const
 {
-    qDebug() << "minimumSizeHint()";
+    //qDebug() << "minimumSizeHint()";
 
     return QSize(500, 500);
 }
 
 QSize GLWidget::sizeHint() const
 {
-    qDebug() << "sizeHint()";
+    //qDebug() << "sizeHint()";
 
     return QSize(2000, 2000);
 }
@@ -81,7 +81,7 @@ QSize GLWidget::sizeHint() const
 void GLWidget::rotateBy(float xAngle, float yAngle, float zAngle, float xCoordinate, float yCoordinate, float zCoordinate)
 {
 
-    qDebug() << "rotateBy() parameters: angles and coordinates " << xAngle << ", " << yAngle << ", " << zAngle << ", " << xCoordinate << ", " << yCoordinate << ", " << zCoordinate;
+    //qDebug() << "rotateBy() parameters: angles and coordinates " << xAngle << ", " << yAngle << ", " << zAngle << ", " << xCoordinate << ", " << yCoordinate << ", " << zCoordinate;
 
 
 //    xRot = xRot - xRot + xAngle;
@@ -116,15 +116,15 @@ void GLWidget::rotateBy(float xAngle, float yAngle, float zAngle, float xCoordin
 //    zTrans = zCoordinate;
 
 
-    qDebug() << "glWidget->parameters: x,y,z " << xTrans << ", " << yTrans << ", " << zTrans;
-    qDebug() << "glWidget->parameters: r,p,w " << xRot << ", " << yRot << ", " << zRot << endl << endl;
+    //qDebug() << "glWidget->parameters: x,y,z " << xTrans << ", " << yTrans << ", " << zTrans;
+    //qDebug() << "glWidget->parameters: r,p,w " << xRot << ", " << yRot << ", " << zRot << endl << endl;
 
     updateGL();
 }
 
 //void GLWidget::translateBy(float xDistance, float yDistance, float zDistance)
 //{
-    //qDebug() << "translateBy()";
+    ////qDebug() << "translateBy()";
 
 //    xTrans += xDistance;
 //    yTrans += yDistance;
@@ -135,7 +135,7 @@ void GLWidget::rotateBy(float xAngle, float yAngle, float zAngle, float xCoordin
 
 void GLWidget::setClearColor(const QColor &color)
 {
-    qDebug() << "setClearColor()";
+    //qDebug() << "setClearColor()";
 
     clearColor = color;
     updateGL();
@@ -143,7 +143,7 @@ void GLWidget::setClearColor(const QColor &color)
 
 void GLWidget::initializeGL()
 {
-    qDebug() << "initializeGL()";
+    //qDebug() << "initializeGL()";
 
     makeObject();
 
@@ -196,9 +196,9 @@ void GLWidget::initializeGL()
 
 void GLWidget::paintGL()
 {
-    qDebug() << "paintGL()"; // parameters: x,y,z,r,p,w " << xTrans << ", " << yTrans << ", " << zTrans << ", " << xRot << ", " << yRot << ", " << zRot;
-    qDebug() << "glWidget->parameters: x,y,z " << xTrans << ", " << yTrans << ", " << zTrans;
-    qDebug() << "glWidget->parameters: r,p,w " << xRot << ", " << yRot << ", " << zRot << endl << endl;
+    //qDebug() << "paintGL()"; // parameters: x,y,z,r,p,w " << xTrans << ", " << yTrans << ", " << zTrans << ", " << xRot << ", " << yRot << ", " << zRot;
+    //qDebug() << "glWidget->parameters: x,y,z " << xTrans << ", " << yTrans << ", " << zTrans;
+    //qDebug() << "glWidget->parameters: r,p,w " << xRot << ", " << yRot << ", " << zRot << endl << endl;
 
     qglClearColor(clearColor);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -245,7 +245,7 @@ void GLWidget::paintGL()
 
 void GLWidget::resizeGL(int width, int height)
 {
-    qDebug() << "resizeGL()";
+    //qDebug() << "resizeGL()";
 
     int side = qMin(width, height);
     glViewport((width - side) / 2, (height - side) / 2, side, side);
@@ -287,7 +287,7 @@ void GLWidget::resizeGL(int width, int height)
 
 void GLWidget::makeObject()
 {
-    qDebug() << "makeObject()";
+    //qDebug() << "makeObject()";
 
     static const float coords[6][4][3] = {
         { { +0.1, -1.0, -0.01 }, { -0.1, -1.0, -0.01 }, { -0.1, +1.0, -0.01 }, { +0.1, +1.0, -0.01 } },

@@ -32,7 +32,7 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
                              float& px, float& py, float& pz)
 {
 
-    //qDebug() << "SOLVER";
+    ////qDebug() << "SOLVER";
 
     float f1, f2, f3; // functions f1, f2 and f3 where f = (xg-x)^2 + (yg-y)^2 + (zg-z)^2 - r^2
     float df1dx, df1dy, df1dz;  // derivative of f1 wrt x, y and z
@@ -51,7 +51,7 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
                                       //                                                              g h i
 
 
-    //qDebug() << "nlls3d parameters:" << x1 << y1 << z1 << r1 << endl
+    ////qDebug() << "nlls3d parameters:" << x1 << y1 << z1 << r1 << endl
                                      //<< x2 << y2 << z2 << r2 << endl
                                      //<< x3 << y3 << z3 << r3 << endl
                                      //<< xg << yg << zg << endl;

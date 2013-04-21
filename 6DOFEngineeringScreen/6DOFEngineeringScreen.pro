@@ -18,7 +18,6 @@ SOURCES += main.cpp\
         EngineeringScreen.cpp \
         refinterface.cpp \
         mainwindow.cpp \
-        imu.cpp \
     rcmIf.c \
     rcm.c \
     solver.cpp \
@@ -30,7 +29,6 @@ HEADERS  += EngineeringScreen.h \
         refinterface.h \
         guiinterface.h \
         mainwindow.h \
-        imu.h \
     rcmIf.h \
     rcm.h \
     hostInterfaceRCM.h \

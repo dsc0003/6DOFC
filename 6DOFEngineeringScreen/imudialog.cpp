@@ -73,11 +73,11 @@ void IMUDialog::stream(){
 
     int numBytes;
     numBytes = port->bytesAvailable();
-    qDebug() << "numbytes before if" << numBytes;
+    //qDebug() << "numbytes before if" << numBytes;
     if(numBytes > 1024)
         numBytes = 1024;
 
-    qDebug() << "numbytes" << QString::number(numBytes);
+    //qDebug() << "numbytes" << QString::number(numBytes);
     int i = port->readLine(buff, numBytes);
     if (i != -1)
         buff[i] = '\0';
@@ -122,8 +122,8 @@ void IMUDialog::onReadyRead()
     if (msg[0] == '#')
     {
         tempmsg = msg.remove(0,5);
-    qDebug() << "tempmsg" << tempmsg;
-        //ui->textEditStream->append(tempmsg);
+        // << "tempmsg" << tempmsg;
+        ui->textEditStream->append(tempmsg);
         if (tempmsg != ""){
         QStringList msglist = tempmsg.split(",");
         if (msglist.size() > 2){
@@ -140,8 +140,8 @@ void IMUDialog::onReadyRead()
         ui->textEditStream->append(rollstr);
         }
         }
-    //qDebug() << "bytes read:" << bytes.size();
-    //qDebug() << "bytes:" << bytes;
+    ////qDebug() << "bytes read:" << bytes.size();
+    ////qDebug() << "bytes:" << bytes;
     }
 }
 

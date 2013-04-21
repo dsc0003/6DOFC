@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>753</width>
+    <width>780</width>
     <height>695</height>
    </rect>
   </property>
@@ -31,45 +31,52 @@
         <layout class="QGridLayout" name="gridLayout_5">
          <item row="0" column="0">
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
+           <item row="1" column="0">
             <widget class="QLabel" name="XLabel">
              <property name="text">
               <string>X</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QLabel" name="YLabel">
              <property name="text">
               <string>Y</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <widget class="QLabel" name="ZLabel">
              <property name="text">
               <string>Z</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
+           <item row="1" column="1">
             <widget class="QLineEdit" name="XLineEdit">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="3" column="1">
             <widget class="QLineEdit" name="ZLineEdit">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item row="2" column="1">
             <widget class="QLineEdit" name="YLineEdit">
              <property name="readOnly">
               <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>Position</string>
              </property>
             </widget>
            </item>
@@ -77,51 +84,58 @@
          </item>
          <item row="0" column="1">
           <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="0">
+           <item row="1" column="0">
             <widget class="QLabel" name="YawLabel">
              <property name="text">
               <string>Yaw</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QLabel" name="PitchLabel">
              <property name="text">
               <string>Pitch</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <widget class="QLabel" name="RollLabel">
              <property name="text">
               <string>Roll</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
+           <item row="1" column="1">
             <widget class="QLineEdit" name="YawLineEdit">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item row="2" column="1">
             <widget class="QLineEdit" name="PitchLineEdit">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="3" column="1">
             <widget class="QLineEdit" name="RollLineEdit">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_22">
+             <property name="text">
+              <string>Rotation</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
-         <item row="1" column="2">
+         <item row="1" column="3">
           <widget class="QPushButton" name="pauseButton">
            <property name="maximumSize">
             <size>
@@ -134,103 +148,138 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
+         <item row="0" column="3">
           <layout class="QGridLayout" name="gridLayout">
-           <item row="3" column="1">
+           <item row="1" column="4">
+            <widget class="QLineEdit" name="le_errorR0">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label_21">
+             <property name="text">
+              <string>Error Threshold Count</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QLineEdit" name="le_errorR1">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
             <widget class="QLineEdit" name="R3LineEdit">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QLabel" name="R1Label">
              <property name="text">
               <string>R1</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
+           <item row="4" column="0">
             <widget class="QLabel" name="R3Label">
              <property name="text">
               <string>R3</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item row="2" column="1">
             <widget class="QLineEdit" name="R1LineEdit">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
+           <item row="1" column="1">
             <widget class="QLineEdit" name="R0LineEdit">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_18">
-             <property name="text">
-              <string>Status</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <widget class="QLabel" name="R2Label">
              <property name="text">
               <string>R2</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="3" column="1">
             <widget class="QLineEdit" name="R2LineEdit">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
+           <item row="1" column="0">
             <widget class="QLabel" name="R0Label">
              <property name="text">
               <string>R0</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
-            <widget class="QLineEdit" name="le_status">
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string>Range Error</string>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="3">
-            <widget class="QLineEdit" name="le_error">
+            <widget class="QLineEdit" name="le_countR0">
              <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
+           <item row="0" column="3">
             <widget class="QLabel" name="label_20">
              <property name="text">
-              <string>Error Count</string>
+              <string>Timeout Count</string>
              </property>
             </widget>
            </item>
            <item row="2" column="3">
-            <widget class="QLineEdit" name="le_count">
+            <widget class="QLineEdit" name="le_countR1">
              <property name="readOnly">
               <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLineEdit" name="le_errorR2">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLineEdit" name="le_countR2">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="3">
+            <widget class="QLineEdit" name="le_countR3">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="4">
+            <widget class="QLineEdit" name="le_errorR3">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>Ranges</string>
              </property>
             </widget>
            </item>
@@ -253,6 +302,13 @@
             </widget>
            </item>
           </layout>
+         </item>
+         <item row="0" column="2">
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

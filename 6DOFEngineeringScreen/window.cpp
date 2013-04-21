@@ -93,7 +93,7 @@ Window::Window(QWidget *parent)
 
 //void Window::setCurrentGlWidget()
 //{
-//    qDebug() << "setCurrentGLWidget()";
+//    //qDebug() << "setCurrentGLWidget()";
 
 //    currentGlWidget = qobject_cast<GLWidget *>(sender());
 //}
@@ -101,7 +101,7 @@ Window::Window(QWidget *parent)
 void Window::rotateOneStep()
 {
 
-    //qDebug() << "rotateOneStep() parameters: x,y,z,r,p,w " << x_in << ", " << y_in << ", " << z_in << ", " << roll_in << ", " << pitch_in << ", " << yaw_in << endl << endl;
+    ////qDebug() << "rotateOneStep() parameters: x,y,z,r,p,w " << x_in << ", " << y_in << ", " << z_in << ", " << roll_in << ", " << pitch_in << ", " << yaw_in << endl << endl;
 
     float x,y,z,r,p,w;
     x=y=z=r=p=w=0.0;
@@ -114,8 +114,8 @@ void Window::rotateOneStep()
     p += pitch_in;
     w += yaw_in;
 
-    qDebug() << "rotateOneStep() parameters:  " << x_in << ", " << y_in << ", " << z_in << ", " << roll_in << ", " << pitch_in << ", " << yaw_in << endl << endl;
-    qDebug() << "rotateOneStep() parameters: x,y,z,r,p,w " << x << ", " << y << ", " << z << ", " << r << ", " << p << ", " << w << endl << endl;
+    //qDebug() << "rotateOneStep() parameters:  " << x_in << ", " << y_in << ", " << z_in << ", " << roll_in << ", " << pitch_in << ", " << yaw_in << endl << endl;
+    //qDebug() << "rotateOneStep() parameters: x,y,z,r,p,w " << x << ", " << y << ", " << z << ", " << r << ", " << p << ", " << w << endl << endl;
 
 
     glWidget->rotateBy(r,p,w,x,y,z);
@@ -132,7 +132,7 @@ void Window::rotateOneStep()
 
 //void Window::translateOneStep()
 //{
-//    qDebug() << "translateOneStep()";
+//    //qDebug() << "translateOneStep()";
 
 //    if(currentGlWidget)
 //        currentGlWidget->translateBy(x_in, y_in, z_in);
@@ -141,7 +141,7 @@ void Window::rotateOneStep()
 
 void Window::updatePositionData(float x, float y, float z)
 {
-    qDebug() << "updatePositionData: x, y , z " << x << ", " << y << ", " << z;
+    //qDebug() << "updatePositionData: x, y , z " << x << ", " << y << ", " << z;
 
 //    glWidget->xTrans = x;
 //    glWidget->yTrans = y;
@@ -158,15 +158,15 @@ void Window::updatePositionData(float x, float y, float z)
 //    y_in = y;
 //    z_in = z;
 
-    //qDebug() << "glWidget->parameters: x,y,z " << glWidget->xTrans << ", " << glWidget->yTrans << ", " << glWidget->zTrans << endl << endl;
+    ////qDebug() << "glWidget->parameters: x,y,z " << glWidget->xTrans << ", " << glWidget->yTrans << ", " << glWidget->zTrans << endl << endl;
 
-    qDebug() << "glWidget->parameters: x,y,z " << x_in << ", " << y_in << ", " << z_in << endl << endl;
+    //qDebug() << "glWidget->parameters: x,y,z " << x_in << ", " << y_in << ", " << z_in << endl << endl;
 
 }
 
 void Window::updateRotationData(float roll, float pitch, float yaw)
 {
-    qDebug() << "updateRotationData: r,p,w " << roll << ", " << pitch << ", " << yaw;
+    //qDebug() << "updateRotationData: r,p,w " << roll << ", " << pitch << ", " << yaw;
 
 //    glWidget->xRot = roll;
 //    glWidget->yRot = pitch;
@@ -181,10 +181,10 @@ void Window::updateRotationData(float roll, float pitch, float yaw)
 //    pitch_in = pitch;
 //    yaw_in = yaw;
 
-    //qDebug() << "glWidget->parameters: r,p,w " << glWidget->xRot << ", " << glWidget->yRot << ", " << glWidget->zRot << endl << endl;
+    ////qDebug() << "glWidget->parameters: r,p,w " << glWidget->xRot << ", " << glWidget->yRot << ", " << glWidget->zRot << endl << endl;
 
 
-    qDebug() << "glWidget->parameters: r,p,w " << roll_in << ", " << pitch_in << ", " << yaw_in << endl << endl;
+    //qDebug() << "glWidget->parameters: r,p,w " << roll_in << ", " << pitch_in << ", " << yaw_in << endl << endl;
 
 
 }

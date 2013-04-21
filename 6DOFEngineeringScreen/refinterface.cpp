@@ -26,20 +26,21 @@ QQueue<struct rangeInfo> msg;
 RefInterface::RefInterface()
 {
     solver = new Solver();
-    //imu = new IMUDialog();
-    //imu->openUp();
-    //while(!imu->open)
-        //imu->openUp();
-    //imu->show();
+
     msg.clear();
 
     radioNum = 0;
     antennaNum = 0;
     count = 1;
-    errorCount = 0;
+    errorCountR0 = 0;
+    errorCountR1 = 0;
+    errorCountR2 = 0;
+    errorCountR3 = 0;
+    thresholdErrorCountR0 = 0;
+    thresholdErrorCountR1 = 0;
+    thresholdErrorCountR2 = 0;
+    thresholdErrorCountR3 = 0;
 
-    //radioPort.append("/dev/cu.usbmodem9");
-    //radioPort1.append("/dev/cu.usbmodem101");
 
     readConfigFile();
 
@@ -71,11 +72,6 @@ void RefInterface::run()
         mutex.lock();
 
         range();
-
-        /*imu->stream();
-        buffer.roll = imu->rollread;
-        buffer.pitch = imu->pitchread;
-        buffer.yaw = imu->yawread;*/
 
         emit getIMUData();
 
@@ -109,9 +105,6 @@ void RefInterface::run()
         }
 
 
-
-
-
         //Here I set the buffer struct to the position returned from solver
         oldx  = px;
         oldy = py;
@@ -127,11 +120,9 @@ void RefInterface::run()
         mutex.unlock();
         //set stopped to true, so consumer has a turn
         stopped = false;
-
     }
-
-
 }
+
 void RefInterface::range()
 {
     if(radioNum == 0)
@@ -149,7 +140,7 @@ void RefInterface::range()
                 //This gets the precision range measurement
                 if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
                 {
-                    //qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    ////qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
                     r0 = RangeInfo.precisionRangeMm;
                 }
 
@@ -162,7 +153,7 @@ void RefInterface::range()
                     buffer.R0 = r0;
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
-                    //qDebug()<<"Range Successful";
+                    ////qDebug()<<"Range Successful";
                 }
                 else if(RangeInfo.precisionRangeErrEst > 60)
                 {
@@ -170,8 +161,8 @@ void RefInterface::range()
                     {
                         buffer.mError = RangeInfo.precisionRangeErrEst;
                         buffer.status = RangeInfo.rangeStatus;
-                        errorCount++;
-                        emit sendErrorCount(errorCount);
+                        thresholdErrorCountR0++;
+                        emit sendThresholdCount(thresholdErrorCountR0, thresholdErrorCountR1, thresholdErrorCountR2, thresholdErrorCountR3);
                         emit display(buffer.x, buffer.y, buffer.z, RangeInfo.precisionRangeMm, buffer.R1, buffer.R2,
                                      buffer.R3,buffer.roll, buffer.pitch,buffer.yaw, buffer.mError,buffer.status);
 
@@ -185,7 +176,8 @@ void RefInterface::range()
                     buffer.R0 = r0;
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
-                    //errorCount++;
+                    errorCountR0++;
+                    emit sendErrorCount(errorCountR0, errorCountR1, errorCountR2, errorCountR3);
                 }
             } //end if
             antennaNum = 1;
@@ -202,14 +194,14 @@ void RefInterface::range()
                 // Get precision range measurement from msg received
                 if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
                 {
-                    //qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    ////qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
                     r1 = RangeInfo.precisionRangeMm;
                 }
 
                  //if the status is 0, range was successful
                 if (RangeInfo.rangeStatus == 0)
                 {
-                    //qDebug()<<"Range Successful";
+                    ////qDebug()<<"Range Successful";
                     //add range to buffer struct
                     r1 = r1/1000;
                     buffer.R1 = r1;
@@ -222,8 +214,8 @@ void RefInterface::range()
                     {
                         buffer.mError = RangeInfo.precisionRangeErrEst;
                         buffer.status = RangeInfo.rangeStatus;
-                        errorCount++;
-                        emit sendErrorCount(errorCount);
+                        thresholdErrorCountR1++;
+                        emit sendThresholdCount(thresholdErrorCountR0, thresholdErrorCountR1, thresholdErrorCountR2, thresholdErrorCountR3);
                         emit display(buffer.x, buffer.y, buffer.z, buffer.R0, RangeInfo.precisionRangeMm, buffer.R2,
                                      buffer.R3,buffer.roll, buffer.pitch,buffer.yaw, buffer.mError,buffer.status);
                         r1 = msg.at(0).R1;
@@ -236,7 +228,8 @@ void RefInterface::range()
                     buffer.R1 = r1;
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
-                    //errorCount++;
+                    errorCountR1++;
+                    emit sendErrorCount(errorCountR0, errorCountR1, errorCountR2, errorCountR3);
                 }
             } //end if
             antennaNum = 0;
@@ -257,14 +250,14 @@ void RefInterface::range()
                 //This gets the precision range measurement
                 if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
                 {
-                    //qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    ////qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
                     r2 = RangeInfo.precisionRangeMm;
                 }
 
                 //if the status comes back as 0, the radio ranged correctly
                 if (RangeInfo.rangeStatus == 0)
                 {
-                    //qDebug()<<"Range Successful";
+                    ////qDebug()<<"Range Successful";
                     // add range to buffer structure
                     r2 = r2/1000;
                     buffer.R2 = r2;
@@ -277,8 +270,8 @@ void RefInterface::range()
                     {
                         buffer.mError = RangeInfo.precisionRangeErrEst;
                         buffer.status = RangeInfo.rangeStatus;
-                        errorCount++;
-                        emit sendErrorCount(errorCount);
+                        thresholdErrorCountR3++;
+                        emit sendThresholdCount(thresholdErrorCountR0, thresholdErrorCountR1, thresholdErrorCountR2, thresholdErrorCountR3);
                         emit display(buffer.x, buffer.y, buffer.z, buffer.R0,buffer.R1 , RangeInfo.precisionRangeMm,
                                      buffer.R3,buffer.roll, buffer.pitch,buffer.yaw, buffer.mError,buffer.status);
                         r2 = msg.at(0).R2;
@@ -291,7 +284,8 @@ void RefInterface::range()
                     buffer.R2 = r2;
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
-                    //errorCount++;
+                    errorCountR2++;
+                    emit sendErrorCount(errorCountR0, errorCountR1, errorCountR2, errorCountR3);
 
                 }
             } //end if
@@ -308,14 +302,14 @@ void RefInterface::range()
                 // Get precision range measurement from msg received
                 if (RangeInfo.rangeMeasurementType & RCM_RANGE_TYPE_PRECISION)
                 {
-                    //qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
+                    ////qDebug()<<"Precision range: "<< RangeInfo.precisionRangeMm;
                     r3 = RangeInfo.precisionRangeMm;
                 }
 
                  //if the status is 0, range was successful
                 if (RangeInfo.rangeStatus == 0)
                 {
-                    //qDebug()<<"Range Successful"<<" r3"<<r3;
+                    ////qDebug()<<"Range Successful"<<" r3"<<r3;
                     //add range to buffer struct
                     r3 = r3/1000;
                     buffer.R3 = r3;
@@ -329,8 +323,8 @@ void RefInterface::range()
 
                         buffer.mError = RangeInfo.precisionRangeErrEst;
                         buffer.status = RangeInfo.rangeStatus;
-                        errorCount++;
-                        emit sendErrorCount(errorCount);
+                        thresholdErrorCountR3++;
+                        emit sendThresholdCount(thresholdErrorCountR0, thresholdErrorCountR1, thresholdErrorCountR2, thresholdErrorCountR3);
                         emit display(buffer.x, buffer.y, buffer.z, buffer.R0,buffer.R1 , buffer.R2,
                                      RangeInfo.precisionRangeMm,buffer.roll, buffer.pitch,buffer.yaw, buffer.mError,buffer.status);
                         r3 = msg.at(0).R3;
@@ -343,8 +337,8 @@ void RefInterface::range()
                     buffer.R3 = r3;
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
-                    //errorCount++;
-                    emit sendErrorCount(errorCount);
+                    errorCountR3++;
+                    emit sendErrorCount(errorCountR0, errorCountR1, errorCountR2, errorCountR3);
                 }
             } //end if
             antennaNum = 0;
@@ -362,7 +356,7 @@ void RefInterface::readConfigFile()
     QTextStream ts(&textfile);
     if(!textfile.open(QIODevice::ReadOnly))
     {
-        qDebug()<<"config file not opened";
+        //qDebug()<<"config file not opened";
     }
     else
     {
@@ -432,7 +426,7 @@ void GuiInterface::run()
        mutex.lock();
 
 
-       //qDebug()<<"Gui thread running" <<endl;
+       ////qDebug()<<"Gui thread running" <<endl;
 
        if(!msg.isEmpty())
        {
