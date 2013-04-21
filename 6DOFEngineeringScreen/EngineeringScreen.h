@@ -7,7 +7,7 @@
 #include <guiinterface.h>
 #include <QGraphicsScene>
 #include <QObject>
-#include <mainwidget.h>
+#include "window.h"
 #include <QString>
 
 namespace Ui {
@@ -24,6 +24,9 @@ public:
     bool logFlag;
     QString fileName;
     IMUDialog *imu;
+
+signals:
+    void emitRotationData(float, float, float);
 
     
 private:
@@ -42,7 +45,9 @@ private slots:
 protected:
     RefInterface refinterface;
     GuiInterface guiinterface;
-    MainWidget sword;
+    //MainWidget sword;
+    Window sword;
+
 
     void closeEvent(QCloseEvent *event);
 

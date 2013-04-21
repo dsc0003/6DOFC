@@ -25,9 +25,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="MainWidget" name="mainwidget" native="true">
-         <zorder></zorder>
-        </widget>
+        <widget class="Window" name="window" native="true"/>
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout_5">
@@ -777,9 +775,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>MainWidget</class>
+   <class>Window</class>
    <extends>QWidget</extends>
-   <header>mainwidget.h</header>
+   <header location="global">window.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

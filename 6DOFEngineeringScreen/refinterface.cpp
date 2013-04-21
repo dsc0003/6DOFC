@@ -89,19 +89,19 @@ void RefInterface::run()
         switch(count)
         {
         case 1: solver->find_intersection_points_nlls3d(x0 ,y0, z0, r0, x1, y1, z1, r1, x2
-                                                        , y2, z2, r2, oldx, oldy, oldz, px, py, pz );
+                                                        , y2, z2, r2, 0.0, 0.0, 0.5, px, py, pz );
                 count = count + 1;
                 break;
         case 2: solver->find_intersection_points_nlls3d(x1 ,y1, z1, r1, x2, y2, z2, r2, x3
-                                                       , y3, z3, r3, oldx, oldy, oldz, px, py, pz );
+                                                       , y3, z3, r3, 0.0, 0.0, 0.5, px, py, pz );
                count = count + 1;
                break;
         case 3:  solver->find_intersection_points_nlls3d(x2 ,y2, z2, r2, x3, y3, z3, r3, x0
-                                                         , y0, z0, r0, oldx, oldy, oldz, px, py, pz );
+                                                         , y0, z0, r0, 0.0, 0.0, 0.5, px, py, pz );
                  count = count + 1;
                  break;
         case 4:  solver->find_intersection_points_nlls3d(x3 ,y3, z3, r3, x3, y0, z0, r0, x1
-                                                         , y1, z1, r1, oldx, oldy, oldz, px, py, pz );
+                                                         , y1, z1, r1, 0.0, 0.0, 0.5, px, py, pz );
                  count = 1;
                  break;
          default:
@@ -453,12 +453,17 @@ void GuiInterface::run()
 
 
            //emit signal for eng screen to update display
+           //sleep(1000);
            emit display(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
                         dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw, dataGathered.mError,dataGathered.status);
             //will also emit a signal for logging data -- this allows for an easy way to get the data to the engineering screen
            emit logSignal(dataGathered.x, dataGathered.y, dataGathered.z, dataGathered.R0, dataGathered.R1, dataGathered.R2,
                           dataGathered.R3,dataGathered.roll, dataGathered.pitch,dataGathered.yaw, dataGathered.reqNode
                           , dataGathered.mError,dataGathered.status);
+
+           emit emitPositionData(dataGathered.x, dataGathered.y, dataGathered.z);
+
+
 
 
           }

@@ -1,6 +1,6 @@
 #include "EngineeringScreen.h"
 #include "ui_dialog.h"
-//#include "mainwidget.h"
+#include "window.h"
 #include <QTime>
 #include <QObject>
 #include <QtGui>
@@ -30,8 +30,9 @@ Dialog::Dialog(QWidget *parent) :
     QObject::connect(&guiinterface,SIGNAL(display(float,float,float,float,float,float,float,float,float,float,float,float)),
                      this,SLOT(updateDisplay(float,float,float,float,float,float,float,float,float,float,float,float)));
 
-    QObject::connect(&guiinterface, SIGNAL(display(float,float,float,float,float,float,float,float,float,float,float, float)),
-                     &sword,SLOT(updateCube(float,float,float,float,float,float,float,float,float,float)));
+    QObject::connect(&guiinterface, SIGNAL(emitPositionData(float,float,float)), &sword,SLOT(updatePositionData(float,float,float)));
+
+    QObject::connect(this, SIGNAL(emitRotationData(float,float,float)), &sword, SLOT(updateRotationData(float,float,float)));
 
     QObject::connect(&guiinterface,SIGNAL(logSignal(float,float,float,float,float,float,float,float,float,float,QString,float, float)),
                      this,SLOT(log(float,float,float,float,float,float,float,float,float,float,QString,float, float)));
@@ -188,6 +189,8 @@ void Dialog::getData()
     ui->RollLineEdit->setText(QString::number(imu->rollread));
     ui->PitchLineEdit->setText(QString::number(imu->pitchread));
     ui->YawLineEdit->setText(QString::number(imu->yawread));
+
+    emitRotationData(imu->rollread, imu->pitchread, imu->yawread);
     //qDebug() << imu->tempmsg;
     //qDebug() << "yaw" << imu->yawread;
     //qDebug() << "pitch" << imu->pitchread;

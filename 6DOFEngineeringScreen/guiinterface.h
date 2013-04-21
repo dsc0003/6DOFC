@@ -42,6 +42,8 @@ signals:
                  , float yaw, float mError, float status);
     void logSignal(float x, float y, float z, float R0, float R1, float R2, float R3, float roll, float pitch
                    , float yaw, QString reqNode, float mError, float status);
+    void emitPositionData(float, float, float);
+
 
 public slots:
 

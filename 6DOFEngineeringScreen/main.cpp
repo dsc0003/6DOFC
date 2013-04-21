@@ -5,7 +5,8 @@
 #include "mainwindow.h"
 
 #ifndef QT_NO_OPENGL
-#include "mainwidget.h"
+//#include "mainwidget.h"
+#include "window.h"
 #endif
 
 int main(int argc, char *argv[])

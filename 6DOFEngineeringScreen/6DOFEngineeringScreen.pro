@@ -19,26 +19,26 @@ SOURCES += main.cpp\
         refinterface.cpp \
         mainwindow.cpp \
         imu.cpp \
-        mainwidget.cpp \
-        geometryengine.cpp \
     rcmIf.c \
     rcm.c \
     solver.cpp \
-    imudialog.cpp
+    imudialog.cpp \
+    window.cpp \
+    glwidget.cpp
 
 HEADERS  += EngineeringScreen.h \
         refinterface.h \
         guiinterface.h \
         mainwindow.h \
         imu.h \
-        mainwidget.h \
-        geometryengine.h \
     rcmIf.h \
     rcm.h \
     hostInterfaceRCM.h \
     hostInterfaceCommon.h \
     solver.h \
-    imudialog.h
+    imudialog.h \
+    window.h \
+    glwidget.h
 
 FORMS    += \
         dialog.ui \

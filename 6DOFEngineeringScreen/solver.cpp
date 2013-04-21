@@ -5,7 +5,7 @@
 #include <cmath>
 #include <math.h>
 #include "solver.h"
-
+#include "QDebug"
 using namespace std;
 
 #define pi 3.14159265359
@@ -31,6 +31,9 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
                              float x3, float y3, float z3, float r3, float xg, float yg, float zg,
                              float& px, float& py, float& pz)
 {
+
+    //qDebug() << "SOLVER";
+
     float f1, f2, f3; // functions f1, f2 and f3 where f = (xg-x)^2 + (yg-y)^2 + (zg-z)^2 - r^2
     float df1dx, df1dy, df1dz;  // derivative of f1 wrt x, y and z
     float df2dx, df2dy, df2dz;  // derivative of f2 wrt x, y and z
@@ -47,6 +50,11 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
                                       //                                                              d e f
                                       //                                                              g h i
 
+
+    //qDebug() << "nlls3d parameters:" << x1 << y1 << z1 << r1 << endl
+                                     //<< x2 << y2 << z2 << r2 << endl
+                                     //<< x3 << y3 << z3 << r3 << endl
+                                     //<< xg << yg << zg << endl;
 
 
 
@@ -89,7 +97,7 @@ int Solver::find_intersection_points_nlls3d(float x1, float y1, float z1, float 
                 //cout << J[j][k] << " ";
             }
 
-            //cout << endl;
+            cout << endl;
         }
 
 
