@@ -14,12 +14,12 @@ IMUDialog::IMUDialog(QWidget *parent) :
 
     //modify the port settings on your own
 /*#ifdef Q_OS_UNIX
-    port = new QextSerialPort(QLatin1String("/dev/tty.FireFly-8842-SPP"), QextSerialPort::Polling);
+    port = new QextSerialPort(QLatin1String("/dev/cu.FireFly-8842-SPP"), QextSerialPort::Polling);
 #else
     port = new QextSerialPort(QLatin1String("COM1"), QextSerialPort::Polling);
 #endif /*Q_OS_UNIX*/
 #ifdef Q_OS_UNIX
-    port = new QextSerialPort(QLatin1String("/dev/tty.FireFly-8842-SPP"), QextSerialPort::EventDriven);
+    port = new QextSerialPort(QLatin1String("/dev/cu.FireFly-8842-SPP"), QextSerialPort::EventDriven);
 #else
     port = new QextSerialPort(QLatin1String("COM1"), QextSerialPort::EventDriven);
 #endif /*Q_OS_UNIX*/
