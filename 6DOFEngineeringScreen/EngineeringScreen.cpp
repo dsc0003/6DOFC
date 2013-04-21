@@ -141,7 +141,18 @@ void Dialog::log(float x, float y, float z, float R0, float R1, float R2, float 
 
         if (f.open(QIODevice::Append))
         {
-            ts <<QTime::currentTime().toString() << ", "<<reqNode<<", " << x <<", "<<y<<", "<<z
+            int hour = QTime::currentTime().hour();
+            int minute = QTime::currentTime().minute();
+            int seconds = QTime::currentTime().second();
+            int mseconds = QTime::currentTime().msec();
+
+            QString time;
+            time.append(QString::number(hour)).append(":").append(QString::number(minute))
+                    .append(":").append(QString::number(seconds))
+                    .append(":").append(QString::number(mseconds));
+
+
+            ts <<time << ", "<<reqNode<<", " << x <<", "<<y<<", "<<z
                << ", " << roll <<", "<<pitch<<", "<<yaw
                << ", " << R0 <<", "<<R1<<", "<<R2 <<", "<<R3<< ", " << mError << ", "<< status<< endl;
 
