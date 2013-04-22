@@ -89,19 +89,19 @@ void RefInterface::run()
         switch(count)
         {
         case 1: solver->find_intersection_points_nlls3d(x0 ,y0, z0, r0, x1, y1, z1, r1, x2
-                                                        , y2, z2, r2, oldx, oldy, oldz, px, py, pz );
+                                                        , y2, z2, r2, 0, 0, 1, px, py, pz );
                 count = count + 1;
                 break;
         case 2: solver->find_intersection_points_nlls3d(x1 ,y1, z1, r1, x2, y2, z2, r2, x3
-                                                       , y3, z3, r3, oldx, oldy, oldz, px, py, pz );
+                                                       , y3, z3, r3, 0, 0, 1, px, py, pz );
                count = count + 1;
                break;
         case 3:  solver->find_intersection_points_nlls3d(x2 ,y2, z2, r2, x3, y3, z3, r3, x0
-                                                         , y0, z0, r0, oldx, oldy, oldz, px, py, pz );
+                                                         , y0, z0, r0, 0, 0, 1, px, py, pz );
                  count = count + 1;
                  break;
         case 4:  solver->find_intersection_points_nlls3d(x3 ,y3, z3, r3, x3, y0, z0, r0, x1
-                                                         , y1, z1, r1, oldx, oldy, oldz, px, py, pz );
+                                                         , y1, z1, r1, 0, 0, 1, px, py, pz );
                  count = 1;
                  break;
          default:
@@ -181,11 +181,15 @@ void RefInterface::range()
                 }
                 else
                 {
+                    if(!msg.isEmpty())
+                    {
+
                     r0 = msg.at(0).R0;
                     buffer.R0 = r0;
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
                     //errorCount++;
+                    }
                 }
             } //end if
             antennaNum = 1;
@@ -232,11 +236,15 @@ void RefInterface::range()
                 }
                 else
                 {
+                    if(!msg.isEmpty())
+                    {
+
                     r1 = msg.at(0).R1;
                     buffer.R1 = r1;
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
                     //errorCount++;
+                    }
                 }
             } //end if
             antennaNum = 0;
@@ -287,12 +295,15 @@ void RefInterface::range()
                 }
                 else
                 {
+                    if(!msg.isEmpty())
+                    {
+
                     r2 = msg.at(0).R2;
                     buffer.R2 = r2;
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
                     //errorCount++;
-
+                    }
                 }
             } //end if
             antennaNum = 1;
@@ -339,12 +350,16 @@ void RefInterface::range()
                 }
                 else
                 {
+                    if(!msg.isEmpty())
+                    {
+
                     r3 = msg.at(0).R3;
                     buffer.R3 = r3;
                     buffer.mError = RangeInfo.precisionRangeErrEst;
                     buffer.status = RangeInfo.rangeStatus;
                     //errorCount++;
                     emit sendErrorCount(errorCount);
+                    }
                 }
             } //end if
             antennaNum = 0;
