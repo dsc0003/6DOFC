@@ -43,20 +43,52 @@
 
 #include <QGLFunctions>
 #include <QGLShaderProgram>
+#include <QtWidgets>
+#include <QGLWidget>
+#include <gl.h>
+#include <glu.h>
 
-class GeometryEngine : protected QGLFunctions
+QT_FORWARD_DECLARE_CLASS(QGLShaderProgram);
+
+class GeometryEngine : public QGLWidget
 {
-public:
-    GeometryEngine();
-    virtual ~GeometryEngine();
+    Q_OBJECT
 
-    void init();
-    void drawCubeGeometry(QGLShaderProgram *program);
+public:
+    explicit GeometryEngine(QWidget *parent = 0, QGLWidget *shareWidget = 0);
+    ~GeometryEngine();
+
+    QSize minimumSizeHint() const;
+    QSize sizeHint() const;
+    void rotateBy(float xAngle, float yAngle, float zAngle, float xCoordinate, float yCoordinate, float zCoordinate);
+    void setClearColor(const QColor &color);
+
+signals:
+    void clicked();
+
+protected:
+    void initializeGL();
+    void paintGL();
+    void resizeGL(int width, int height);
 
 private:
-    void initCubeGeometry();
+    void makeObject();
 
-    GLuint vboIds[2];
+    QColor clearColor;
+    QPoint lastPos;
+    float xRot;
+    float yRot;
+    float zRot;
+    float xTrans;
+    float yTrans;
+    float zTrans;
+
+    GLuint textures[6];
+    QVector<QVector3D> vertices;
+    QVector<QVector2D> texCoords;
+#ifdef QT_OPENGL_ES_2
+    QGLShaderProgram *program;
+#endif
 };
 
 #endif // GEOMETRYENGINE_H

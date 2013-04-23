@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWidget_t {
-    QByteArrayData data[13];
-    char stringdata[57];
+    QByteArrayData data[3];
+    char stringdata[27];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,21 +30,10 @@ struct qt_meta_stringdata_MainWidget_t {
 static const qt_meta_stringdata_MainWidget_t qt_meta_stringdata_MainWidget = {
     {
 QT_MOC_LITERAL(0, 0, 10),
-QT_MOC_LITERAL(1, 11, 10),
-QT_MOC_LITERAL(2, 22, 0),
-QT_MOC_LITERAL(3, 23, 1),
-QT_MOC_LITERAL(4, 25, 1),
-QT_MOC_LITERAL(5, 27, 1),
-QT_MOC_LITERAL(6, 29, 2),
-QT_MOC_LITERAL(7, 32, 2),
-QT_MOC_LITERAL(8, 35, 2),
-QT_MOC_LITERAL(9, 38, 2),
-QT_MOC_LITERAL(10, 41, 4),
-QT_MOC_LITERAL(11, 46, 5),
-QT_MOC_LITERAL(12, 52, 3)
+QT_MOC_LITERAL(1, 11, 13),
+QT_MOC_LITERAL(2, 25, 0)
     },
-    "MainWidget\0updateCube\0\0x\0y\0z\0R0\0R1\0"
-    "R2\0R3\0roll\0pitch\0yaw\0"
+    "MainWidget\0rotateOneStep\0\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,10 +51,10 @@ static const uint qt_meta_data_MainWidget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,   10,   19,    2, 0x0a,
+       1,    6,   19,    2, 0x0a,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float,    3,    4,    5,    6,    7,    8,    9,   10,   11,   12,
+    QMetaType::Void, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float,    2,    2,    2,    2,    2,    2,
 
        0        // eod
 };
@@ -75,7 +64,7 @@ void MainWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWidget *_t = static_cast<MainWidget *>(_o);
         switch (_id) {
-        case 0: _t->updateCube((*reinterpret_cast< float(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< float(*)>(_a[6])),(*reinterpret_cast< float(*)>(_a[7])),(*reinterpret_cast< float(*)>(_a[8])),(*reinterpret_cast< float(*)>(_a[9])),(*reinterpret_cast< float(*)>(_a[10]))); break;
+        case 0: _t->rotateOneStep((*reinterpret_cast< float(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< float(*)>(_a[6]))); break;
         default: ;
         }
     }
@@ -97,8 +86,6 @@ void *MainWidget::qt_metacast(const char *_clname)
     if (!_clname) return 0;
     if (!strcmp(_clname, qt_meta_stringdata_MainWidget.stringdata))
         return static_cast<void*>(const_cast< MainWidget*>(this));
-    if (!strcmp(_clname, "QGLFunctions"))
-        return static_cast< QGLFunctions*>(const_cast< MainWidget*>(this));
     return QGLWidget::qt_metacast(_clname);
 }
 

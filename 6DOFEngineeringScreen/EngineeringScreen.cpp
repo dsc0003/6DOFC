@@ -105,9 +105,11 @@ void Dialog::updateDisplay(float x, float y, float z, float R0, float R1, float 
     ui->R3LineEdit->setText(QString::number(R3));
     ui->le_error->setText(QString::number(mError));
     ui->le_status->setText(QString::number(status));
-//    ui->RollLineEdit->setText(QString::number(roll));
-//    ui->PitchLineEdit->setText(QString::number(pitch));
-//    ui->YawLineEdit->setText(QString::number(yaw));
+    //sleep(1);
+    sword.rotateOneStep(x,y,z,imu->rollread,imu->pitchread,imu->yawread);
+//    ui->RollLineEdit->setText(QString::number(imu->rollread));
+//    ui->PitchLineEdit->setText(QString::number(imu->pitchread));
+//    ui->YawLineEdit->setText(QString::number(imu->yawread));
     //MainWidget newWidget;
     //newWidget.controllerMovement(R0,R1);
     //newWidget.exec();

@@ -51,57 +51,32 @@
 #include <QVector2D>
 #include <QBasicTimer>
 #include <QGLShaderProgram>
+#include <QTextStream>
 
 
-class GeometryEngine;
 
-class MainWidget : public QGLWidget, protected QGLFunctions
+
+class MainWidget : public QGLWidget
 {
     Q_OBJECT
 
 public:
-    explicit MainWidget(QWidget *parent = 0);
-    ~MainWidget();
+    MainWidget(QWidget *parent = 0);
 
-protected:
-    void mousePressEvent(QMouseEvent *e);
-    void mouseReleaseEvent(QMouseEvent *e);
-//    void timerEvent(QTimerEvent *e);
-
-
-    void initializeGL();
-    void resizeGL(int w, int h);
-    void paintGL();
-
-    void initShaders();
-    void initTextures();
-
-private:
-    QBasicTimer timer;
-    QGLShaderProgram program;
-    GeometryEngine geometries;
-
-    GLuint texture;
-
-    QMatrix4x4 projection;
-    //QMatrix4x4 matrix;
-
-
-    double px;
-    double py;
-    double pz;
-//    QTextStream inFile;
-//    QFile file;
-
-    QVector2D mousePressPosition;
-    QVector3D rotationAxis;
-    qreal angularSpeed;
-    QQuaternion rotation;
-
+    float x,y,z,r,p,w;
+    QTextStream in;
+    QFile file;
 
 public slots:
-    void updateCube(float x, float y, float z, float R0, float R1, float R2, float R3, float roll , float pitch, float yaw);
+    //void setCurrentGlWidget();
+    void rotateOneStep(float,float,float,float,float,float);
 
+
+private:
+    enum { NumRows = 1, NumColumns = 1 };
+
+    GeometryEngine *glWidget;
+    //GLWidget *currentGlWidget;
 
 };
 

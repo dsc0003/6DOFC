@@ -4,5 +4,15 @@
         <file>testbenchNLLS2D.txt</file>
         <file>in.txt</file>
         <file>Config.txt</file>
+        <file>90degHallDistance.txt</file>
+        <file>90degStandStill.txt</file>
+        <file>NLLS3Doutput.txt</file>
+        <file>side1.png</file>
+        <file>side2.png</file>
+        <file>side3.png</file>
+        <file>side4.png</file>
+        <file>side5.png</file>
+        <file>side6.png</file>
+        <file>Test1Log.txt</file>
     </qresource>
 </RCC>
